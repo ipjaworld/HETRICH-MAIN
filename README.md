@@ -1,93 +1,150 @@
-# HETRICH
+# HETRICH — Official Site
 
-HETRICH의 공식 랜딩 페이지이자 제품 허브입니다. 개인 이력이나 기술 스택보다 현재 운영하거나 개발 중인 제품, 각 제품이 해결하는 문제, 실제 구현 상태를 먼저 보여줍니다.
+HETRICH의 제품, 관점, 기록을 한곳에 모은 공식 브랜드 사이트입니다. 기존 한 페이지 랜딩의 시각 언어를 유지하면서, 제품 포트폴리오와 L‑Proof AI 아카이브를 장기적으로 확장할 수 있도록 Next.js App Router 기반의 다중 페이지 사이트로 재구성했습니다.
 
-## 제품
+**Live:** [hetrich.ipjaworld.chatgpt.site](https://hetrich.ipjaworld.chatgpt.site/)
 
-| 제품 | 이 사이트의 상태 표기 | 확인 근거 | 링크 |
-| --- | --- | --- | --- |
-| L‑Proof AI | `Live · Alpha` | 공개 랜딩과 production D1 구독 흐름이 운영 중이며, 사람의 검토를 거친 예약 발송 구조를 구현 중입니다. | [서비스](https://l-proof-ai.xyz) · [저장소](https://github.com/ipjaworld/l-proof-ai) |
-| HETRICH AI Secretary | `In development` | 공개 저장소에는 제품 철학과 개발 중인 화면을 공개하고, 실제 소스와 운영 자료는 별도로 관리합니다. 배포된 개발 버전을 직접 확인할 수 있습니다. | [개발 버전](https://hetrich.vercel.app/) · [저장소](https://github.com/ipjaworld/HETRICH-ai-secretary) |
-| 오늘 얼마 먹어도 돼? | `MVP · Building` | 자연어 기록·수정·삭제가 동작하는 MVP입니다. 인증, 서버 DB, 넓은 음식 커버리지는 아직 범위 밖이며 배포된 MVP를 직접 사용해볼 수 있습니다. | [MVP](https://how-much-calories-left.vercel.app/) · [저장소](https://github.com/ipjaworld/HowMuchCaloriesLeft) |
+## 무엇을 담고 있나요?
 
-상태와 설명은 2026년 9월 각 공개 저장소의 README와 구현을 직접 확인해 작성했습니다. 완성되지 않은 기능을 서비스 중인 것처럼 표현하지 않습니다.
+- HETRICH의 방향과 핵심 원칙
+- L‑Proof AI, HETRICH AI Secretary, How Much Calories Left 제품 소개
+- 날짜·카테고리·호수·상태를 가진 Insights 아카이브
+- 개별 글 메타데이터와 Open Graph 정보
+- Founder 이건하와 HETRICH 소개
+- 서버 검증과 스팸 방지 경계를 포함한 Contact 폼
 
-## 페이지 구조
+## 기술 구성
 
-단일 페이지 안에서 방문자가 다음 순서로 HETRICH를 이해하도록 구성했습니다.
+- Next.js 16 App Router
+- React 19 + TypeScript
+- Vinext / Cloudflare Workers 기반 Sites 런타임
+- Zod를 이용한 Contact API 입력 검증
+- `next/font`, `next/image`, Metadata API
+- 로컬 JSON 기반 Insights 콘텐츠
 
-1. **Hero** — HETRICH가 실제 흐름을 위한 작은 AI 제품을 만든다는 정의와 현재 제품 현황
-2. **Products** — 세 제품의 문제, 현재 구현 범위, 상태, 실제 CTA
-3. **How we build** — 제품 전반에 공통으로 적용하는 다섯 가지 제작 원칙
-4. **Insights** — 향후 L‑Proof AI 발행물을 옮겨올 수 있는 확장 지점
-5. **About** — 1인 독립 제품 스튜디오라는 짧은 설명
-6. **Footer** — 제품, GitHub, 확인된 연락처
+CMS나 데이터베이스를 먼저 도입하지 않고, Git에서 검토 가능한 콘텐츠 파일을 단일 소스로 사용합니다. 글 수가 늘거나 편집 흐름이 복잡해질 때 `lib/insights.ts`의 데이터 접근 계층만 CMS 또는 DB로 교체할 수 있도록 페이지와 콘텐츠를 분리했습니다.
 
-## 디자인 시스템
+## 라우트
 
-현재 저장소는 시작 시 `.git`만 존재해 재사용할 기존 컴포넌트나 토큰이 없었습니다. 대신 HETRICH의 공개 제품에서 이미 쓰고 있는 원칙을 공통 언어로 가져왔습니다.
+| 경로 | 역할 |
+| --- | --- |
+| `/` | 브랜드 소개, 제품 요약, 최신 Insights |
+| `/products` | 제품 포트폴리오와 현재 상태 |
+| `/insights` | 발행된 글 아카이브 |
+| `/insights/[slug]` | 개별 글, SEO 메타데이터, 이전·다음 글 |
+| `/about` | HETRICH와 Founder 소개 |
+| `/contact` | 문의 폼과 직접 이메일 안내 |
+| `/api/contact` | 문의 검증 및 서버 측 전달 API |
 
-- **편집형 정보 구조:** L‑Proof AI의 문서/편집 디자인처럼 모노스페이스 라벨, 얇은 구분선, 명확한 정보 위계를 사용합니다.
-- **차분한 제품 중심 톤:** AI 스타트업식 네온 그라데이션, 유리 효과, 근거 없는 숫자와 고객 로고를 쓰지 않습니다.
-- **하나의 선명한 브랜드 장치:** 짙은 잉크색과 종이색 위에 acid yellow와 blue를 제한적으로 사용합니다.
-- **제품별 구분:** L‑Proof AI는 검은 편집 지면, AI Secretary는 밝은 yellow, 칼로리 앱은 따뜻한 neutral과 orange로 구분하되 타이포그래피와 그리드는 공유합니다.
-- **실제 자산 우선:** L‑Proof AI와 AI Secretary 저장소에서 공개한 이미지를 사용했습니다. 의미 없는 생성 이미지나 가상의 제품 목업은 넣지 않았습니다.
+`sitemap.xml`, `robots.txt`, 404 화면도 App Router에서 생성합니다.
 
-## 구현
+## 로컬 실행
 
-의존성 없는 정적 사이트입니다.
+Node.js 22.13 이상이 필요합니다.
+
+```bash
+npm ci
+npm run dev
+```
+
+품질 검사는 다음 명령으로 실행합니다.
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+프로덕션 빌드 결과를 로컬 Worker로 확인하려면 먼저 빌드한 뒤 실행합니다.
+
+```bash
+npm run build
+npm start
+```
+
+## Insights 글 추가하기
+
+1. `content/insights/`에 `YYYY-MM-DD-slug.json` 파일을 추가합니다.
+2. `lib/insights.ts`에서 파일을 import하고 `insights` 배열에 등록합니다.
+3. `published`를 `true`로 설정하면 목록, 상세 페이지, 사이트맵에 포함됩니다.
+4. `npm run typecheck`와 `npm run build`로 스키마와 라우트를 검증합니다.
+
+현재 콘텐츠 블록은 네 종류입니다.
+
+```json
+{
+  "title": "글 제목",
+  "date": "2026-09-24",
+  "category": "Build Note",
+  "issue": null,
+  "summary": "목록과 검색 결과에 사용할 요약",
+  "slug": "example-slug",
+  "published": true,
+  "tags": ["HETRICH"],
+  "body": [
+    { "type": "heading", "text": "소제목" },
+    { "type": "paragraph", "text": "본문" },
+    { "type": "quote", "text": "강조 문장" },
+    { "type": "list", "items": ["항목 1", "항목 2"] }
+  ]
+}
+```
+
+실제 L‑Proof AI 간행물을 게시할 때는 `category`, `issue`, `proofLevel`, `sources`를 함께 채우면 됩니다. 확인되지 않은 출처나 호수는 임의로 만들지 않습니다.
+
+## Contact 폼 설정
+
+Contact 폼은 이름, 이메일, 문의 유형, 본문 길이를 브라우저와 서버 양쪽에서 검사합니다. 숨은 honeypot 필드와 요청 크기 제한도 적용되어 있습니다.
+
+서버에서 문의를 전달하려면 아래 환경 변수를 배포 환경에 설정합니다.
+
+```bash
+CONTACT_WEBHOOK_URL=https://example.com/contact-webhook
+CONTACT_WEBHOOK_BEARER_TOKEN=optional-secret
+```
+
+- `CONTACT_WEBHOOK_URL`은 JSON `POST`를 받을 수 있는 HTTPS 엔드포인트입니다.
+- `CONTACT_WEBHOOK_BEARER_TOKEN`은 선택 사항이며 설정 시 `Authorization: Bearer ...` 헤더로 전달됩니다.
+- 웹훅이 없으면 API는 `503 not_configured`를 반환합니다. 성공한 것처럼 표시하지 않으며, 화면에서 직접 이메일 연락을 안내합니다.
+- 비밀 값은 저장소에 커밋하지 않습니다. `.env.example`에는 변수 이름만 포함되어 있습니다.
+
+## 주요 디렉터리
 
 ```text
-.
-├── .openai/hosting.json   # Sites 정적 배포 설정
-├── dist/
-│   ├── index.html         # 시맨틱 페이지와 SEO 메타데이터
-│   ├── styles.css         # 전체 레이아웃, 토큰, 반응형 스타일
-│   ├── script.js          # 모바일 메뉴, 헤더 상태, 연도
-│   └── assets/            # 각 제품 저장소에서 가져온 실제 공개 이미지
-└── README.md
+app/                  페이지, 메타데이터, Route Handler
+components/           공통 헤더·푸터와 Contact 인터랙션
+content/insights/     Insights 원본 콘텐츠
+lib/insights.ts       콘텐츠 타입과 조회 계층
+public/               제품 이미지와 파비콘
+scripts/, build/      Sites/Vinext 실행 및 빌드 도구
+.openai/hosting.json  Sites 프로젝트 연결 정보
 ```
 
-별도의 빌드가 필요하지 않습니다. 로컬에서는 정적 파일 서버로 `dist`를 열면 됩니다.
+## 설계 원칙
 
-```bash
-npx serve dist
-```
+- 기존 HETRICH 랜딩의 편집 디자인, 컬러, 타이포그래피를 유지합니다.
+- 페이지 기본값은 Server Component로 두고, 메뉴·복사 버튼·폼만 Client Component로 분리합니다.
+- 각 페이지와 글은 고유 title, description, canonical, Open Graph 정보를 가집니다.
+- 제품의 현재 상태와 사용할 수 없는 기능을 과장하지 않습니다.
+- 콘텐츠 양이 적은 단계에서는 복잡한 CMS·관리자·인증을 도입하지 않습니다.
 
-또는 Python이 있다면 다음처럼 확인할 수 있습니다.
+## 현재 의도적으로 제외한 범위
 
-```bash
-python -m http.server 4173 --directory dist
-```
+- CMS 및 관리자 화면
+- 사용자 계정과 인증
+- 검색, 태그 필터, 댓글
+- 분석 SDK와 마케팅 트래커
+- 데이터베이스
+- Contact 웹훅 공급자 자체 구현
 
-## 반응형 기준
+이 기능들은 실제 운영 필요가 생겼을 때 콘텐츠 접근 계층과 Contact API 경계를 기준으로 확장할 수 있습니다.
 
-- **Desktop:** Hero와 제품을 비대칭 3열 그리드로 배치해 제품 설명과 실제 화면을 함께 읽게 합니다.
-- **Tablet (`≤ 1000px`):** 제품 설명 아래로 이미지를 이동하고, 타이틀과 설명의 읽기 폭을 유지합니다.
-- **Mobile (`≤ 700px`):** 메뉴를 접고 모든 섹션을 1열로 재구성합니다. Hero의 강제 줄바꿈을 해제해 한글이 두세 글자씩 끊기지 않게 했습니다.
-- CTA는 모바일에서 세로로 쌓이며, 제품 카드 높이는 콘텐츠에 맞게 자연스럽게 늘어납니다.
-- `prefers-reduced-motion`을 존중하고, 모든 본문 텍스트는 기본 16px 이상입니다.
+## 관련 프로젝트
 
-## 접근성과 SEO
-
-- 시맨틱 `header`, `nav`, `main`, `section`, `article`, `footer` 구조와 순차적인 heading hierarchy
-- 키보드 포커스, 본문 건너뛰기 링크, 모바일 메뉴의 `aria-expanded`, 의미 있는 링크 레이블
-- 실제 화면을 설명하는 이미지 대체 텍스트
-- `title`, `description`, Open Graph/X 텍스트 메타데이터, theme color, H 모티프 SVG favicon
-- 소셜 공유 이미지는 별도 요청이 없어 임의로 생성하지 않았습니다.
-
-## 현재 임시이거나 추후 연결할 부분
-
-- **Insights 아카이브:** 구조와 진입점만 마련했습니다. 실제 CMS나 발행물 목록은 연결하지 않았습니다.
-- **AI Secretary:** 배포된 개발 버전과 GitHub 소개 저장소를 함께 연결합니다. 개발 중인 기능의 범위는 달라질 수 있습니다.
-- **칼로리 앱:** 배포된 MVP와 구현 저장소를 함께 연결합니다. 현재는 단일 사용자·브라우저 저장 기반입니다.
-- **Canonical URL:** 현재 Sites 배포 주소를 canonical과 `og:url`로 사용합니다. 추후 공식 도메인을 연결하면 함께 갱신해야 합니다.
-- **제품 상태:** 제품이 배포되거나 범위가 바뀌면 카드 라벨과 설명을 함께 갱신해야 합니다.
-
-## 콘텐츠 원칙
-
-HETRICH를 실제보다 큰 회사처럼 보이게 하지 않습니다. 지금 동작하는 것, 개발 중인 것, 아직 연결하지 않은 것을 분리해 말합니다. 제품이 늘어나더라도 `Products → Approach → Insights` 구조를 유지하며 확장할 수 있습니다.
+- [L‑Proof AI](https://github.com/ipjaworld/l-proof-ai)
+- [HETRICH AI Secretary](https://github.com/ipjaworld/HETRICH-ai-secretary)
+- [How Much Calories Left](https://github.com/ipjaworld/HowMuchCaloriesLeft)
 
 ## License
 
-이 저장소의 코드와 HETRICH 브랜드 자산에 대한 권리는 저장소 소유자에게 있습니다. 포함된 제품 이미지는 각 HETRICH 제품 저장소에서 가져왔습니다.
+All rights reserved. © 2026 HETRICH.

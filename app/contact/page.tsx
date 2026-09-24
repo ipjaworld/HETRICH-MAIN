@@ -1,0 +1,5 @@
+import type { Metadata } from "next";
+import { ContactForm } from "@/components/contact-form";
+import { CopyEmail } from "@/components/copy-email";
+export const metadata: Metadata = { title: "Contact", description: "제품, 협업, 인터뷰와 피드백에 관해 HETRICH에 문의하세요.", alternates: { canonical: "/contact" }, openGraph: { title: "Contact — HETRICH", description: "HETRICH에 문의를 남겨주세요.", url: "/contact" } };
+export default function ContactPage() { return <main id="main" className="subpage contact-page"><header className="page-hero contact-page-hero"><p className="eyebrow">Contact / Start a conversation</p><h1>무엇을 함께<br />이야기할까요?</h1><p>제품에 대한 질문, 협업 제안, 인터뷰와 피드백을 남겨주세요.</p></header><section className="contact-layout"><div className="contact-note"><p className="eyebrow">Before sending</p><h2>가능한 범위부터<br />정직하게 답합니다.</h2><p>문의 내용을 확인한 뒤 답변이 필요한 경우 남겨주신 이메일로 연락드립니다.</p><p className="contact-config-note">현재 웹 문의 수신 채널은 연결 준비 중입니다. 입력 검증과 서버 제출 경계는 구현되어 있으며, 설정 전에는 성공으로 처리하지 않습니다.</p><p><span>Email</span><CopyEmail /></p></div><ContactForm /></section></main>; }
