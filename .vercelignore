@@ -1,6 +1,7 @@
 .openai
 .sites-runtime
 .wrangler
+vite.config.ts
 build
 dist
 drizzle
