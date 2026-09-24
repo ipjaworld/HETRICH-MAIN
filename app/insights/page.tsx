@@ -1,6 +1,42 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { getPublishedInsights } from "@/lib/insights";
-export const metadata: Metadata = { title: "Insights", description: "L‑Proof AI, Build Notes, Essays와 Product Notes가 쌓이는 HETRICH의 에디토리얼 아카이브입니다.", alternates: { canonical: "/insights" }, openGraph: { title: "Insights — HETRICH", description: "HETRICH의 에디토리얼 아카이브", url: "/insights" } };
-const formatDate = (date: string) => new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" }).format(new Date(`${date}T00:00:00+09:00`));
-export default function InsightsPage() { const posts = getPublishedInsights(); return <main id="main" className="subpage"><header className="page-hero archive-hero"><p className="eyebrow">Insights / Publication archive</p><h1>확인하고 만든 것을<br />기록합니다.</h1><p>L‑Proof AI 정기 간행물과 제품을 만들며 얻은 기록이 함께 쌓이는 HETRICH의 에디토리얼 아카이브입니다.</p></header><section className="archive-list" aria-label="게시물 목록">{posts.map((post, index) => <article className="archive-entry" key={post.slug}><div className="archive-index">{String(index + 1).padStart(2, "0")}</div><div className="archive-meta"><span>{post.category}{post.issue ? ` · Issue ${post.issue}` : ""}</span><time dateTime={post.date}>{formatDate(post.date)}</time></div><div className="archive-copy"><h2><Link href={`/insights/${post.slug}`}>{post.title}</Link></h2><p>{post.summary}</p><Link className="text-link" href={`/insights/${post.slug}`}>읽기 <span aria-hidden="true">→</span></Link></div></article>)}</section></main>; }
+import { LProofArchive } from "@/components/l-proof-archive";
+import { fetchCachedLProofArticles } from "@/lib/l-proof-server";
+
+export const metadata: Metadata = {
+  title: "L‑Proof‑AI Insights",
+  description: "L‑Proof‑AI에서 승인·공개된 아티클을 최신순으로 살펴보는 HETRICH Hub 아카이브입니다.",
+  alternates: { canonical: "/insights" },
+  openGraph: {
+    title: "L‑Proof‑AI Insights — HETRICH",
+    description: "공식 출처를 확인하고 사람이 승인한 L‑Proof‑AI 공개 발행물 아카이브",
+    url: "/insights",
+  },
+};
+
+export default async function InsightsPage() {
+  const result = await fetchCachedLProofArticles({ limit: 20 });
+  const items = result.ok ? result.data.items : [];
+  const cursor = result.ok ? result.data.nextCursor : null;
+
+  return (
+    <main id="main" className="insights-hub">
+      <header className="insights-hub-intro">
+        <div>
+          <p className="eyebrow">HETRICH Hub / Public archive</p>
+          <h1>L‑Proof‑AI<br />Insights</h1>
+        </div>
+        <div className="insights-hub-description">
+          <p>공식 출처를 먼저 확인하고, 사람이 승인한 AI 개발 브리핑입니다.</p>
+          <p>HETRICH는 공개된 목록과 미리보기만 보여줍니다. 아티클 전문은 L‑Proof‑AI의 canonical 페이지에서 읽을 수 있습니다.</p>
+        </div>
+      </header>
+      <section className="lproof-archive" aria-labelledby="archive-title">
+        <div className="lproof-archive-heading">
+          <h2 id="archive-title">All publications</h2>
+          <span>{items.length > 0 ? `${items.length}${cursor ? "+" : ""} issues` : "Public feed"}</span>
+        </div>
+        <LProofArchive initialItems={items} initialCursor={cursor} initialError={!result.ok} />
+      </section>
+    </main>
+  );
+}

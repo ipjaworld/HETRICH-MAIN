@@ -1,0 +1,9 @@
+.openai
+.sites-runtime
+.wrangler
+build
+dist
+drizzle
+examples
+scripts
+vendor

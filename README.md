@@ -8,8 +8,8 @@ HETRICH의 제품, 관점, 기록을 한곳에 모은 공식 브랜드 사이트
 
 - HETRICH의 방향과 핵심 원칙
 - L‑Proof AI, HETRICH AI Secretary, How Much Calories Left 제품 소개
-- 날짜·카테고리·호수·상태를 가진 Insights 아카이브
-- 개별 글 메타데이터와 Open Graph 정보
+- L‑Proof‑AI 공개 API와 연결된 최신 발행물 및 전체 아카이브
+- L‑Proof‑AI canonical 원문으로 이어지는 안전한 외부 링크
 - Founder 이건하와 HETRICH 소개
 - 서버 검증과 스팸 방지 경계를 포함한 Contact 폼
 
@@ -17,12 +17,12 @@ HETRICH의 제품, 관점, 기록을 한곳에 모은 공식 브랜드 사이트
 
 - Next.js 16 App Router
 - React 19 + TypeScript
-- Vinext / Cloudflare Workers 기반 Sites 런타임
+- Vercel 배포를 기준으로 한 Next.js 서버 렌더링과 5분 재검증
 - Zod를 이용한 Contact API 입력 검증
 - `next/font`, `next/image`, Metadata API
-- 로컬 JSON 기반 Insights 콘텐츠
+- L‑Proof‑AI 공개 Articles API
 
-CMS나 데이터베이스를 먼저 도입하지 않고, Git에서 검토 가능한 콘텐츠 파일을 단일 소스로 사용합니다. 글 수가 늘거나 편집 흐름이 복잡해질 때 `lib/insights.ts`의 데이터 접근 계층만 CMS 또는 DB로 교체할 수 있도록 페이지와 콘텐츠를 분리했습니다.
+L‑Proof‑AI가 아티클의 유일한 원본 발행처입니다. HETRICH는 공개 API에서 목록과 미리보기만 가져오며 본문, CMS, 데이터베이스를 복제하지 않습니다.
 
 ## 라우트
 
@@ -30,8 +30,7 @@ CMS나 데이터베이스를 먼저 도입하지 않고, Git에서 검토 가능
 | --- | --- |
 | `/` | 브랜드 소개, 제품 요약, 최신 Insights |
 | `/products` | 제품 포트폴리오와 현재 상태 |
-| `/insights` | 발행된 글 아카이브 |
-| `/insights/[slug]` | 개별 글, SEO 메타데이터, 이전·다음 글 |
+| `/insights` | L‑Proof‑AI 공개 발행물을 보여주는 HETRICH Hub |
 | `/about` | HETRICH와 Founder 소개 |
 | `/contact` | 문의 폼과 직접 이메일 안내 |
 | `/api/contact` | 문의 검증 및 서버 측 전달 API |
@@ -55,42 +54,21 @@ npm run typecheck
 npm run build
 ```
 
-프로덕션 빌드 결과를 로컬 Worker로 확인하려면 먼저 빌드한 뒤 실행합니다.
+프로덕션 빌드를 로컬에서 확인하려면 먼저 빌드한 뒤 실행합니다.
 
 ```bash
 npm run build
 npm start
 ```
 
-## Insights 글 추가하기
+## Insights 연동
 
-1. `content/insights/`에 `YYYY-MM-DD-slug.json` 파일을 추가합니다.
-2. `lib/insights.ts`에서 파일을 import하고 `insights` 배열에 등록합니다.
-3. `published`를 `true`로 설정하면 목록, 상세 페이지, 사이트맵에 포함됩니다.
-4. `npm run typecheck`와 `npm run build`로 스키마와 라우트를 검증합니다.
-
-현재 콘텐츠 블록은 네 종류입니다.
-
-```json
-{
-  "title": "글 제목",
-  "date": "2026-09-24",
-  "category": "Build Note",
-  "issue": null,
-  "summary": "목록과 검색 결과에 사용할 요약",
-  "slug": "example-slug",
-  "published": true,
-  "tags": ["HETRICH"],
-  "body": [
-    { "type": "heading", "text": "소제목" },
-    { "type": "paragraph", "text": "본문" },
-    { "type": "quote", "text": "강조 문장" },
-    { "type": "list", "items": ["항목 1", "항목 2"] }
-  ]
-}
-```
-
-실제 L‑Proof AI 간행물을 게시할 때는 `category`, `issue`, `proofLevel`, `sources`를 함께 채우면 됩니다. 확인되지 않은 출처나 호수는 임의로 만들지 않습니다.
+- Endpoint: `GET https://l-proof-ai.xyz/api/public/v1/articles`
+- Main은 최신 3건을 서버에서 조회합니다.
+- Hub는 첫 페이지를 서버에서 렌더링하고, `nextCursor`가 있으면 브라우저에서 다음 페이지를 이어 붙입니다.
+- 서버 요청은 300초마다 재검증합니다. 브라우저의 추가 요청은 API의 `Cache-Control`과 `ETag`를 사용합니다.
+- 외부 링크는 응답의 `url`을 그대로 사용하되 HTTPS와 `l-proof-ai.xyz` hostname을 통과한 경우에만 활성화합니다.
+- API 실패 시 기존 페이지는 유지하고 해당 섹션 안에서만 오류·재시도 상태를 보여줍니다.
 
 ## Contact 폼 설정
 
@@ -112,19 +90,18 @@ CONTACT_WEBHOOK_BEARER_TOKEN=optional-secret
 
 ```text
 app/                  페이지, 메타데이터, Route Handler
-components/           공통 헤더·푸터와 Contact 인터랙션
-content/insights/     Insights 원본 콘텐츠
-lib/insights.ts       콘텐츠 타입과 조회 계층
+components/           공통 UI, L-Proof 카드·아카이브, Contact 인터랙션
+lib/l-proof.ts        공개 API 타입, 검증, 포맷 및 공유 fetch 계층
+lib/l-proof-server.ts 5분 재검증이 적용된 서버 fetch 계층
 public/               제품 이미지와 파비콘
-scripts/, build/      Sites/Vinext 실행 및 빌드 도구
-.openai/hosting.json  Sites 프로젝트 연결 정보
+app/insights/         SubHeader, Hub 목록, 로딩·오류 상태
 ```
 
 ## 설계 원칙
 
 - 기존 HETRICH 랜딩의 편집 디자인, 컬러, 타이포그래피를 유지합니다.
 - 페이지 기본값은 Server Component로 두고, 메뉴·복사 버튼·폼만 Client Component로 분리합니다.
-- 각 페이지와 글은 고유 title, description, canonical, Open Graph 정보를 가집니다.
+- HETRICH 내부 아티클 상세 페이지를 만들지 않고 L‑Proof‑AI canonical 페이지로 연결합니다.
 - 제품의 현재 상태와 사용할 수 없는 기능을 과장하지 않습니다.
 - 콘텐츠 양이 적은 단계에서는 복잡한 CMS·관리자·인증을 도입하지 않습니다.
 
@@ -134,7 +111,7 @@ scripts/, build/      Sites/Vinext 실행 및 빌드 도구
 - 사용자 계정과 인증
 - 검색, 태그 필터, 댓글
 - 분석 SDK와 마케팅 트래커
-- 데이터베이스
+- HETRICH 측 아티클 데이터베이스와 본문 복제
 - Contact 웹훅 공급자 자체 구현
 
 이 기능들은 실제 운영 필요가 생겼을 때 콘텐츠 접근 계층과 Contact API 경계를 기준으로 확장할 수 있습니다.

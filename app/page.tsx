@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getPublishedInsights } from "@/lib/insights";
+import { Suspense } from "react";
+import { LProofLatest, LProofLatestSkeleton } from "@/components/l-proof-latest";
 
 export default function HomePage() {
-  const latestInsights = getPublishedInsights().slice(0, 3);
   return (
     <main id="main">
       <section className="hero" id="top" aria-labelledby="hero-title">
@@ -18,7 +18,7 @@ export default function HomePage() {
         <article className="product product-calories"><div className="product-meta"><span>03</span><span className="status status-building">MVP · Building</span></div><div className="product-copy"><p className="product-category">Everyday nutrition utility</p><h3>오늘 얼마<br />먹어도 돼?</h3><p className="product-lead">기록의 양보다, 오늘 남은 선택을 빠르게 이해하는 칼로리 앱.</p><p>평소 말하듯 음식을 입력하면 기록하고 남은 칼로리를 보여줍니다. 현재 자연어 기록·수정·삭제가 동작하는 MVP이며, 검증한 음식 데이터부터 좁고 정확하게 확장하고 있습니다.</p><div className="product-actions"><a className="button button-dark" href="https://how-much-calories-left.vercel.app/" target="_blank" rel="noreferrer">MVP 사용해보기 <span aria-hidden="true">↗</span></a><a className="text-link" href="https://github.com/ipjaworld/HowMuchCaloriesLeft" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></div><div className="calorie-demo" aria-label="칼로리 앱 동작 예시"><p className="demo-date">오늘 · 9월 24일</p><div className="demo-number"><strong>1,738</strong><span>kcal 남았어요</span></div><div className="demo-rule"><span style={{ width: "17%" }} /></div><div className="demo-chat"><span>나</span><p>갈비탕 하나 먹었어</p></div><div className="demo-chat demo-reply"><span>앱</span><p>기록했어요. 오늘 362 kcal 먹었어요.</p></div><p className="demo-note">* 예시 목표 2,100 kcal 기준</p></div></article>
       </section>
       <section className="approach section" id="approach" aria-labelledby="approach-title"><div className="section-head section-head-inverse"><p className="eyebrow">02 / How we build</p><h2 id="approach-title">자동화할수록,<br />판단의 위치는 선명하게.</h2></div><ol className="principles"><li><span>01</span><h3>먼저 작동하게</h3><p>완벽한 설계보다 작은 범위를 실제 흐름으로 연결합니다.</p></li><li><span>02</span><h3>반복은 시스템에</h3><p>사람이 계속 옮기고 확인하는 일을 자동화합니다.</p></li><li><span>03</span><h3>중요한 결정은 사람에게</h3><p>승인, 수정, 삭제처럼 되돌리기 어려운 지점은 사람이 맡습니다.</p></li><li><span>04</span><h3>모르면 멈추기</h3><p>근거 없는 추측 대신 확인하거나 짧게 되묻습니다.</p></li><li><span>05</span><h3>덜 종속적인 구조</h3><p>도구가 바뀌어도 핵심 데이터와 흐름은 남도록 설계합니다.</p></li></ol></section>
-      <section className="insights section" id="insights" aria-labelledby="insights-title"><div className="section-head"><p className="eyebrow">03 / Insights</p><h2 id="insights-title">최근 기록</h2><p>L‑Proof AI와 제품을 만들며 확인한 것들을 기록합니다.</p></div><div className="home-insights-list">{latestInsights.map((post) => <article key={post.slug}><div><time dateTime={post.date}>{post.date.slice(5).replace("-", ".")}</time><span>{post.category}</span></div><h3><Link href={`/insights/${post.slug}`}>{post.title}</Link></h3><Link href={`/insights/${post.slug}`} aria-label={`${post.title} 읽기`}>→</Link></article>)}</div><Link className="text-link home-insights-all" href="/insights">모든 기록 보기 <span aria-hidden="true">→</span></Link></section>
+      <section className="insights section lproof-latest" id="insights" aria-labelledby="insights-title"><div className="section-head"><p className="eyebrow">03 / L‑Proof‑AI Insights</p><h2 id="insights-title">확인된 소식을,<br />제품의 언어로.</h2><p>L‑Proof‑AI에서 승인·공개된 최신 AI 개발 브리핑입니다. 원문은 L‑Proof‑AI에서 이어집니다.</p></div><Suspense fallback={<LProofLatestSkeleton />}><LProofLatest /></Suspense></section>
       <section className="about section" id="about" aria-labelledby="about-title"><p className="eyebrow">04 / About</p><div className="about-grid"><h2 id="about-title">HETRICH는 실용적인 AI 시스템과 작은 소프트웨어 제품을 만드는 독립 제품 스튜디오입니다.</h2><div><p>한 사람이 문제를 찾고, 제품을 만들고, 직접 운영합니다. 규모보다 제품이 실제로 맡는 역할과 그 경계를 정직하게 보여주는 일을 중요하게 생각합니다.</p><p>지금은 세 제품을 통해 정보 검증, 기억과 일정, 일상 기록이라는 서로 다른 흐름을 실험하고 있습니다.</p><Link className="text-link" href="/about">HETRICH와 Founder 더 보기 <span aria-hidden="true">→</span></Link></div></div></section>
     </main>
   );
