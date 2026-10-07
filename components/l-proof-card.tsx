@@ -29,8 +29,9 @@ export function LProofCard({ article, variant = "archive" }: { article: LProofAr
   );
 
   return safeUrl ? (
-    <a className={`lproof-card lproof-card-${variant}`} href={safeUrl} target="_blank" rel="noreferrer" aria-label={`${article.title} — L‑Proof‑AI 원문 열기`}>
+    <a className={`lproof-card lproof-card-${variant}`} href={safeUrl} target="_blank" rel="noreferrer">
       {body}
+      <span className="sr-only"> (새 탭)</span>
     </a>
   ) : (
     <article className={`lproof-card lproof-card-${variant} lproof-card-disabled`}>{body}</article>

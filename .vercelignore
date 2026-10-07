@@ -8,3 +8,8 @@ drizzle
 examples
 scripts
 vendor
+outputs
+work
+tests
+docs
+playwright.config.ts

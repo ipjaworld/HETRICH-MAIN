@@ -2,12 +2,12 @@
 
 HETRICH의 제품, 관점, 기록을 한곳에 모은 공식 브랜드 사이트입니다. 기존 한 페이지 랜딩의 시각 언어를 유지하면서, 제품 포트폴리오와 L‑Proof AI 아카이브를 장기적으로 확장할 수 있도록 Next.js App Router 기반의 다중 페이지 사이트로 재구성했습니다.
 
-**Live:** [hetrich.ipjaworld.chatgpt.site](https://hetrich.ipjaworld.chatgpt.site/)
+**Live:** [hetrich.com](https://hetrich.com/)
 
 ## 무엇을 담고 있나요?
 
 - HETRICH의 방향과 핵심 원칙
-- L‑Proof AI, HETRICH AI Secretary, How Much Calories Left 제품 소개
+- L‑Proof AI, HIS (HETRICH AI Secretary), How Much Calories Left 제품 소개
 - L‑Proof‑AI 공개 API와 연결된 최신 발행물 및 전체 아카이브
 - L‑Proof‑AI canonical 원문으로 이어지는 안전한 외부 링크
 - Founder 이건하와 HETRICH 소개
@@ -19,7 +19,7 @@ HETRICH의 제품, 관점, 기록을 한곳에 모은 공식 브랜드 사이트
 - React 19 + TypeScript
 - Vercel 배포를 기준으로 한 Next.js 서버 렌더링과 5분 재검증
 - Zod를 이용한 Contact API 입력 검증
-- `next/font`, `next/image`, Metadata API
+- 자체 제공 폰트(Fontsource), `next/image`, Metadata API
 - L‑Proof‑AI 공개 Articles API
 
 L‑Proof‑AI가 아티클의 유일한 원본 발행처입니다. HETRICH는 공개 API에서 목록과 미리보기만 가져오며 본문, CMS, 데이터베이스를 복제하지 않습니다.
@@ -99,7 +99,7 @@ app/insights/         SubHeader, Hub 목록, 로딩·오류 상태
 
 ## 설계 원칙
 
-- 기존 HETRICH 랜딩의 편집 디자인, 컬러, 타이포그래피를 유지합니다.
+- 레퍼런스 비교에 따른 여백 중심의 스튜디오 디자인을 적용합니다. 폰트·색상·간격과 선정 근거는 [디자인 방향](docs/design-direction.md)에 정리했습니다.
 - 페이지 기본값은 Server Component로 두고, 메뉴·복사 버튼·폼만 Client Component로 분리합니다.
 - HETRICH 내부 아티클 상세 페이지를 만들지 않고 L‑Proof‑AI canonical 페이지로 연결합니다.
 - 제품의 현재 상태와 사용할 수 없는 기능을 과장하지 않습니다.
@@ -125,3 +125,20 @@ app/insights/         SubHeader, Hub 목록, 로딩·오류 상태
 ## License
 
 All rights reserved. © 2026 HETRICH.
+
+## Landing verification
+
+The homepage and `/products` use the shared catalog in `lib/products.ts`. Product evidence and unresolved availability details are recorded in `docs/product-sources.md`.
+
+Browser regression tests use Playwright and axe. Chrome must be installed; install WebKit with `npx playwright install webkit`.
+
+```bash
+npm run build
+npm start -- --port 3101
+# In a separate terminal:
+npm test
+```
+
+Tests cover 320, 375, 390, 430, 768, 1024 and 1440px in Chrome and WebKit, overflow, CTA size, WCAG A/AA checks, reduced motion, menu keyboard operation, skip navigation and existing page routes. Set `TEST_BASE_URL` to test another running local server. Screenshots and the HTML report are written to ignored `outputs/`.
+
+Three additional device projects use the installed Playwright profiles for iPhone SE (first generation), iPhone 13 and Pixel 7. They check touch navigation, product discovery, accessibility and all page routes in portrait and landscape. These are browser emulations, not physical-device tests. Run them with `npm test -- --project=iphone-se --project=iphone-13 --project=pixel-7`.

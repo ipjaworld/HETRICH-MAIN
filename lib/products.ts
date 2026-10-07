@@ -1,0 +1,40 @@
+/** Public pages and repository docs checked 2026-10-05. See docs/product-sources.md. */
+export const products = [
+  {
+    id: "l-proof", number: "01", theme: "proof", name: "L‑Proof AI",
+    category: "Briefing & publishing", status: "Live", stage: "공개 운영",
+    homeStatus: "공개 운영", homeSummary: "원문을 확인하고 사람이 검토한 AI 개발 브리핑.",
+    lead: "출처를 확인하고, 개발에 필요한 변화만 전합니다.",
+    description: "공식 발표와 원문을 바탕으로 사람이 검토하는 AI 개발 브리핑. 웹 아카이브와 이메일 구독을 운영합니다.",
+    features: ["원문 출처", "공개 아카이브", "이메일 구독"],
+    progress: "검토한 원고를 웹에 공개하고, 승인된 고정본을 예약 발송하는 흐름을 구현했습니다.",
+    availability: "공개 아티클 열람 · 구독 신청 가능",
+    service: "https://l-proof-ai.xyz", serviceLabel: "브리핑 읽기",
+    github: "https://github.com/ipjaworld/l-proof-ai",
+  },
+  {
+    id: "secretary", number: "02", theme: "secretary", name: "HIS", fullName: "HETRICH AI Secretary",
+    category: "Memory & planning", status: "Building", stage: "개발 버전 공개",
+    homeStatus: "개발 버전", homeSummary: "일정과 느슨한 계획을 말로 맡기는 개인 비서.",
+    lead: "계속 기억해야 하는 부담을 덜어주는 개인 비서.",
+    description: "정확한 일정부터 느슨한 계획까지 말로 맡기는 경험을 만듭니다. 기억·브리핑·알림을 연결하며 개발 중입니다.",
+    features: ["대화로 기억", "느슨한 계획", "사용자 판단 우선"],
+    progress: "기억의 수정·취소와 브리핑 흐름을 개발하고 있습니다. HIS는 HETRICH AI Secretary의 약칭입니다. 개발 단계에 따라 제공 범위는 달라질 수 있습니다.",
+    availability: "공개 개발 버전 HIS · 실제 알림 제공 범위는 확인 필요",
+    service: "https://hetrich.vercel.app/", serviceLabel: "개발 버전 보기",
+    github: "https://github.com/ipjaworld/HETRICH-ai-secretary",
+  },
+  {
+    id: "calories", number: "03", theme: "calories", name: "How Much Calories Left",
+    category: "Everyday nutrition", status: "MVP", stage: "초기 버전 · 사용 가능",
+    homeStatus: "초기 버전 · 사용 가능", homeSummary: "먹은 것을 말로 기록하고 오늘 남은 칼로리를 확인하세요.",
+    lead: "먹은 것을 말하면, 오늘 남은 칼로리를 한눈에.",
+    description: "‘오늘 얼마 먹어도 돼?’라는 질문에서 시작했습니다. 자연어로 식사를 기록·수정하고 오늘 남은 양을 확인합니다.",
+    features: ["자연어 기록", "목표 칼로리 설정", "기록 확인"],
+    progress: "사용자 피드백을 바탕으로 분수 입력, 음식별 계산 내역과 대화 기록을 보완했습니다. 공개 저장소의 구현을 기준으로 소개합니다.",
+    availability: "MVP 사용 가능 · 저장 방식과 계정 기능의 현재 제공 범위는 앱에서 확인",
+    service: "https://how-much-calories-left.vercel.app/", serviceLabel: "앱 사용해보기",
+    github: "https://github.com/ipjaworld/HowMuchCaloriesLeft",
+  },
+] as const;
+export type Product = (typeof products)[number];

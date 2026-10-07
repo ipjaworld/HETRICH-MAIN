@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Mono, Manrope, Noto_Sans_KR } from "next/font/google";
+import "@fontsource/manrope/latin-400.css";
+import "@fontsource/manrope/latin-500.css";
+import "@fontsource/manrope/latin-600.css";
+import "@fontsource/manrope/latin-700.css";
+import "@fontsource/noto-sans-kr/400.css";
+import "@fontsource/noto-sans-kr/500.css";
+import "@fontsource/noto-sans-kr/600.css";
+import "@fontsource/noto-sans-kr/700.css";
+import "@fontsource/dm-mono/latin-400.css";
+import "@fontsource/dm-mono/latin-500.css";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-const notoSansKr = Noto_Sans_KR({ subsets: ["latin"], variable: "--font-noto-kr", display: "swap" });
-const dmMono = DM_Mono({ subsets: ["latin"], variable: "--font-dm-mono", weight: ["400", "500"], display: "swap" });
-export const metadata: Metadata = { metadataBase: new URL("https://hetrich.ipjaworld.chatgpt.site"), title: { default: "HETRICH — Practical AI products", template: "%s — HETRICH" }, description: "HETRICH는 실제 생활과 업무 흐름을 위한 작고 실용적인 AI 제품을 만드는 독립 제품 스튜디오입니다.", alternates: { canonical: "/" }, openGraph: { type: "website", locale: "ko_KR", siteName: "HETRICH", title: "HETRICH — Practical AI products", description: "실제로 쓰이는 흐름을 위한 작은 AI 제품을 만듭니다.", url: "/" }, twitter: { card: "summary", title: "HETRICH — Practical AI products", description: "실제로 쓰이는 흐름을 위한 작은 AI 제품을 만듭니다." }, icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" } };
+import "./studio.css";
+export const metadata: Metadata = { metadataBase: new URL("https://hetrich.com"), title: { default: "HETRICH — Independent product studio", template: "%s — HETRICH" }, description: "개발자 이건하가 직접 기획·개발·운영하는 개인 제품 스튜디오. L‑Proof AI, HIS(HETRICH AI Secretary), How Much Calories Left를 만나보세요.", alternates: { canonical: "/" }, openGraph: { type: "website", locale: "ko_KR", siteName: "HETRICH", title: "HETRICH — Independent product studio", description: "작게 만들고, 쓰면서 개선합니다. HETRICH의 제품과 개발 기록을 만나보세요.", url: "/" }, twitter: { card: "summary", title: "HETRICH — Independent product studio", description: "작게 만들고, 쓰면서 개선합니다. HETRICH의 제품과 개발 기록을 만나보세요." }, icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" } };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#101411", colorScheme: "light" };
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="ko" className={`${manrope.variable} ${notoSansKr.variable} ${dmMono.variable}`}><body><SiteHeader />{children}<SiteFooter /></body></html>; }
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="ko"><body><SiteHeader />{children}<SiteFooter /></body></html>; }

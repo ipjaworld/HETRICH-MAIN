@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const base = "https://hetrich.ipjaworld.chatgpt.site";
+const base = "https://hetrich.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return ["", "/products", "/insights", "/about", "/contact"].map((path) => ({

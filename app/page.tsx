@@ -1,25 +1,45 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { LProofLatest, LProofLatestSkeleton } from "@/components/l-proof-latest";
+import { ProductCard } from "@/components/product-card";
+import { products } from "@/lib/products";
 
 export default function HomePage() {
   return (
-    <main id="main">
-      <section className="hero" id="top" aria-labelledby="hero-title">
-        <div className="hero-rail" aria-hidden="true"><span>Independent product studio</span><span>Seoul · KR</span></div>
-        <div className="hero-main"><p className="eyebrow">Practical AI / Human in the loop</p><h1 id="hero-title">실제로 쓰이는 흐름을 위한<br /><span className="mobile-space" aria-hidden="true"> </span><em>작은 AI 제품.</em></h1><p className="hero-copy">HETRICH는 AI를 답변창 안에 두지 않습니다. 기억, 검증, 기록처럼 매일 반복되는 일에 연결하고, 중요한 판단은 사람에게 남겨둡니다.</p><a className="text-link hero-link" href="#products">제품 보기 <span aria-hidden="true">↘</span></a></div>
-        <aside className="hero-index" aria-label="제품 현황"><p className="index-label">Product index / 2026</p><dl><div><dt>Products</dt><dd>03</dd></div><div><dt>Live</dt><dd>01</dd></div><div><dt>Building</dt><dd>02</dd></div></dl><p>작게 시작하고, 실제 사용에서 발견한 문제를 다음 버전에 반영합니다.</p></aside><div className="hero-type" aria-hidden="true">HETRICH</div>
+    <main id="main" className="studio-home" tabIndex={-1}>
+      <section className="studio-hero" aria-labelledby="hero-title">
+        <div className="studio-hero-copy">
+          <p className="eyebrow">Independent product studio · Seoul</p>
+          <h1 id="hero-title">작게 만들고,<br /><em>쓰면서 개선합니다.</em></h1>
+          <p className="studio-intro">정보를 확인하고, 계획을 기억하고, 식사를 기록하는 일.<br className="desktop-break" /> 반복해서 신경 쓰이는 일을 덜어주는 소프트웨어를 만듭니다.</p>
+          <div className="studio-hero-actions"><a className="button button-dark" href="#products">제품 둘러보기 <span aria-hidden="true">↓</span></a><Link className="text-link" href="/about">만드는 사람 <span aria-hidden="true">↗</span></Link></div>
+        </div>
       </section>
-      <section className="products section" id="products" aria-labelledby="products-title">
-        <div className="section-head"><p className="eyebrow">01 / Products</p><h2 id="products-title">지금 만들고 있는 것들</h2><p>서로 다른 문제를 다루지만, 모두 AI와 사람의 역할을 분명하게 나누는 데서 시작합니다.</p></div><Link className="text-link section-route-link" href="/products">전체 제품 한눈에 보기 <span aria-hidden="true">→</span></Link>
-        <article className="product product-proof"><div className="product-meta"><span>01</span><span className="status status-live">Live · Alpha</span></div><div className="product-copy"><p className="product-category">Verified AI briefing</p><h3>L‑Proof AI</h3><p className="product-lead">소식을 더 빨리 복제하기보다, 원문과 공식 발표를 먼저 확인하는 AI 브리핑.</p><p>AI가 조사와 초안을 돕고 사람이 출처, 의미, 발행 여부를 검토합니다. 현재 공개 랜딩과 구독 흐름을 운영 중이며, 승인된 원고만 예약 발송하는 구조를 다듬고 있습니다.</p><div className="product-actions"><a className="button button-light" href="https://l-proof-ai.xyz" target="_blank" rel="noreferrer">L‑Proof AI 방문 <span aria-hidden="true">↗</span></a><a className="text-link text-link-light" href="https://github.com/ipjaworld/l-proof-ai" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></div><figure className="product-visual proof-visual"><Image src="/l-proof-editorial.png" alt="검토 표시가 남은 원고와 연필, 붉은 도장이 놓인 L-Proof AI 편집자의 책상" fill sizes="(max-width: 1000px) 80vw, 40vw" /><figcaption>Evidence first. Human approved.</figcaption></figure></article>
-        <article className="product product-secretary"><div className="product-meta"><span>02</span><span className="status status-building">In development</span></div><div className="product-copy"><p className="product-category">Personal memory assistant</p><h3>HETRICH<br />AI Secretary</h3><p className="product-lead">기억은 맡기고, 지금에 머물 수 있도록.</p><p>정확한 일정뿐 아니라 “다음 달쯤” 같은 느슨한 계획도 받아두고, 필요한 때 다시 꺼내주는 개인 비서 경험을 만들고 있습니다.</p><div className="product-actions"><a className="button button-dark" href="https://hetrich.vercel.app/" target="_blank" rel="noreferrer">개발 버전 보기 <span aria-hidden="true">↗</span></a><a className="text-link" href="https://github.com/ipjaworld/HETRICH-ai-secretary" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></div><figure className="product-visual secretary-visual"><div className="phone phone-back"><Image src="/secretary-choice.png" width={1179} height={2556} sizes="(max-width: 700px) 48vw, 17rem" alt="HETRICH AI Secretary에서 비서를 선택하는 개발 중 화면" /></div><div className="phone phone-front"><Image src="/secretary-home.png" width={1179} height={2556} sizes="(max-width: 700px) 48vw, 17rem" alt="HETRICH AI Secretary의 개발 중인 홈 화면" /></div><figcaption>Development preview · 화면과 제공 범위는 달라질 수 있습니다.</figcaption></figure></article>
-        <article className="product product-calories"><div className="product-meta"><span>03</span><span className="status status-building">MVP · Building</span></div><div className="product-copy"><p className="product-category">Everyday nutrition utility</p><h3>오늘 얼마<br />먹어도 돼?</h3><p className="product-lead">기록의 양보다, 오늘 남은 선택을 빠르게 이해하는 칼로리 앱.</p><p>평소 말하듯 음식을 입력하면 기록하고 남은 칼로리를 보여줍니다. 현재 자연어 기록·수정·삭제가 동작하는 MVP이며, 검증한 음식 데이터부터 좁고 정확하게 확장하고 있습니다.</p><div className="product-actions"><a className="button button-dark" href="https://how-much-calories-left.vercel.app/" target="_blank" rel="noreferrer">MVP 사용해보기 <span aria-hidden="true">↗</span></a><a className="text-link" href="https://github.com/ipjaworld/HowMuchCaloriesLeft" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></div><div className="calorie-demo" aria-label="칼로리 앱 동작 예시"><p className="demo-date">오늘 · 9월 24일</p><div className="demo-number"><strong>1,738</strong><span>kcal 남았어요</span></div><div className="demo-rule"><span style={{ width: "17%" }} /></div><div className="demo-chat"><span>나</span><p>갈비탕 하나 먹었어</p></div><div className="demo-chat demo-reply"><span>앱</span><p>기록했어요. 오늘 362 kcal 먹었어요.</p></div><p className="demo-note">* 예시 목표 2,100 kcal 기준</p></div></article>
+      <section className="studio-products studio-section" id="products" aria-labelledby="products-title">
+        <div className="studio-section-head"><div><p className="eyebrow">Selected products</p><h2 id="products-title">일상을 돕는 작은 도구들.</h2></div></div>
+        <div className="showcase-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
+        <div className="studio-products-more"><Link className="text-link" href="/products">제품별 기능과 제공 범위 <span aria-hidden="true">→</span></Link></div>
       </section>
-      <section className="approach section" id="approach" aria-labelledby="approach-title"><div className="section-head section-head-inverse"><p className="eyebrow">02 / How we build</p><h2 id="approach-title">자동화할수록,<br />판단의 위치는 선명하게.</h2></div><ol className="principles"><li><span>01</span><h3>먼저 작동하게</h3><p>완벽한 설계보다 작은 범위를 실제 흐름으로 연결합니다.</p></li><li><span>02</span><h3>반복은 시스템에</h3><p>사람이 계속 옮기고 확인하는 일을 자동화합니다.</p></li><li><span>03</span><h3>중요한 결정은 사람에게</h3><p>승인, 수정, 삭제처럼 되돌리기 어려운 지점은 사람이 맡습니다.</p></li><li><span>04</span><h3>모르면 멈추기</h3><p>근거 없는 추측 대신 확인하거나 짧게 되묻습니다.</p></li><li><span>05</span><h3>덜 종속적인 구조</h3><p>도구가 바뀌어도 핵심 데이터와 흐름은 남도록 설계합니다.</p></li></ol></section>
-      <section className="insights section lproof-latest" id="insights" aria-labelledby="insights-title"><div className="section-head"><p className="eyebrow">03 / L‑Proof‑AI Insights</p><h2 id="insights-title">확인된 소식을,<br />제품의 언어로.</h2><p>L‑Proof‑AI에서 승인·공개된 최신 AI 개발 브리핑입니다. 원문은 L‑Proof‑AI에서 이어집니다.</p></div><Suspense fallback={<LProofLatestSkeleton />}><LProofLatest /></Suspense></section>
-      <section className="about section" id="about" aria-labelledby="about-title"><p className="eyebrow">04 / About</p><div className="about-grid"><h2 id="about-title">HETRICH는 실용적인 AI 시스템과 작은 소프트웨어 제품을 만드는 독립 제품 스튜디오입니다.</h2><div><p>한 사람이 문제를 찾고, 제품을 만들고, 직접 운영합니다. 규모보다 제품이 실제로 맡는 역할과 그 경계를 정직하게 보여주는 일을 중요하게 생각합니다.</p><p>지금은 세 제품을 통해 정보 검증, 기억과 일정, 일상 기록이라는 서로 다른 흐름을 실험하고 있습니다.</p><Link className="text-link" href="/about">HETRICH와 Founder 더 보기 <span aria-hidden="true">→</span></Link></div></div></section>
+      <section className="studio-process studio-section" aria-labelledby="process-title">
+        <div className="studio-section-head"><div><p className="eyebrow">Build notes / How Much Calories Left</p><h2 id="process-title">반 공기는 반 공기로.<br />피드백이 바꾼 기록 방식.</h2></div></div>
+        <div className="build-story">
+          <div className="build-story-origin"><p className="story-label">사용자의 말에서 시작</p><blockquote>사진 없이 먹은 것을 말로 남기는 건 편했어요. 그런데 1/2이 두 개로 기록되고, 어떤 음식의 칼로리인지 다시 확인해야 했어요.</blockquote><p className="story-caption">2026년 10월 두 사용자의 피드백을 묶어 익명으로 요약했습니다.</p><p>간편한 입력만큼, 기록된 결과를 납득할 수 있는 것도 중요했습니다. 입력을 더 자세히 요구하기 전에 해석과 응답을 다듬었습니다.</p></div>
+          <ol className="build-changes">
+            <li><span>01 / 입력 해석</span><h3>1/2, 0.5, ‘반’을 같은 양으로</h3><p>분수 표현을 수량으로 해석하도록 보완하고, 같은 음식의 절반이 동일하게 계산되는지 검사합니다.</p></li>
+            <li><span>02 / 계산 근거</span><h3>합계 옆에 무엇을 기록했는지</h3><p>음식별 양과 칼로리를 함께 보여줍니다. 양을 생략해 기본량을 썼거나 대표 제품을 선택했다면 그 이유도 안내합니다.</p></li>
+            <li><span>03 / 다시 확인</span><h3>지난 대화로 돌아갈 수 있게</h3><p>최근 응답과 대화 기록 화면을 분리해, 어떤 입력으로 기록했는지 다시 살펴볼 수 있도록 했습니다.</p></li>
+          </ol>
+        </div>
+        <div className="build-story-footer"><p>공개 저장소 구현 기준 · 실제 제공 범위는 앱에서 확인할 수 있습니다.</p><a className="text-link" href="https://github.com/ipjaworld/HowMuchCaloriesLeft/tree/f4c19b9" target="_blank" rel="noreferrer">개선 코드 살펴보기 <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
+      </section>
+      <section className="studio-insights studio-section" aria-labelledby="insights-title">
+        <div className="studio-section-head"><div><p className="eyebrow">From L‑Proof AI</p><h2 id="insights-title">최근에 전한 이야기.</h2></div><p>직접 운영하는 AI 개발 브리핑에서<br />최근 발행한 글을 모았습니다.</p></div>
+        <Suspense fallback={<LProofLatestSkeleton />}><LProofLatest /></Suspense>
+      </section>
+      <section className="studio-about studio-section" aria-labelledby="about-title">
+        <div><p className="eyebrow">Behind the products</p><h2 id="about-title">한 사람이 만들고,<br />계속 돌보는 제품들.</h2></div>
+        <div><p>안녕하세요, HETRICH를 만드는 개발자 이건하입니다. 직접 기획하고 개발한 제품을 운영하며, 사용 중에 들려오는 불편을 다음 수정의 출발점으로 삼습니다. 써본 이야기나 함께 만들고 싶은 일이 있다면 들려주세요.</p><div className="studio-hero-actions"><Link className="button button-dark" href="/contact">제품 피드백·협업 제안 <span aria-hidden="true">↗</span></Link><a className="text-link" href="https://github.com/ipjaworld" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div></div>
+      </section>
     </main>
   );
 }
