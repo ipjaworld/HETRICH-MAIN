@@ -231,3 +231,10 @@ button, input, select, textarea { font-family: inherit; }
   .home-article h3, .article-arrow { transition: none; }
   .home-article:hover .article-arrow { transform: none; }
 }
+
+/* Founder portrait: original photography, responsive and loaded below the fold. */
+.studio-founder-photo { width: min(100%, 20rem); margin: 2rem 0 0; }
+.studio-founder-photo img, .founder-portrait { width: 100%; height: auto; border-radius: .35rem; }
+.studio-founder-photo figcaption { margin-top: .65rem; font: .7rem var(--mono); color: var(--muted); }
+.founder-portrait { max-width: 17.5rem; margin: 0 0 1.5rem; }
+@media (max-width: 700px) { .studio-founder-photo, .founder-portrait { width: min(78vw, 20rem); } .studio-about { gap: 2rem; } }

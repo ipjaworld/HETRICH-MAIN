@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { LProofLatest, LProofLatestSkeleton } from "@/components/l-proof-latest";
@@ -37,7 +38,7 @@ export default function HomePage() {
         <Suspense fallback={<LProofLatestSkeleton />}><LProofLatest /></Suspense>
       </section>
       <section className="studio-about studio-section" aria-labelledby="about-title">
-        <div><p className="eyebrow">Behind the products</p><h2 id="about-title">한 사람이 만들고,<br />계속 돌보는 제품들.</h2></div>
+        <div><p className="eyebrow">Behind the products</p><h2 id="about-title">한 사람이 만들고,<br />계속 돌보는 제품들.</h2><figure className="studio-founder-photo"><Image src="/images/founder/geonha-portrait.webp" alt="숲길에서 웃고 있는 HETRICH 개발자 이건하" width={960} height={1200} sizes="(max-width: 700px) 78vw, 320px" /><figcaption>이건하 · HETRICH</figcaption></figure></div>
         <div><p>안녕하세요, HETRICH를 만드는 개발자 이건하입니다. 직접 기획하고 개발한 제품을 운영하며, 사용 중에 들려오는 불편을 다음 수정의 출발점으로 삼습니다. 써본 이야기나 함께 만들고 싶은 일이 있다면 들려주세요.</p><div className="studio-hero-actions"><Link className="button button-dark" href="/contact">제품 피드백·협업 제안 <span aria-hidden="true">↗</span></Link><a className="text-link" href="https://github.com/ipjaworld" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div></div>
       </section>
     </main>
