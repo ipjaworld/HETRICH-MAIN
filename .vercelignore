@@ -9,7 +9,8 @@ examples
 scripts
 vendor
 outputs
-work
+# Exclude only root scratch, not app/work.
+/work/
 tests
 docs
 playwright.config.ts
