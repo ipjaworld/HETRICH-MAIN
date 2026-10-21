@@ -122,3 +122,25 @@ test('publication rows have one divider and no hover underline', async ({ page }
     await page.locator('.studio-insights').screenshot({ path: `outputs/${testInfo.project.name}-publications-${width}.png`, style: '.site-header, .skip-link { visibility: hidden !important; }' });
   }
 });
+
+for (const width of [320, 768, 1024, 1440, 1920]) {
+  test(`founder name and portrait at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto('/about');
+    await page.evaluate(() => document.fonts.ready);
+    const name = page.getByRole('heading', { name: '이건하', exact: true });
+    await name.scrollIntoViewIfNeeded();
+    const nameLayout = await name.evaluate(el => {
+      const range = document.createRange(); range.selectNodeContents(el);
+      return { lines: range.getClientRects().length, width: el.scrollWidth, available: el.clientWidth };
+    });
+    expect(nameLayout.lines).toBe(1);
+    expect(nameLayout.width).toBeLessThanOrEqual(nameLayout.available);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    const portrait = page.getByRole('img', { name: 'HETRICH를 만드는 개발자 이건하', exact: true });
+    await portrait.scrollIntoViewIfNeeded();
+    await expect(portrait).toBeVisible();
+    await expect.poll(() => portrait.evaluate(el => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+    await page.locator('.founder-section').screenshot({ path: `outputs/founder-${width}.png`, style: '.site-header { visibility: hidden !important; }' });
+  });
+}

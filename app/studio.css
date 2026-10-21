@@ -238,3 +238,15 @@ button, input, select, textarea { font-family: inherit; }
 .studio-founder-photo figcaption { margin-top: .65rem; font: .7rem var(--mono); color: var(--muted); }
 .founder-portrait { max-width: 17.5rem; margin: 0 0 1.5rem; }
 @media (max-width: 700px) { .studio-founder-photo, .founder-portrait { width: min(78vw, 20rem); } .studio-about { gap: 2rem; } }
+
+/* Keep the portrait and introduction together, with a single unbroken name. */
+.founder-section { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 6rem); row-gap: 2rem; align-items: start; }
+.founder-section > .eyebrow { grid-column: 1 / -1; margin: 0; }
+.founder-photo { margin: 0; min-width: 0; }
+.founder-photo .founder-portrait { width: 100%; max-width: 20rem; margin: 0; }
+.founder-section .founder-copy { grid-column: auto; min-width: 0; max-width: 40rem; margin: 0; }
+.founder-section .founder-name h2 { margin: 0 0 1.5rem; font-size: clamp(2.5rem, 4vw, 4.5rem); line-height: 1.15; letter-spacing: -.06em; white-space: nowrap; }
+.founder-copy > p:first-of-type { margin-top: 0; }
+.founder-copy > .text-link { margin-top: .75rem; }
+@media (min-width: 701px) and (max-width: 1000px) { .founder-section { grid-template-columns: minmax(0, .7fr) minmax(0, 1fr); gap: 2rem; } }
+@media (max-width: 700px) { .founder-section { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; padding-top: 4rem; padding-bottom: 4rem; } .founder-section > .eyebrow { margin: 0; } .founder-photo { width: min(78vw, 18rem); } }
