@@ -30,6 +30,7 @@ L‑Proof‑AI가 아티클의 유일한 원본 발행처입니다. HETRICH는 �
 | --- | --- |
 | `/` | 브랜드 소개, 제품 요약, 최신 Insights |
 | `/products` | 제품 포트폴리오와 현재 상태 |
+| `/work` | 이전 조직에서의 개인 기여와 실무 개발 경험 |
 | `/insights` | L‑Proof‑AI 공개 발행물을 보여주는 HETRICH Hub |
 | `/about` | HETRICH와 Founder 소개 |
 | `/contact` | 문의 폼과 직접 이메일 안내 |

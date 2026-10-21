@@ -144,3 +144,25 @@ for (const width of [320, 768, 1024, 1440, 1920]) {
     await page.locator('.founder-section').screenshot({ path: `outputs/founder-${width}.png`, style: '.site-header { visibility: hidden !important; }' });
   });
 }
+
+for (const width of [320, 768, 1440, 1920]) {
+  test(`selected work readable and accessible at ${width}px`, async ({ page }, testInfo) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/work');
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator('h1')).toHaveCount(1);
+    await expect(page.getByRole('article')).toHaveCount(4);
+    await expect(page.getByText('HETRICH의 수주·제작 실적과 구분합니다.', { exact: false })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    const clipped = await page.locator('h1,h2,h3,p').evaluateAll(nodes => nodes.filter(n => n.scrollWidth > n.clientWidth + 1).map(n => n.textContent));
+    expect(clipped).toEqual([]);
+    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+    expect(results.violations).toEqual([]);
+    if (width <= 700) await page.getByRole('button', { name: '메뉴 열기' }).click();
+    await expect(page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link', { name: 'Selected Work' })).toHaveAttribute('aria-current', 'page');
+    if (width <= 700) await page.getByRole('button', { name: '메뉴 닫기' }).click();
+    await page.screenshot({ path: `outputs/work-${testInfo.project.name}-${width}.png`, fullPage: true });
+    await page.getByRole('link', { name: '개발·협업 문의' }).click();
+    await expect(page).toHaveURL(/\/contact$/);
+  });
+}
