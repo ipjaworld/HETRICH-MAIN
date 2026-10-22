@@ -151,7 +151,7 @@ for (const width of [320, 768, 1440, 1920]) {
     await page.goto('/work');
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.getByRole('article')).toHaveCount(4);
+    await expect(page.getByRole('article')).toHaveCount(5);
     await expect(page.getByText('HETRICH의 수주·제작 실적과 구분합니다.', { exact: false })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
     const clipped = await page.locator('h1,h2,h3,p').evaluateAll(nodes => nodes.filter(n => n.scrollWidth > n.clientWidth + 1).map(n => n.textContent));

@@ -11,10 +11,11 @@ export const metadata: Metadata = {
 const work = [
   {
     id: "talkgate", number: "01", name: "TalkGate", category: "상담 업무 플랫폼",
-    title: "조직 변경 이후의 화면 상태까지.",
+    title: "상담원의 입력 방식에서 화면 상태까지.",
     context: "핑크코브라 · 2025.10–2026.09 · 프리랜서 프론트엔드",
     paragraphs: [
       "프론트엔드 전체 구현과 API 연동을 전담했습니다. 고객·상담·조직 관리·분석 화면을 구현했습니다.",
+      "MVP 검증에서 상담원의 메모 입력 패턴과 UX 문제를 디자이너·팀장에게 공유하고 공통 메모 UI 개선에 참여했습니다. 제품 전체 설계와 백엔드 데이터 분류는 협업 범위로 구분합니다.",
       "팀장 교체 뒤 관련 상세 캐시를 먼저 보정하고 후속 조회를 연결해 화면 갱신을 다뤘습니다. 태블릿에서 발견한 배율 문제는 적용 제외안을 제안해 반영하고, 중첩 모달의 포커스·외부 클릭·스크롤 동작을 보완했습니다.",
     ],
     scope: "디자인·UX 담당자 및 백엔드 개발자와 협업하며 화면 상태와 예외 처리를 보완했습니다.",
@@ -34,7 +35,14 @@ const work = [
     link: { label: "서비스 보기", href: "https://kkosunbox.com/" },
   },
   {
-    id: "e-parts", number: "03", name: "E-PARTS", category: "중고차 부품 거래",
+    id: "ppallijwo", number: "03", name: "빨리줘", category: "법률 의뢰·결제 MVP",
+    title: "인증에서 결제 상태 변화까지.",
+    context: "티피엘엔디 · 2025.02 · 백엔드 개발 담당",
+    paragraphs: ["Next.js·NestJS 모노레포에서 백엔드를 담당했습니다. 인증·결제 API와 PG 연동을 구현했습니다.", "결제 요청 이후의 상태 변화를 처리하고, 외부 PG 응답을 서비스의 의뢰·결제 흐름에 연결했습니다."],
+    skills: ["NestJS", "인증 API", "PG 연동", "결제 상태 처리"],
+  },
+  {
+    id: "e-parts", number: "04", name: "E-PARTS", category: "중고차 부품 거래",
     title: "역할별 화면에서 배포 환경까지.",
     context: "티피엘엔디 · 2025.05–2025.07 · 선임 프론트엔드 개발자",
     paragraphs: [
@@ -44,7 +52,7 @@ const work = [
     skills: ["Remix", "SSR", "AWS EC2", "Docker · Nginx"],
   },
   {
-    id: "mohan", number: "04", name: "모하N", category: "영상 처리 · 운영 도구",
+    id: "mohan", number: "05", name: "모하N", category: "영상 처리 · 운영 도구",
     title: "영상을 처리하고, 여러 화면으로 보내는 일.",
     context: "티피엘엔디 · 2025.04–2025.06 · 선임 프론트엔드 개발자 · Admin·영상 처리",
     paragraphs: [

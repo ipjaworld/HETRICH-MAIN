@@ -4,23 +4,29 @@ import { Suspense } from "react";
 import { LProofLatest, LProofLatestSkeleton } from "@/components/l-proof-latest";
 import { ProductCard } from "@/components/product-card";
 import { products } from "@/lib/products";
+import { ExperimentFeature } from "@/components/experiment-feature";
+import { Capabilities } from "@/components/capabilities";
 
 export default function HomePage() {
   return (
     <main id="main" className="studio-home" tabIndex={-1}>
       <section className="studio-hero" aria-labelledby="hero-title">
         <div className="studio-hero-copy">
-          <p className="eyebrow">Independent product studio · Seoul</p>
-          <h1 id="hero-title">작게 만들고,<br /><em>쓰면서 개선합니다.</em></h1>
-          <p className="studio-intro">정보를 확인하고, 계획을 기억하고, 식사를 기록하는 일.<br className="desktop-break" /> 반복해서 신경 쓰이는 일을 덜어주는 소프트웨어를 만듭니다.</p>
-          <div className="studio-hero-actions"><a className="button button-dark" href="#products">제품 둘러보기 <span aria-hidden="true">↓</span></a><Link className="text-link" href="/about">만드는 사람 <span aria-hidden="true">↗</span></Link></div>
+          <p className="eyebrow">HETRICH / Product & Development Studio</p>
+          <h1 id="hero-title">가능성은 넓히고,<br /><em>불필요한 부담은 줄입니다.</em></h1>
+          <p className="studio-intro">직접 제품을 만들고 운영하는 개발자 이건하의 스튜디오.<br className="desktop-break" /> 그 경험으로 웹 서비스와 업무 도구를 함께 만듭니다.</p>
+          <div className="studio-hero-actions"><a className="button button-dark" href="#products">제품 둘러보기 <span aria-hidden="true">↓</span></a><Link className="text-link" href="/contact">개발 의뢰·협업 <span aria-hidden="true">↗</span></Link></div>
         </div>
+        <div className="hero-footnote"><span>Independent developer · Seoul</span><a href="#capabilities">의뢰할 수 있는 일 <span aria-hidden="true">↓</span></a></div>
       </section>
       <section className="studio-products studio-section" id="products" aria-labelledby="products-title">
-        <div className="studio-section-head"><div><p className="eyebrow">Selected products</p><h2 id="products-title">일상을 돕는 작은 도구들.</h2></div></div>
+        <div className="studio-section-head"><div><p className="eyebrow">01 / Products</p><h2 id="products-title">설명보다, 써볼 수 있는 결과물.</h2></div><p>정보를 확인하고, 계획을 기억하고, 식사를 기록하는 일.<br />직접 만든 제품의 실제 화면입니다.</p></div>
         <div className="showcase-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         <div className="studio-products-more"><Link className="text-link" href="/products">제품별 기능과 제공 범위 <span aria-hidden="true">→</span></Link></div>
       </section>
+      <ExperimentFeature />
+      <section className="home-work studio-section" aria-labelledby="home-work-title"><div className="studio-section-head"><div><p className="eyebrow">02 / Selected work</p><h2 id="home-work-title">실무에서 다뤄온 문제들.</h2></div><p>이전 소속 조직에서의 개인 기여입니다.<br />HETRICH의 수주 실적과 구분합니다.</p></div><div className="work-overview"><Link href="/work#talkgate"><span>01 / 업무 플랫폼</span><h3>TalkGate</h3><p>고객·상담·조직 관리, 화면 상태와 메모 UI 개선.</p><span aria-hidden="true">↗</span></Link><Link href="/work#kkosunbox"><span>02 / 구독 커머스</span><h3>꼬순박스</h3><p>구독·구매·결제 흐름, 중복 요청과 예외 처리.</p><span aria-hidden="true">↗</span></Link><Link href="/work#ppallijwo"><span>03 / 인증·결제 API</span><h3>빨리줘</h3><p>법률 의뢰·결제 MVP의 백엔드와 PG 연동.</p><span aria-hidden="true">↗</span></Link></div><Link className="text-link" href="/work">담당 범위와 판단 과정 <span aria-hidden="true">→</span></Link></section>
+      <Capabilities />
       <section className="studio-process studio-section" aria-labelledby="process-title">
         <div className="studio-section-head"><div><p className="eyebrow">Build notes / How Much Calories Left</p><h2 id="process-title">반 공기는 반 공기로.<br />피드백이 바꾼 기록 방식.</h2></div></div>
         <div className="build-story">
