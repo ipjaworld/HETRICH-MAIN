@@ -8,3 +8,6 @@ Updated 2026-10-21. Sources: user-confirmed career facts and the public Notion p
 - MohaN: Admin, Node.js/FFmpeg 1–8 split composition, encoding/files/S3/multiple displays, parallel processing and caching. No measured speedup claimed.
 
 All entries describe individual contributions in prior organizations, not HETRICH client engagements. No internal source, client data, synthetic screenshots, or rebuilt MVPs are published. Optional links supplement complete summaries; no link or image is fabricated for unavailable examples.
+
+
+2026-10-22 ownership correction: TalkGate and Kkosunbox each involved sole ownership of the entire frontend implementation and frontend API integration. Design/UX decisions were collaborative, not sole product/design direction. TPLEND final rank was senior frontend developer. Home/About and Work now preserve this scope alongside concrete cases. Canonical facts: C:/Users/tbrk7/Documents/Codex/2026-10-21/5-5-5-pdf-10-21/work/career-facts-current.json.

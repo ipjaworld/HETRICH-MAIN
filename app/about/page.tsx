@@ -9,6 +9,7 @@ export default function AboutPage() { return <main id="main" className="subpage 
   <div className="founder-copy">
     <div className="founder-name"><h2 id="founder-title">이건하</h2></div>
     <p>HETRICH의 세 제품을 만들고 운영합니다. 거대한 문제를 선언하기보다, 반복해서 신경 쓰게 만드는 작은 마찰을 찾습니다.</p>
+    <p>이전 실무에서는 TalkGate와 꼬순박스의 프론트엔드 전체 구현과 API 연동을 각각 전담했습니다. 디자인·UX 담당자들과 협업하며 화면 상태와 예외 처리를 보완했고, 티피엘엔디에서는 선임 프론트엔드 개발자로 근무했습니다.</p>
     <p>제품을 실제로 배포한 뒤 드러나는 예외와 운영 부담을 다음 설계에 반영합니다. AI는 조사와 정리, 반복 실행을 넓히고, 기준과 승인에 대한 책임은 사람이 갖는 방식을 선호합니다.</p>
     <p>이 사이트 역시 한 번에 완성된 시스템이 아니라, 제품과 발행물이 늘어날 때 필요한 구조를 먼저 만든 결과입니다.</p>
     <a className="text-link" href="https://github.com/ipjaworld" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
