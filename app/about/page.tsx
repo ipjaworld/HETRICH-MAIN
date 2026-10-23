@@ -37,7 +37,7 @@ export default function AboutPage() {
         <p>일이 바쁜 날에는 뉴스레터를 읽어도 내용을 제 일과 연결할 여유가 없었습니다. 그래서 L-Proof에는 소식의 의미를 해석하는 관점을 담았습니다. 그 해석에 동의하지 않더라도 직접 판단할 수 있게 근거를 함께 남깁니다.</p>
         <p>이전 실무에서는 업무 플랫폼과 구독 커머스의 프론트엔드 전체 구현과 API 연동을 각각 전담했습니다. 디자인·UX 담당자들과 협업하며 실제 입력 방식과 화면의 예외를 살폈습니다. 직접 운영하는 제품에서도 쓰는 사람의 반응을 다음 수정에 반영합니다.</p>
         <p>앞으로도 일상과 업무에서 발견한 질문을 작은 제품으로 시험하고, 다른 팀의 서비스도 함께 만들고 싶습니다. 그 과정에서 제가 먼저 겪은 시행착오와 판단 기준도 나누려 합니다. 누군가 “나도 내 환경에서 해볼 수 있겠다”고 느낄 출발점을 제품과 기록으로 남기는 스튜디오를 지향합니다.</p>
-        <p>AI를 활용한 실무 경험을 글로 정리하는 집필 프로젝트도 그 시도 중 하나입니다. 현재는 경험 기록을 모아두고 다른 작업을 우선하며 잠시 미뤄둔 상태입니다. <Link className="text-link" href="/#writing">집필에 담고 싶은 경험 <span aria-hidden="true">→</span></Link></p>
+        <p><Link className="text-link" href="/#development-notes">AI 개발에서 배운 판단 기준 <span aria-hidden="true">→</span></Link></p>
         <div className="studio-hero-actions"><Link className="text-link" href="/work">실무 경험과 담당 범위 <span aria-hidden="true">→</span></Link><a className="text-link" href="https://github.com/ipjaworld" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
       </div>
     </section>

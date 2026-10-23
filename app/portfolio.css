@@ -77,23 +77,21 @@
 .studio-artwork img { display: block; width: 100%; height: auto; border-radius: 12px; }
 .studio-artwork figcaption { display: flex; justify-content: flex-end; padding-top: 1rem; font-size: .73rem; line-height: 1.8; color: var(--muted); }
 .studio-artwork figcaption span:last-child { font-family: var(--mono); font-size: .63rem; }
-.writing-notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); }
+.writing-notes { scroll-margin-top: 6.5rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); }
 .writing-intro, .writing-experiences { min-width: 0; }
 .writing-intro > .eyebrow { color: var(--blue); margin-bottom: 1.2rem; }
 .writing-intro > p:not(.eyebrow) { color: var(--muted); font-size: .95rem; line-height: 1.95; }
 .writing-intro .writing-purpose { margin-top: 1.8rem; }
-.writing-status { margin-block: 2rem 1rem; padding: 1.4rem 1.5rem; border-left: 2px solid var(--blue); background: #e9edf4; border-radius: 0 10px 10px 0; }
-.writing-status .writing-status-label { margin: 0 0 .7rem; font-size: .73rem; color: #46536a; }
-.writing-status .writing-book-name { margin: 0 0 .7rem; font-size: 1rem; font-weight: 600; }
-.writing-book-name span { font-size: .75rem; font-weight: 400; }
-.writing-status p:last-child { margin-bottom: 0; font-size: .8rem; color: #46536a; line-height: 1.85; }
+.writing-focus { margin-block: 2rem 1rem; padding: 1.4rem 1.5rem; border-left: 2px solid var(--blue); background: #e9edf4; border-radius: 0 10px 10px 0; }
+.writing-focus .writing-focus-label { margin: 0 0 .7rem; font-size: .73rem; color: #46536a; }
+.writing-focus .writing-focus-title { margin: 0 0 .7rem; font-size: 1rem; font-weight: 600; }
+.writing-focus p:last-child { margin-bottom: 0; font-size: .8rem; color: #46536a; line-height: 1.85; }
 .writing-experiences > .eyebrow { margin: 0 0 1.2rem; }
 .writing-experiences article { border-top: 1px solid var(--line); padding-block: 1.5rem; }
 .writing-index { font-size: .7rem; color: var(--blue); }
 .writing-experiences h3 { font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: 500; margin: .8rem 0; line-height: 1.55; }
 .writing-experiences article p { font-size: .87rem; line-height: 1.9; margin: 0 0 .7rem; }
 .writing-experiences .writing-lesson { color: var(--muted); margin-bottom: 0; }
-.writing-source-note { font-size: .7rem; color: var(--muted); line-height: 1.8; margin: .5rem 0 0; }
 .product-row-visual { grid-column: 2 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem; align-items: center; }
 .product-row-visual .evidence-preview { margin: 0; }
 .product-row-proof .product-row-visual { color: var(--paper); }
@@ -154,7 +152,7 @@
   .writing-project { padding-top: 8rem; }
   .writing-hero h1 { font-size: clamp(1.6rem, 7vw, 3rem); line-height: 1.5; }
   .writing-notes { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
-  .writing-status { padding: 1.2rem; }
+  .writing-focus { padding: 1.2rem; }
   .studio-hero { padding-top: 8rem; }
   .studio-hero h1 { font-size: clamp(1.85rem, 6.8vw, 2.9rem); line-height: 1.45; }
   .studio-hero-copy > .eyebrow { font-size: .57rem; letter-spacing: .03em; }

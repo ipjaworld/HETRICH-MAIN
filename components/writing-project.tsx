@@ -15,15 +15,15 @@ export function WritingProject() {
         <Image src="/images/studio-pathways.webp" width={1536} height={1024} sizes="(max-width: 1280px) 92vw, 1165px" alt="다음 사람이 시작할 수 있는 자리. 접고 고친 종이 모형들 사이에서 다리를 만들고, 갈림길에 푸른 표식을 남기는 사람." />
         <figcaption><span>HETRICH / Studio artwork</span></figcaption>
       </figure>
-      <div className="writing-notes">
+      <div className="writing-notes" id="development-notes">
         <div className="writing-intro">
-          <p className="eyebrow">Working notes / Writing project</p>
+          <p className="eyebrow">Notes from practice</p>
           <h2>만들며 배운 것을,<br />다시 꺼내 쓸 수 있는 기록으로.</h2>
-          <p className="writing-purpose">제한된 시간과 비용 안에서 AI로 실제 일을 해내려고 했습니다. 어디서 판단이 어긋났고, 무엇을 확인한 뒤 방법을 바꿨는지. 그 경험을 다른 사람도 자기 환경에 가져가 볼 수 있는 글로 남기고 싶습니다.</p>
-          <aside className="writing-status" aria-label="집필 프로젝트 현재 상태">
-            <p className="writing-status-label">경험 기록 단계 · 집필 잠시 보류</p>
-            <p className="writing-book-name">짠내나는 AI 개발 방법론 <span>(가제)</span></p>
-            <p>현재는 다른 작업을 우선하며 집필을 미뤄두었습니다. 경험 기록을 모아둔 단계로, 공개 원고와 출간 일정은 아직 없습니다.</p>
+          <p className="writing-purpose">AI로 실제 서비스를 개발하며 마주한 시행착오와, 그때마다 방법을 바꾼 이유를 기록했습니다. 비슷한 문제를 만난 사람이 자신의 환경에 맞는 답을 찾는 데 도움이 되길 바랍니다.</p>
+          <aside className="writing-focus" aria-label="개발 경험 노트의 주제">
+            <p className="writing-focus-label">개발 경험 노트</p>
+            <h3 className="writing-focus-title">AI와 일하며 쌓은 판단 기준</h3>
+            <p>어디서 작업을 나눌지, 무엇으로 결과를 확인할지, 언제 팀과 함께 결정할지. 실제 개발에서 마주한 선택을 다룹니다.</p>
           </aside>
           <Link className="text-link" href="/about">만드는 사람과 방향 <span aria-hidden="true">→</span></Link>
         </div>
@@ -39,7 +39,7 @@ export function WritingProject() {
             <span className="writing-index">02 / 완료의 기준</span>
             <h3>결과가 빨리 나왔으면, 일이 끝난 걸까?</h3>
             <p>AI가 빠르게 만든 화면이 정상 경로에서는 잘 작동했습니다. 하지만 다른 진입 경로와 상태가 겹치는 상황을 확인하면서 남은 일을 발견했습니다.</p>
-            <p className="writing-lesson">처음 결과물이 나온 시간과, 실제로 써도 되는지 확인하는 시간을 구분해 기록하려 합니다.</p>
+            <p className="writing-lesson">화면을 만드는 일과, 실제로 쓸 수 있는지 검증하는 일을 구분하게 됐습니다.</p>
           </article>
           <article>
             <span className="writing-index">03 / 함께 푸는 방법</span>
@@ -47,7 +47,6 @@ export function WritingProject() {
             <p>AI와 더 고치면 해결될 것 같아 팀과의 대화를 늦춘 적도 있습니다. 함께 책임을 나누고 결정할 위치를 정리하자, 코드 안에서 붙잡고 있던 문제가 단순해졌습니다.</p>
             <p className="writing-lesson">어떻게 구현할지와 함께, 누구와 무엇을 먼저 정해야 하는지도 묻게 됐습니다.</p>
           </article>
-          <p className="writing-source-note">집필을 위해 남긴 개인 경험을 요약했습니다. 회사와 서비스의 식별 정보는 제외했습니다.</p>
         </div>
       </div>
     </section>
