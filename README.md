@@ -30,6 +30,7 @@ L‑Proof‑AI가 아티클의 유일한 원본 발행처입니다. HETRICH는 �
 | --- | --- |
 | `/` | 브랜드 소개, 제품 요약, 최신 Insights |
 | `/products` | 제품 포트폴리오와 현재 상태 |
+| `/products/[slug]` | L-Proof, HIS, 칼로리 앱의 설계·구현 사례 및 은빛 서약 팬게임 기록 |
 | `/work` | 이전 조직에서의 개인 기여와 실무 개발 경험 |
 | `/insights` | L‑Proof‑AI 공개 발행물을 보여주는 HETRICH Hub |
 | `/about` | HETRICH와 Founder 소개 |
@@ -130,6 +131,8 @@ All rights reserved. © 2026 HETRICH.
 ## Landing verification
 
 The homepage and `/products` use the shared catalog in `lib/products.ts`. Product evidence and unresolved availability details are recorded in `docs/product-sources.md`.
+
+The 2026-10-23 studio expansion adds real public-service captures, concise product case studies, a separately attributed noncommercial fan-game experiment, professional work and development capabilities. Current source evidence, design-reference comparisons and the preserved GitHub deployment path are documented in [studio evidence](docs/studio-evidence.md). The original product apps and game rules are unchanged.
 
 Browser regression tests use Playwright and axe. Chrome must be installed; install WebKit with `npx playwright install webkit`.
 

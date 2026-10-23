@@ -15,8 +15,8 @@ test('mobile product discovery, touch navigation and rotation', async ({ page },
   const heading = await page.locator('#products-title').boundingBox();
   const header = await page.locator('.site-header').boundingBox();
   expect(heading!.y).toBeGreaterThanOrEqual(header!.height);
-  await expect(page.locator('.showcase-card')).toHaveCount(3);
-  await expect(page.locator('.showcase-status')).toHaveText(['공개 운영', '개발 버전', '초기 버전 · 사용 가능']);
+  await expect(page.locator('.showcase-card')).toHaveCount(4);
+  await expect(page.locator('.showcase-status')).toHaveText(['공개 운영', '개발 버전', '초기 버전 · 사용 가능', '출시 · 공개 이용 가능']);
   for (const link of await page.locator('.showcase-actions a, .studio-products-more a').all()) {
     const box = await link.boundingBox();
     expect(box!.height).toBeGreaterThanOrEqual(44);
@@ -31,11 +31,12 @@ test('mobile product discovery, touch navigation and rotation', async ({ page },
     await expect.poll(() => preview.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
   }
   await page.locator('#products').screenshot({ path: `outputs/${testInfo.project.name}-products.png`, style: '.site-header, .skip-link { visibility: hidden !important; }' });
-  await page.screenshot({ path: `outputs/${testInfo.project.name}-home.png`, fullPage: true });
+  // Keep device DPR for interaction; CSS-pixel output avoids WebKit's 32767px image limit on long pages.
+  await page.screenshot({ path: `outputs/${testInfo.project.name}-home.png`, fullPage: true, scale: 'css' });
 
-  await page.getByRole('link', { name: '제품별 기능과 제공 범위' }).tap();
+  await page.getByRole('link', { name: '제품별 설계와 구현' }).tap();
   await expect(page).toHaveURL(/\/products$/);
-  await expect(page.locator('.product-row')).toHaveCount(3);
+  await expect(page.locator('.product-row')).toHaveCount(4);
   await expect(page.getByRole('link', { name: 'HIS GitHub (새 탭)', exact: true })).toBeVisible();
   await page.getByRole('button', { name: '메뉴 열기' }).tap();
   await page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link', { name: 'About' }).tap();

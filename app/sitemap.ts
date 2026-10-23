@@ -3,8 +3,8 @@ import type { MetadataRoute } from "next";
 const base = "https://hetrich.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return ["", "/products", "/work", "/insights", "/about", "/contact"].map((path) => ({
+  return ["", "/products", "/products/l-proof", "/products/secretary", "/products/calories", "/products/rebemon", "/products/silver-vow", "/work", "/insights", "/about", "/contact"].map((path) => ({
     url: `${base}${path}`,
-    lastModified: new Date(path === "/work" ? "2026-10-21T00:00:00+09:00" : "2026-09-24T00:00:00+09:00"),
+    lastModified: new Date("2026-10-23T00:00:00+09:00"),
   }));
 }

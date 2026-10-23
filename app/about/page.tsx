@@ -1,17 +1,49 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
-export const metadata: Metadata = { title: "About", description: "실제 흐름을 위한 작은 AI 제품을 만드는 독립 제품 스튜디오 HETRICH와 Founder 이건하를 소개합니다.", alternates: { canonical: "/about" }, openGraph: { title: "About — HETRICH", description: "HETRICH와 Founder 이건하가 제품을 만드는 방식", url: "/about" } };
-export default function AboutPage() { return <main id="main" className="subpage about-page"><header className="page-hero about-page-hero"><p className="eyebrow">About / Independent studio</p><h1>작은 제품이<br />실제 흐름을 바꾸도록.</h1><p>HETRICH는 실용적인 AI 시스템과 작은 소프트웨어 제품을 만드는 독립 제품 스튜디오입니다.</p></header><section className="about-studio"><p className="eyebrow">01 / HETRICH</p><div><h2>가능성보다<br />맡길 수 있는 역할을 봅니다.</h2><div className="prose-columns"><p>AI를 하나의 답변창이 아니라 생활과 업무 안에서 계속 작동하는 시스템으로 만듭니다. 정보 검증, 기억, 기록처럼 반복되는 흐름에서 AI가 실제로 맡을 수 있는 작은 역할부터 찾습니다.</p><p>범위를 작게 잡고 먼저 사용합니다. 자동화가 외부 세계에 영향을 주기 전에는 사람이 판단할 지점을 남기고, 제품이 하지 못하는 일도 숨기지 않습니다.</p></div></div></section><section className="founder-section" aria-labelledby="founder-title">
-  <p className="eyebrow">02 / Founder</p>
-  <figure className="founder-photo">
-    <Image className="founder-portrait" src="/images/founder/geonha-portrait.webp" alt="HETRICH를 만드는 개발자 이건하" width={960} height={1200} sizes="(max-width: 700px) 78vw, 320px" />
-  </figure>
-  <div className="founder-copy">
-    <div className="founder-name"><h2 id="founder-title">이건하</h2></div>
-    <p>HETRICH의 세 제품을 만들고 운영합니다. 거대한 문제를 선언하기보다, 반복해서 신경 쓰게 만드는 작은 마찰을 찾습니다.</p>
-    <p>이전 실무에서는 TalkGate와 꼬순박스의 프론트엔드 전체 구현과 API 연동을 각각 전담했습니다. 디자인·UX 담당자들과 협업하며 화면 상태와 예외 처리를 보완했고, 티피엘엔디에서는 선임 프론트엔드 개발자로 근무했습니다.</p>
-    <p>제품을 실제로 배포한 뒤 드러나는 예외와 운영 부담을 다음 설계에 반영합니다. AI는 조사와 정리, 반복 실행을 넓히고, 기준과 승인에 대한 책임은 사람이 갖는 방식을 선호합니다.</p>
-    <p>이 사이트 역시 한 번에 완성된 시스템이 아니라, 제품과 발행물이 늘어날 때 필요한 구조를 먼저 만든 결과입니다.</p>
-    <a className="text-link" href="https://github.com/ipjaworld" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-  </div>
-</section><section className="about-principles"><p className="eyebrow">Working principles</p><ul><li>Small scope, real use.</li><li>Evidence before assumption.</li><li>Humans at critical decisions.</li><li>Transparent product boundaries.</li></ul></section></main>; }
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "어떤 고민을 덜고 어떤 선택을 남길지, 직접 만든 제품으로 제안하는 개발자 이건하와 HETRICH의 이야기입니다.",
+  alternates: { canonical: "/about" },
+  openGraph: { title: "About — HETRICH", description: "HETRICH와 개발자 이건하가 제품을 만드는 방식", url: "/about" },
+};
+
+export default function AboutPage() {
+  return <main id="main" className="subpage about-page" tabIndex={-1}>
+    <header className="page-hero about-page-hero">
+      <p className="eyebrow">About / Independent studio</p>
+      <h1>어떤 경험이 좋을지,<br />직접 만들어 제안합니다.</h1>
+      <p>HETRICH는 개발자 이건하가 제품을 직접 만들고 운영하며, 웹 서비스와 업무 도구 개발을 함께하는 1인 제품·개발 스튜디오입니다.</p>
+    </header>
+    <section className="about-studio">
+      <p className="eyebrow">01 / HETRICH</p>
+      <div>
+        <h2>여기서 꼭 고민해야 하는 일은<br />무엇일까요?</h2>
+        <div className="prose-columns">
+          <p>AI에게 무엇이든 요청할 수 있어도, 무엇을 말할지 정하고 의도와 다른 결과를 고치는 일은 여전히 사람의 몫입니다. HETRICH는 그 과정에서 제품이 먼저 정리할 수 있는 부분을 찾습니다. 정보를 읽을 출발점, 계획을 남기는 방식, 결과를 고칠 방법을 고민합니다.</p>
+          <p>사람마다 쓸 수 있는 시간과 익숙한 방식은 다릅니다. 익히는 속도나 이용 빈도가 달라도 필요한 경험에 닿을 수 있게 만들고 싶습니다. 그 안에서 취향을 발견하고 다음 선택을 고민하는 즐거움은 남겨두려 합니다.</p>
+        </div>
+      </div>
+    </section>
+    <section className="founder-section" aria-labelledby="founder-title">
+      <p className="eyebrow">02 / Founder</p>
+      <figure className="founder-photo">
+        <Image className="founder-portrait" src="/images/founder/geonha-portrait.webp" alt="HETRICH를 만드는 개발자 이건하" width={960} height={1200} sizes="(max-width: 700px) 78vw, 320px" />
+      </figure>
+      <div className="founder-copy">
+        <div className="founder-name"><h2 id="founder-title">이건하</h2></div>
+        <p>“이렇게 해보면 어떨까?” 하는 생각을 직접 확인하는 걸 좋아합니다. 생활 도구도 만들고, 게임의 선택과 규칙도 궁리합니다. 제가 찾은 방법이 누군가에게 쓸모가 있을 때, 계속 만들어볼 이유가 생깁니다.</p>
+        <p>일이 바쁜 날에는 뉴스레터를 읽어도 내용을 제 일과 연결할 여유가 없었습니다. 그래서 L-Proof에는 소식의 의미를 해석하는 관점을 담았습니다. 독자가 제 관점을 검토하고 자신의 판단을 내릴 수 있도록 근거를 함께 남깁니다.</p>
+        <p>이전 실무에서는 업무 플랫폼과 구독 커머스의 프론트엔드 전체 구현과 API 연동을 각각 전담했습니다. 디자인·UX 담당자들과 협업하며 실제 입력 방식과 화면의 예외를 살폈습니다. 직접 운영하는 제품에서도 쓰는 사람의 반응을 다음 수정에 반영합니다.</p>
+        <p>직접 제품을 만들며 얻은 경험을 다른 팀의 개발에도 연결하고 싶습니다. 그 과정에서 얻은 판단 기준을 기록하고 나눕니다. 누군가 “나도 내 환경에서 해볼 수 있겠다”고 느낄 출발점을 제품과 기록으로 남기는 스튜디오를 지향합니다.</p>
+        <p><Link className="text-link" href="/#development-notes">AI 개발에서 배운 판단 기준 <span aria-hidden="true">→</span></Link></p>
+        <div className="studio-hero-actions"><Link className="text-link" href="/work">실무 경험과 담당 범위 <span aria-hidden="true">→</span></Link><a className="text-link" href="https://github.com/ipjaworld" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
+      </div>
+    </section>
+    <section className="about-principles">
+      <p className="eyebrow">만들면서 지키려는 것</p>
+      <ul><li>먼저 써볼 수 있게 만듭니다.</li><li>선택한 이유와 근거를 남깁니다.</li><li>어긋난 결과를 고칠 길을 둡니다.</li><li>쓰는 사람의 반응으로 다듬습니다.</li></ul>
+    </section>
+  </main>;
+}

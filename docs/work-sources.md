@@ -1,5 +1,7 @@
 # Selected Work content provenance
 
+2026-10-23 update: Compared the 2026-10-21 resume and career portfolio with the owner-corrected 2026-10-22 facts. Added TalkGate memo-input observation and collaborative common memo UI improvement; added 빨리줘 (2025.02) backend authentication/payment API, PG integration and payment-state handling. Original private material is not copied into the repository. See [studio evidence](studio-evidence.md).
+
 Updated 2026-10-21. Sources: user-confirmed career facts and the public Notion portfolio https://app.notion.com/p/b8a18220efaf4e25ab2791d1a729ba2a ; TalkGate detail https://app.notion.com/p/4006b63744898152a2afe2c64c1a8c3e .
 
 - TalkGate: frontend implementation, API integration, cache correction and subsequent queries, tablet scaling proposal, modal interactions. Requirements/basic UX and visual design are collaborators' responsibilities. No independent UX redesign or new retry guarantees.
