@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/product-card";
 import { products } from "@/lib/products";
 import { ExperimentFeature } from "@/components/experiment-feature";
 import { Capabilities } from "@/components/capabilities";
+import { WritingProject } from "@/components/writing-project";
 
 export default function HomePage() {
   return (
@@ -65,6 +66,7 @@ export default function HomePage() {
         </div>
         <div className="build-story-footer"><p>공개 저장소 구현 기준 · 실제 제공 범위는 앱에서 확인할 수 있습니다.</p><a className="text-link" href="https://github.com/ipjaworld/HowMuchCaloriesLeft/tree/f4c19b9" target="_blank" rel="noreferrer">개선 코드 살펴보기 <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
       </section>
+      <WritingProject />
       <section className="studio-insights studio-section" aria-labelledby="insights-title">
         <div className="studio-section-head"><div><p className="eyebrow">From L‑Proof AI</p><h2 id="insights-title">최근에 전한 이야기.</h2></div><p>직접 운영하는 AI 개발 브리핑에서<br />최근 발행한 글을 모았습니다.</p></div>
         <Suspense fallback={<LProofLatestSkeleton />}><LProofLatest /></Suspense>
