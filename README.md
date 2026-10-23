@@ -76,7 +76,22 @@ npm start
 
 Contact 폼은 이름, 이메일, 문의 유형, 본문 길이를 브라우저와 서버 양쪽에서 검사합니다. 숨은 honeypot 필드와 요청 크기 제한도 적용되어 있습니다.
 
-서버에서 문의를 전달하려면 아래 환경 변수를 배포 환경에 설정합니다.
+Resend로 직접 이메일을 전달하려면 발송 도메인을 인증한 뒤 아래 서버 전용 환경 변수를 Vercel에 설정합니다. 실제 비밀 값은 채팅이나 저장소에 넣지 않고 Vercel 환경 변수 화면에 직접 등록합니다.
+
+```bash
+RESEND_API_KEY=your-sending-access-key
+CONTACT_FROM_EMAIL=HETRICH <contact@your-verified-domain.example>
+```
+
+- 수신자는 `this_is_laugh@naver.com`으로 고정됩니다. 방문자 이메일은 `Reply-To`로만 사용하며 임의 수신자에게 발송하지 않습니다.
+- Production에 설정하고 기존 GitHub → Vercel 배포를 거쳐 적용합니다. Preview 테스트에는 별도의 테스트 설정을 사용합니다.
+- Resend의 메일 ID가 반환되어야 접수 성공으로 처리합니다. 공급자 접수와 실제 받은편지함 도착은 구분하며, 최초 활성화 후 수신 확인이 필요합니다.
+- 전송 중 입력과 재전송을 막고, 실패하면 입력을 보존합니다. 서버는 최대 10초, 브라우저는 최대 15초 대기합니다.
+- JSON 본문 크기(24KB)는 Content-Length가 없는 요청에도 적용됩니다. 입력 검증, honeypot, 브라우저 Origin/Host 검사도 적용합니다. 공개 API이므로 이 검사가 분산 스팸 제한을 대체하지는 않습니다. 운영 시 Vercel Firewall에서 `/api/contact`의 요청 제한을 설정할 수 있습니다.
+- `npm run test:contact`는 실제 메일을 보내지 않고 입력·전달·실패 경계를 검증합니다.
+- 공식 설정 문서: [Resend 도메인 인증](https://resend.com/docs/dashboard/domains/introduction), [메일 발송 API](https://resend.com/docs/api-reference/emails/send-email).
+
+기존 JSON 웹훅도 대안으로 지원합니다. 두 방식이 모두 설정되어 있으면 Resend가 우선합니다.
 
 ```bash
 CONTACT_WEBHOOK_URL=https://example.com/contact-webhook
@@ -85,7 +100,7 @@ CONTACT_WEBHOOK_BEARER_TOKEN=optional-secret
 
 - `CONTACT_WEBHOOK_URL`은 JSON `POST`를 받을 수 있는 HTTPS 엔드포인트입니다.
 - `CONTACT_WEBHOOK_BEARER_TOKEN`은 선택 사항이며 설정 시 `Authorization: Bearer ...` 헤더로 전달됩니다.
-- 웹훅이 없으면 API는 `503 not_configured`를 반환합니다. 성공한 것처럼 표시하지 않으며, 화면에서 직접 이메일 연락을 안내합니다.
+- 두 전송 방식 모두 미설정이면 API는 `503 not_configured`를 반환합니다. 폼을 숨기고 직접 이메일을 안내합니다. 설정 이름만 등록된 빈 값은 활성화로 취급하지 않습니다.
 - 비밀 값은 저장소에 커밋하지 않습니다. `.env.example`에는 변수 이름만 포함되어 있습니다.
 
 ## 주요 디렉터리

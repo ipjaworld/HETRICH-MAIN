@@ -13,7 +13,8 @@
     "start": "next start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern .sites-runtime --ignore-pattern .wrangler",
     "db:generate": "drizzle-kit generate",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:contact": "node --test tests/contact-server.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

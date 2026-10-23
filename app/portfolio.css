@@ -197,3 +197,38 @@
   .evidence-preview img, .experiment-image img { transition: none; }
   .showcase-card, .experiment-panel, .capability { animation: none; transform: none; }
 }
+
+/* Contact gives the invitation full width and keeps both contact methods together. */
+.contact-page .contact-page-hero { display: block; padding-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+.contact-page-hero .eyebrow { margin-bottom: 1.5rem; }
+.contact-page .contact-page-hero h1 { max-width: 18ch; font-size: clamp(2rem, 4.5vw, 4rem); line-height: 1.35; overflow-wrap: normal; }
+.contact-page-hero h1 span { display: block; text-wrap: balance; }
+.contact-page .contact-page-hero>p:last-child { max-width: 43rem; margin: 1.5rem 0 0; line-height: 1.9; text-wrap: pretty; }
+.contact-page .contact-layout { padding-top: 0; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+.contact-page .contact-note h2, .contact-page .contact-form h2 { margin: 0 0 1rem; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.4; font-weight: 500; text-wrap: balance; overflow-wrap: normal; }
+.contact-note>.eyebrow { margin-bottom: 1rem; }
+.contact-note>p:not(.eyebrow) { max-width: 25rem; line-height: 1.9; }
+.contact-note>.button { margin-top: .75rem; }
+.contact-note .copy-email { max-width: 100%; text-align: left; font-size: .85rem; }
+.contact-guide { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #d8d9d1; }
+.contact-guide h3 { font-size: 1rem; font-weight: 500; }
+.contact-guide p { color: var(--muted); font-size: .9rem; line-height: 1.9; text-wrap: pretty; }
+.contact-guide strong { display: block; font-weight: 500; color: var(--ink); }
+.contact-page .contact-form { width: 100%; max-width: none; padding: clamp(1.25rem, 3vw, 2.5rem); background: #eeeee8; box-shadow: none; }
+.contact-form>.eyebrow { margin-bottom: 1rem; }
+.contact-form-intro { margin: 0 0 2rem; color: var(--muted); font-size: .9rem; }
+.contact-form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.contact-form fieldset:disabled { opacity: .65; }
+.contact-form input, .contact-form select, .contact-form textarea { font-size: 1rem; }
+.contact-form .form-grid { gap: 0 1rem; }
+.contact-form .contact-privacy { font-size: .8rem; color: var(--muted); line-height: 1.7; margin: 0 0 1.25rem; }
+.contact-form .form-status { font-size: .9rem; }
+@media (max-width: 900px) {
+  .contact-page .contact-layout { grid-template-columns: minmax(0, 1fr); }
+  .contact-page .contact-note { max-width: none; }
+  .contact-note>p:not(.eyebrow) { max-width: 40rem; }
+}
+@media (max-width: 700px) {
+  .contact-page .contact-page-hero { padding-top: 4rem; }
+  .contact-page .contact-page-hero h1 { font-size: clamp(1.75rem, 6.8vw, 2.7rem); }
+}
