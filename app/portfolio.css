@@ -65,7 +65,19 @@
 .capability p { color: var(--muted); font-size: .9rem; }
 .capability .text-link { font-size: .73rem; }
 .studio-process { margin-top: 5rem; }
-.writing-project { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); scroll-margin-top: 5rem; }
+.writing-project { padding-top: clamp(9rem, 12vw, 11rem); scroll-margin-top: 5rem; }
+.writing-hero { padding-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+.writing-hero > .eyebrow { margin-bottom: 1.6rem; color: var(--blue); }
+.writing-hero h1 { margin: 0; font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 500; letter-spacing: -.055em; line-height: 1.4; word-break: keep-all; }
+.writing-hero h1 em { font-style: normal; color: var(--blue); }
+.writing-hero-purpose { font-size: clamp(1rem, 1.5vw, 1.2rem); line-height: 1.9; margin: 1.8rem 0 1rem; }
+.writing-hero-identity { font-size: .85rem; color: var(--muted); line-height: 1.9; margin: 0; }
+.writing-hero .studio-hero-actions { justify-content: flex-start; margin-top: 1.8rem; }
+.studio-artwork { margin: 0 0 clamp(4rem, 7vw, 6.5rem); }
+.studio-artwork img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.studio-artwork figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 2rem; padding-top: 1rem; font-size: .73rem; line-height: 1.8; color: var(--muted); }
+.studio-artwork figcaption span:last-child { font-family: var(--mono); font-size: .63rem; }
+.writing-notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); }
 .writing-intro, .writing-experiences { min-width: 0; }
 .writing-intro > .eyebrow { color: var(--blue); margin-bottom: 1.2rem; }
 .writing-intro > p:not(.eyebrow) { color: var(--muted); font-size: .95rem; line-height: 1.95; }
@@ -139,7 +151,9 @@
   .capability-grid { gap: 1.5rem; }
 }
 @media (max-width: 700px) {
-  .writing-project { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+  .writing-project { padding-top: 8rem; }
+  .writing-hero h1 { font-size: clamp(1.6rem, 7vw, 3rem); line-height: 1.5; }
+  .writing-notes { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
   .writing-status { padding: 1.2rem; }
   .studio-hero { padding-top: 8rem; }
   .studio-hero h1 { font-size: clamp(1.85rem, 6.8vw, 2.9rem); line-height: 1.45; }

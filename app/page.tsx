@@ -11,15 +11,7 @@ import { WritingProject } from "@/components/writing-project";
 export default function HomePage() {
   return (
     <main id="main" className="studio-home" tabIndex={-1}>
-      <section className="studio-hero" aria-labelledby="hero-title">
-        <div className="studio-hero-copy">
-          <p className="eyebrow">HETRICH / Product & Development Studio</p>
-          <h1 id="hero-title">생각하고 싶은 일에,<br /><em>집중할 수 있도록.</em></h1>
-          <p className="studio-intro">매번 정리하고 설명해야 하는 일을 제품 안에서 먼저 고민합니다.<br className="desktop-break" /> 직접 제품을 운영하는 개발자 이건하의 스튜디오. 웹 서비스와 업무 도구를 함께 만듭니다.</p>
-          <div className="studio-hero-actions"><a className="button button-dark" href="#products">제품 둘러보기 <span aria-hidden="true">↓</span></a><Link className="text-link" href="/contact">개발 의뢰·협업 <span aria-hidden="true">↗</span></Link></div>
-        </div>
-        <div className="hero-footnote"><span>Independent developer · Seoul</span><a href="#capabilities">의뢰할 수 있는 일 <span aria-hidden="true">↓</span></a></div>
-      </section>
+      <WritingProject />
       <section className="studio-products studio-section" id="products" aria-labelledby="products-title">
         <div className="studio-section-head"><div><p className="eyebrow">01 / Products</p><h2 id="products-title">이렇게 풀어봤습니다.</h2></div><p>일상의 기록부터 게임 속 다음 사냥터까지.<br />생활 속 질문에서 시작해 직접 만든 제품입니다.</p></div>
         <div className="showcase-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
@@ -66,7 +58,6 @@ export default function HomePage() {
         </div>
         <div className="build-story-footer"><p>공개 저장소 구현 기준 · 실제 제공 범위는 앱에서 확인할 수 있습니다.</p><a className="text-link" href="https://github.com/ipjaworld/HowMuchCaloriesLeft/tree/f4c19b9" target="_blank" rel="noreferrer">개선 코드 살펴보기 <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
       </section>
-      <WritingProject />
       <section className="studio-insights studio-section" aria-labelledby="insights-title">
         <div className="studio-section-head"><div><p className="eyebrow">From L‑Proof AI</p><h2 id="insights-title">최근에 전한 이야기.</h2></div><p>직접 운영하는 AI 개발 브리핑에서<br />최근 발행한 글을 모았습니다.</p></div>
         <Suspense fallback={<LProofLatestSkeleton />}><LProofLatest /></Suspense>
