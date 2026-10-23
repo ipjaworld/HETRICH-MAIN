@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Products", description: "HETRICH가 
 
 export default function ProductsPage() {
   return <main id="main" className="subpage" tabIndex={-1}>
-    <header className="page-hero products-page-hero"><p className="eyebrow">Products / Current work</p><h1>작은 범위에서<br />실제로 작동하는 제품.</h1><p>운영 중인 제품과 개발 중인 제품의 현재 기능, 개선 내용, 사용할 수 있는 범위를 함께 소개합니다.</p></header>
+    <header className="page-hero products-page-hero"><p className="eyebrow">Products / Current work</p><h1>생활 속 질문을<br />써볼 수 있는 제품으로.</h1><p>어디서 불편했는지, 어떤 방법을 택했는지, 지금 어디까지 쓸 수 있는지. 직접 만든 도구와 실험을 소개합니다.</p></header>
     <section className="product-index" aria-label="HETRICH 제품 목록">{products.map((product) => <article className={`product-row product-row-${product.theme}`} key={product.id}>
       <div className="product-row-number">{product.number}</div>
       <div className="product-row-title"><span className={`status${product.status === "Live" ? " status-live" : " status-building"}`}>{product.status} · {product.stage}</span><h2>{product.name}</h2>{"fullName" in product && <p className="product-full-name">{product.fullName}</p>}<p>{product.category}</p></div>
