@@ -152,7 +152,7 @@ for (const width of [320, 768, 1440, 1920]) {
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.getByRole('article')).toHaveCount(5);
-    await expect(page.getByText('HETRICH의 수주·제작 실적과 구분합니다.', { exact: false })).toBeVisible();
+    await expect(page.getByText('개발자 이건하가 이전 조직에서 수행한 프로젝트의 담당 범위와 문제 해결 과정을 소개합니다.')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
     const clipped = await page.locator('h1,h2,h3,p').evaluateAll(nodes => nodes.filter(n => n.scrollWidth > n.clientWidth + 1).map(n => n.textContent));
     expect(clipped).toEqual([]);
