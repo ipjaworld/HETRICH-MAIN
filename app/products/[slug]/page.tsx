@@ -1,3 +1,4 @@
+import { socialShareImage } from "@/lib/site-metadata";
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const name = slug === experiment.id ? experiment.name : product?.name;
   if (!name) notFound();
   const description = slug === experiment.id ? '제한된 선택으로 추리와 관계 형성을 함께 탐색한 비상업 팬게임의 설계 기록.' : product!.homeSummary;
-  return { title: name, description, alternates: { canonical: `/products/${slug}` }, openGraph: { title: `${name} — HETRICH`, description, url: `/products/${slug}` } };
+  return { title: name, description, alternates: { canonical: `/products/${slug}` }, openGraph: { images: [socialShareImage], title: `${name} — HETRICH`, description, url: `/products/${slug}` } };
 }
 
 export default async function ProductStory({ params }: Props) {

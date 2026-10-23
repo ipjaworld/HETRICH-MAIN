@@ -1,3 +1,4 @@
+import { socialShareImage } from "@/lib/site-metadata";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
   title: "Selected Work",
   description: "이건하가 이전 조직에서 맡았던 업무 플랫폼, 구독 커머스, 관리자 도구와 영상 처리의 개발 경험입니다.",
   alternates: { canonical: "/work" },
-  openGraph: { title: "Selected Work — HETRICH", description: "맡아온 일, 해결해 온 문제. 이건하의 실무 개발 경험.", url: "/work" },
+  openGraph: { images: [socialShareImage], title: "Selected Work — HETRICH", description: "맡아온 일, 해결해 온 문제. 이건하의 실무 개발 경험.", url: "/work" },
 };
 
 const work = [

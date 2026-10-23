@@ -1,3 +1,4 @@
+import { socialShareImage } from "@/lib/site-metadata";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -6,7 +7,7 @@ export const metadata: Metadata = {
   title: "About",
   description: "어떤 고민을 덜고 어떤 선택을 남길지, 직접 만든 제품으로 제안하는 개발자 이건하와 HETRICH의 이야기입니다.",
   alternates: { canonical: "/about" },
-  openGraph: { title: "About — HETRICH", description: "HETRICH와 개발자 이건하가 제품을 만드는 방식", url: "/about" },
+  openGraph: { images: [socialShareImage], title: "About — HETRICH", description: "HETRICH와 개발자 이건하가 제품을 만드는 방식", url: "/about" },
 };
 
 export default function AboutPage() {
