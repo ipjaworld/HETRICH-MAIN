@@ -20,7 +20,7 @@ export default function HomePage() {
         <div className="hero-footnote"><span>Independent developer · Seoul</span><a href="#capabilities">의뢰할 수 있는 일 <span aria-hidden="true">↓</span></a></div>
       </section>
       <section className="studio-products studio-section" id="products" aria-labelledby="products-title">
-        <div className="studio-section-head"><div><p className="eyebrow">01 / Products</p><h2 id="products-title">이렇게 풀어봤습니다.</h2></div><p>바쁜 날의 뉴스, 아직 느슨한 계획, 오늘 먹은 한 끼.<br />생활 속 질문에서 시작해 직접 만든 제품입니다.</p></div>
+        <div className="studio-section-head"><div><p className="eyebrow">01 / Products</p><h2 id="products-title">이렇게 풀어봤습니다.</h2></div><p>일상의 기록부터 게임 속 다음 사냥터까지.<br />생활 속 질문에서 시작해 직접 만든 제품입니다.</p></div>
         <div className="showcase-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         <div className="studio-products-more"><Link className="text-link" href="/products">제품별 기능과 제공 범위 <span aria-hidden="true">→</span></Link></div>
       </section>

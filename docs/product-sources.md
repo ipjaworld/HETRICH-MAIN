@@ -38,3 +38,7 @@ Product visuals: owner-supplied L-Proof article list and HIS development screens
 
 ### 실제 칼로리 화면 추가
 사용자가 제공한 실제 기록 화면을 public/products/calories-record.png로 반영했다. 이전 입력 예시 패널을 교체하고, 목록에서는 남은 칼로리와 음식 기록 일부를 보여준다. 44px 이상의 '기록·수정 화면 크게 보기' 링크에서 원본 전체와 하단의 200g → 250g 수정 결과를 확인할 수 있다. 별도 목업이나 계산값을 합성하지 않았다. 칼로리 앱의 화면 자료 요청은 충족되었으며, 분수 입력 전후·별도 대화 기록 화면·현재 배포 기능 범위는 이 한 장만으로 확인하지 않는다.
+
+## 레범몬 추가 — 2026-10-23
+
+공개 서비스 https://www.rebemon.xyz/ 와 공개 저장소 https://github.com/ipjaworld/LeBemMon-FE 를 확인하고 자체 제품에 추가했습니다. 상태는 `Released · 출시 · 공개 이용 가능`입니다. 레벨 범위·지역 필터, 이벤트 알파벳 조회, 장비·추가 옵션 스탯 계산을 직접 조작했습니다. 지속적인 고도화, 현재 게임 이벤트 개최 여부나 이용자 수는 주장하지 않습니다. 상세 근거와 검증 한계는 [rebemon-evidence.md](rebemon-evidence.md)에 기록했습니다.

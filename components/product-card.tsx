@@ -7,7 +7,7 @@ export function ProductPreview({ product }: { product: Product }) {
   const story = stories[product.id];
   return <figure className={`product-preview evidence-preview evidence-${product.theme}`}>
     <Link href={`/products/${product.id}`} className="evidence-image" aria-label={`${product.name} 제품 사례 보기`}>
-      <Image src={story.image} width={story.width} height={story.height} sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 360px" alt={story.alt} />
+      <Image src={story.image} width={story.width} height={story.height} sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 560px" alt={story.alt} />
       <span className="preview-open" aria-hidden="true">↗</span>
     </Link>
     <figcaption>{story.caption}</figcaption>

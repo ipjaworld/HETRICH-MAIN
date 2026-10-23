@@ -22,7 +22,7 @@ for (const width of [320, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
-    for (const slug of ['l-proof', 'secretary', 'calories', 'silver-vow']) {
+    for (const slug of ['l-proof', 'secretary', 'calories', 'rebemon', 'silver-vow']) {
       await page.goto(`/products/${slug}`);
       await page.evaluate(() => document.fonts.ready);
       await expect(page.locator('h1')).toHaveCount(1);
@@ -52,5 +52,7 @@ test('unknown product returns a genuine 404 and sitemap includes cases', async (
   const response = await page.goto('/products/not-a-product');
   expect(response?.status()).toBe(404);
   const sitemap = await request.get('/sitemap.xml');
-  expect(await sitemap.text()).toContain('https://hetrich.com/products/silver-vow');
+  const xml = await sitemap.text();
+  expect(xml).toContain('https://hetrich.com/products/silver-vow');
+  expect(xml).toContain('https://hetrich.com/products/rebemon');
 });

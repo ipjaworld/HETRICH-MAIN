@@ -26,11 +26,24 @@ export default async function ProductStory({ params }: Props) {
     <header className="case-hero"><Link className="text-link case-back" href="/products">← 모든 제품</Link><p className="eyebrow">{product.category} / {product.stage}</p><h1>{product.name}</h1><p className="case-lead">{product.lead}</p><div className="studio-hero-actions"><a className="button button-dark" href={product.service} target="_blank" rel="noreferrer">{product.serviceLabel} ↗<span className="sr-only"> (새 탭)</span></a><a className="text-link" href={product.github} target="_blank" rel="noreferrer">GitHub ↗<span className="sr-only"> (새 탭)</span></a></div></header>
     <div className="case-layout"><figure className="case-screen"><a href={story.image} target="_blank" rel="noreferrer" aria-label={`${product.name} 실제 화면 크게 보기 (새 탭)`}><Image src={story.image} width={story.width} height={story.height} sizes="(max-width: 700px) 90vw, 55vw" alt={story.alt} /></a><figcaption>{story.caption} · 이미지를 누르면 크게 볼 수 있습니다.</figcaption></figure><div className="case-narrative"><section><p className="eyebrow">01 / 출발점</p><h2>{story.question}</h2><p>{story.decision}</p><p>{story.choice}</p></section><section><p className="eyebrow">02 / 구현한 경험</p><ul>{story.implemented.map(item => <li key={item}>{item}</li>)}</ul><p className="case-boundary">{story.boundary}</p></section><section><p className="eyebrow">03 / 다음 판단</p><p>{story.next}</p></section></div></div>
     {product.id === 'calories' && <section className="case-extra"><h2>반 공기는 반 공기로.</h2><p>2026년 10월의 사용자 피드백에서 분수 입력과 계산 내역을 확인하기 어렵다는 점을 발견했습니다. 1/2·0.5·‘반’의 해석을 보완하고, 음식별 양과 칼로리, 기본량을 적용한 이유를 응답에 담았습니다.</p><a className="text-link" href="/products/calories-record.png" target="_blank" rel="noreferrer">기존 기록·수정 실제 화면 ↗<span className="sr-only"> (새 탭)</span></a></section>}
+    {product.id === 'rebemon' && <RebemonDetails />}
     <CaseClosing />
   </main>;
 }
 
 function CaseClosing() { return <section className="case-closing"><p>비슷한 문제를 풀고 있다면</p><Link className="text-link" href="/contact">함께 만들고 싶은 일 이야기하기 <span aria-hidden="true">↗</span></Link><Link className="text-link" href="/products">다른 제품 보기 <span aria-hidden="true">→</span></Link></section>; }
+
+function RebemonDetails() {
+  return <section className="case-extra rebemon-details" aria-labelledby="rebemon-details-title">
+    <p className="eyebrow">04 / 검색 다음의 선택</p>
+    <h2 id="rebemon-details-title">찾은 정보를, 내 상황에 맞춰 비교하기.</h2>
+    <div className="case-gallery">
+      <figure><a href="/products/rebemon-event.webp" target="_blank" rel="noreferrer" aria-label="레범몬 이벤트 조회 실제 화면 크게 보기 (새 탭)"><Image src="/products/rebemon-event.webp" width={1270} height={1000} sizes="(max-width: 700px) 90vw, 45vw" alt="레범몬 이벤트 조회. 엘나스 산맥의 몬스터와 드롭 알파벳을 함께 표시하고 미확인 정보에 물음표를 붙인 화면" /></a><figcaption>이벤트 자료 조회 · 2026.10.23 촬영</figcaption><h3>자료의 빈칸도 함께 보여주기.</h3><p>지역별 또는 필요한 알파벳별로 드롭 몬스터를 찾습니다. 제보로 보완한 정보와 아직 확인되지 않은 정보를 구분해 표시했습니다.</p></figure>
+      <figure><a href="/products/rebemon-equipment.webp" target="_blank" rel="noreferrer" aria-label="레범몬 장비 시뮬레이터 실제 화면 크게 보기 (새 탭)"><Image src="/products/rebemon-equipment.webp" width={1270} height={1000} sizes="(max-width: 700px) 90vw, 45vw" alt="레범몬 장비 시뮬레이터. 마법사 스탯 자동배분 후 자쿰의 투구를 선택하고 추가 지능 5를 적용한 예시" /></a><figcaption>마법사·장비·추가 옵션 입력 예시 · 2026.10.23 촬영</figcaption><h3>장비를 바꾸기 전에 살펴보기.</h3><p>직업과 장비, 추가 옵션을 바꾸며 스탯 변화를 살펴볼 수 있습니다. 프리셋은 브라우저에 저장하도록 구현해 다시 비교할 구성을 남길 수 있습니다.</p></figure>
+    </div>
+    <div className="case-implementation"><p className="eyebrow">구현과 운영</p><h3>찾기 쉬운 화면 뒤에, 데이터를 정리하는 일.</h3><p>Next.js·React·TypeScript·Tailwind CSS로 화면을 만들고, 몬스터·아이템·지역 정보를 JSON으로 구조화했습니다. Python 스크립트로 수집·병합·검증 작업을 나누고, 검색과 필터는 브라우저에서 처리합니다.</p><p>운영 중 들어온 제보를 데이터에 반영하고, 이벤트 정보의 확인 여부를 구분하는 방식을 보완했습니다. Vercel에 공개했으며 검색 범위와 장비 프리셋은 브라우저 저장소를 사용합니다.</p><a className="text-link" href="https://github.com/ipjaworld/LeBemMon-FE" target="_blank" rel="noreferrer">공개 코드와 문서 보기 ↗<span className="sr-only"> (새 탭)</span></a></div>
+  </section>;
+}
 
 function SilverVow() {
   return <main id="main" className="case-page case-game" tabIndex={-1}><header className="case-hero"><Link className="text-link case-back" href="/products">← 모든 제품과 실험</Link><p className="eyebrow">Interactive experiment / 비상업 개인 창작</p><h1>악역영애 말포이<br /><em>은빛 서약</em></h1><p className="case-lead">단서를 좇고 마음을 읽으며, 선택의 결과를 다시 살펴보는 비주얼 노벨.</p><p className="fan-notice">{experiment.notice}</p><div className="studio-hero-actions"><a className="button button-dark" href={experiment.service} target="_blank" rel="noreferrer">팬게임 플레이 ↗<span className="sr-only"> (새 탭)</span></a><a className="text-link" href={experiment.github} target="_blank" rel="noreferrer">공개 코드 ↗<span className="sr-only"> (새 탭)</span></a></div></header>

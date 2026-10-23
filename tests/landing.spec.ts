@@ -11,7 +11,7 @@ for (const width of widths) {
     await expect(page.locator('.lproof-skeleton')).toHaveCount(0);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('.showcase-card')).toHaveCount(3);
+    await expect(page.locator('.showcase-card')).toHaveCount(4);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
     const clipped = await page.locator('h1,h2,h3,p,.showcase-card').evaluateAll(nodes => nodes.filter(node => node.scrollWidth > node.clientWidth + 1).map(node => node.textContent));
     expect(clipped).toEqual([]);
@@ -78,7 +78,7 @@ test('reduced motion, short viewport and product destinations', async ({ page })
   await page.goto('/');
   expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe('auto');
   const destinations = await page.locator('.showcase-actions .button').evaluateAll(nodes => nodes.map(node => node.getAttribute('href')));
-  expect(destinations).toEqual(['https://l-proof-ai.xyz', 'https://hetrich.vercel.app/', 'https://how-much-calories-left.vercel.app/']);
+  expect(destinations).toEqual(['https://l-proof-ai.xyz', 'https://hetrich.vercel.app/', 'https://how-much-calories-left.vercel.app/', 'https://www.rebemon.xyz/']);
   await page.getByRole('button', { name: '메뉴 열기' }).click();
   await expect(page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link', { name: 'Contact' })).toBeInViewport();
 });

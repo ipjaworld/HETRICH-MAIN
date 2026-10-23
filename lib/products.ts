@@ -36,5 +36,17 @@ export const products = [
     service: "https://how-much-calories-left.vercel.app/", serviceLabel: "앱 사용해보기",
     github: "https://github.com/ipjaworld/HowMuchCaloriesLeft",
   },
+  {
+    id: "rebemon", number: "04", theme: "rebemon", name: "메이플랜드 레범몬",
+    category: "Game companion", status: "Released", stage: "출시 · 공개 이용 가능",
+    homeStatus: "출시 · 공개 이용 가능", homeSummary: "사냥할 곳을 찾느라 여러 정보를 오가지 않도록. 레벨에 맞는 몬스터와 드롭 정보를 모아, 다음 사냥터를 고르는 일을 돕습니다.",
+    lead: "검색은 짧게, 다음 사냥터는 직접 고르게.",
+    description: "메이플랜드를 플레이하며 필요한 몬스터 정보를 빠르게 찾는 도구입니다. 레벨 범위와 지역으로 후보를 좁히고, 경험치·속성·드롭 정보를 함께 살펴볼 수 있습니다.",
+    features: ["레벨 범위·지역 필터", "이벤트 드롭 조회", "장비·스탯 시뮬레이션"],
+    progress: "레벨 검색에서 이벤트 알파벳 조회와 장비 시뮬레이터까지 확장해 공개했습니다. 자주 찾는 조건과 정보를 한곳에 모으는 데 집중했습니다.",
+    availability: "검색·이벤트 자료·장비 시뮬레이터 공개 이용 가능 · 게임 데이터와 이벤트의 최신성은 별도 확인 필요",
+    service: "https://www.rebemon.xyz/", serviceLabel: "레범몬 사용하기",
+    github: "https://github.com/ipjaworld/LeBemMon-FE",
+  },
 ] as const;
 export type Product = (typeof products)[number];
