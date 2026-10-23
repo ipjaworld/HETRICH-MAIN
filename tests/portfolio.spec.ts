@@ -5,6 +5,8 @@ test('product discovery, case studies and contact remain connected', async ({ pa
   await page.goto('/');
   await page.getByRole('link', { name: 'L‑Proof AI 설계와 구현', exact: true }).click();
   await expect(page).toHaveURL(/\/products\/l-proof$/);
+  // Client navigation can briefly retain the previous route's streamed metadata.
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://hetrich.com/products/l-proof');
   await page.getByRole('link', { name: '함께 만들고 싶은 일 이야기하기' }).click();
   await expect(page).toHaveURL(/\/contact$/);
