@@ -149,6 +149,7 @@
   .capability-grid { gap: 1.5rem; }
 }
 @media (max-width: 700px) {
+  .mobile-balanced-line { display: inline-block; max-width: 100%; text-wrap: balance; }
   .about-studio h2,
   .case-narrative h2,
   .lproof-card h3,
