@@ -31,7 +31,8 @@ test('mobile product discovery, touch navigation and rotation', async ({ page },
     await expect.poll(() => preview.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
   }
   await page.locator('#products').screenshot({ path: `outputs/${testInfo.project.name}-products.png`, style: '.site-header, .skip-link { visibility: hidden !important; }' });
-  await page.screenshot({ path: `outputs/${testInfo.project.name}-home.png`, fullPage: true });
+  // Keep device DPR for interaction; CSS-pixel output avoids WebKit's 32767px image limit on long pages.
+  await page.screenshot({ path: `outputs/${testInfo.project.name}-home.png`, fullPage: true, scale: 'css' });
 
   await page.getByRole('link', { name: '제품별 기능과 제공 범위' }).tap();
   await expect(page).toHaveURL(/\/products$/);
