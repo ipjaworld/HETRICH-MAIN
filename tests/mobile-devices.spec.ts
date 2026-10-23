@@ -34,7 +34,7 @@ test('mobile product discovery, touch navigation and rotation', async ({ page },
   // Keep device DPR for interaction; CSS-pixel output avoids WebKit's 32767px image limit on long pages.
   await page.screenshot({ path: `outputs/${testInfo.project.name}-home.png`, fullPage: true, scale: 'css' });
 
-  await page.getByRole('link', { name: '제품별 기능과 제공 범위' }).tap();
+  await page.getByRole('link', { name: '제품별 설계와 구현' }).tap();
   await expect(page).toHaveURL(/\/products$/);
   await expect(page.locator('.product-row')).toHaveCount(4);
   await expect(page.getByRole('link', { name: 'HIS GitHub (새 탭)', exact: true })).toBeVisible();
