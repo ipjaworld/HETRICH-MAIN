@@ -19,7 +19,7 @@ export default function AboutPage() {
     <section className="about-studio">
       <p className="eyebrow">01 / HETRICH</p>
       <div>
-        <h2>여기서 꼭 고민해야 하는 일은<br />무엇일까요?</h2>
+        <h2>여기서 꼭 고민해야 하는 일은{" "}<br className="desktop-break" />무엇일까요?</h2>
         <div className="prose-columns">
           <p>AI에게 무엇이든 요청할 수 있어도, 무엇을 말할지 정하고 의도와 다른 결과를 고치는 일은 여전히 사람의 몫입니다. HETRICH는 그 과정에서 제품이 먼저 정리할 수 있는 부분을 찾습니다. 정보를 읽을 출발점, 계획을 남기는 방식, 결과를 고칠 방법을 고민합니다.</p>
           <p>사람마다 쓸 수 있는 시간과 익숙한 방식은 다릅니다. 익히는 속도나 이용 빈도가 달라도 필요한 경험에 닿을 수 있게 만들고 싶습니다. 그 안에서 취향을 발견하고 다음 선택을 고민하는 즐거움은 남겨두려 합니다.</p>
