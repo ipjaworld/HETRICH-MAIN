@@ -36,12 +36,19 @@
 .fan-notice, .experiment-copy > .fan-notice { font-size: .73rem; line-height: 1.8; color: #596257; }
 .experiment-copy > .fan-notice { margin-top: 1.5rem; }
 .home-work { padding-top: 1rem; }
-.work-overview { margin-bottom: 1.4rem; }
-.work-overview > a { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1fr) minmax(0, 1.6fr) 1rem; align-items: center; gap: 1.5rem; padding: 1.8rem 0; border-top: 1px solid var(--line); text-decoration: none; transition: color 180ms; }
-.work-overview > a > span:first-child { font-size: .7rem; color: var(--muted); }
-.work-overview h3 { margin: 0; font-size: 1.5rem; font-weight: 500; }
-.work-overview p { margin: 0; color: var(--muted); font-size: .87rem; }
-.work-overview > a:hover { color: var(--blue); }
+.work-overview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.work-overview > article { display: flex; flex-direction: column; min-width: 0; padding: 2rem 1.8rem; }
+.work-overview > article:first-child { padding-left: 0; }
+.work-overview > article:last-child { padding-right: 0; }
+.work-overview > article + article { border-left: 1px solid var(--line); }
+.work-problem-label { font: .7rem var(--mono); color: var(--blue); margin-bottom: 1.5rem; }
+.work-overview h3 { margin: 0 0 1.3rem; font-size: clamp(1.1rem, 1.6vw, 1.45rem); font-weight: 500; line-height: 1.55; word-break: keep-all; }
+.work-overview p { margin: 0 0 1rem; color: var(--ink); font-size: .87rem; line-height: 1.9; }
+.work-overview .work-solution { color: var(--muted); margin-bottom: 1.8rem; }
+.work-scope-label { margin-top: auto; font-size: .68rem; line-height: 1.8; color: var(--muted); }
+.work-overview-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; margin-top: 1.2rem; }
+.work-overview-footer p { margin: 0; font-size: .73rem; color: var(--muted); }
+.work-overview-footer .text-link { font-size: .8rem; }
 .capabilities { background: #e9eee5; max-width: none; padding-inline: max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad))); }
 .capability-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
 .capability-number { display: block; font: .75rem var(--mono); color: var(--blue); margin-bottom: 1.5rem; }
@@ -120,9 +127,11 @@
   .experiment-panel, .capability-grid, .case-layout, .game-story { grid-template-columns: minmax(0, 1fr); }
   .experiment-copy { padding: 1.5rem; }
   .experiment-feature, .home-work { padding-top: 1rem; }
-  .work-overview > a { grid-template-columns: minmax(0, 1fr) 1rem; gap: .5rem; padding-block: 1.3rem; }
-  .work-overview > a > span:first-child, .work-overview h3, .work-overview p { grid-column: 1; }
-  .work-overview > a > span:last-child { grid-column: 2; grid-row: 2; }
+  .work-overview { grid-template-columns: minmax(0, 1fr); }
+  .work-overview > article { padding: 1.8rem 0; }
+  .work-overview > article + article { border-left: 0; border-top: 1px solid var(--line); }
+  .work-overview h3 { font-size: 1.4rem; }
+  .work-problem-label { margin-bottom: 1rem; }
   .capability-grid { gap: 2.5rem; }
   .capability-number { margin-bottom: 1rem; }
   .studio-process { margin-top: 3rem; }
@@ -139,6 +148,6 @@
   .game-screen { margin-bottom: 2.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .evidence-preview img, .experiment-image img, .work-overview > a { transition: none; }
+  .evidence-preview img, .experiment-image img { transition: none; }
   .showcase-card, .experiment-panel, .capability { animation: none; transform: none; }
 }
