@@ -1,3 +1,4 @@
+import { socialShareImage } from "@/lib/site-metadata";
 import type { Metadata } from "next";
 import { LProofArchive } from "@/components/l-proof-archive";
 import { fetchCachedLProofArticles } from "@/lib/l-proof-server";
@@ -6,7 +7,7 @@ export const metadata: Metadata = {
   title: "L‑Proof‑AI Insights",
   description: "AI 소식의 근거와 개발에 미치는 영향을 함께 읽는 L‑Proof AI 브리핑 아카이브입니다.",
   alternates: { canonical: "/insights" },
-  openGraph: {
+  openGraph: { images: [socialShareImage],
     title: "L‑Proof‑AI Insights — HETRICH",
     description: "공식 출처와 편집자의 해석을 함께 전하는 AI 개발 브리핑",
     url: "/insights",

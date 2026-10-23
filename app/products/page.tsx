@@ -1,10 +1,11 @@
+import { socialShareImage } from "@/lib/site-metadata";
 import type { Metadata } from "next";
 import { products } from "@/lib/products";
 import Link from "next/link";
 import { ProductPreview } from "@/components/product-card";
 import { ExperimentFeature } from "@/components/experiment-feature";
 
-export const metadata: Metadata = { title: "Products", description: "생활 속 질문에서 시작한 HETRICH의 제품과 설계·구현 사례입니다.", alternates: { canonical: "/products" }, openGraph: { title: "Products — HETRICH", description: "직접 만든 제품의 설계 판단과 개선 경험", url: "/products" } };
+export const metadata: Metadata = { title: "Products", description: "생활 속 질문에서 시작한 HETRICH의 제품과 설계·구현 사례입니다.", alternates: { canonical: "/products" }, openGraph: { images: [socialShareImage], title: "Products — HETRICH", description: "직접 만든 제품의 설계 판단과 개선 경험", url: "/products" } };
 
 export default function ProductsPage() {
   return <main id="main" className="subpage" tabIndex={-1}>
