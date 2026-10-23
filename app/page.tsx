@@ -15,7 +15,7 @@ export default function HomePage() {
       <section className="studio-products studio-section" id="products" aria-labelledby="products-title">
         <div className="studio-section-head"><div><p className="eyebrow">01 / Products</p><h2 id="products-title">이렇게 풀어봤습니다.</h2></div><p>일상의 기록부터 게임 속 다음 사냥터까지.<br />생활 속 질문에서 시작해 직접 만든 제품입니다.</p></div>
         <div className="showcase-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
-        <div className="studio-products-more"><Link className="text-link" href="/products">제품별 기능과 제공 범위 <span aria-hidden="true">→</span></Link></div>
+        <div className="studio-products-more"><Link className="text-link" href="/products">제품별 설계와 구현 <span aria-hidden="true">→</span></Link></div>
       </section>
       <ExperimentFeature />
       <section className="home-work studio-section" aria-labelledby="home-work-title">
@@ -43,20 +43,20 @@ export default function HomePage() {
             <span className="work-scope-label">백엔드 구현 · 인증 API · PG 연동</span>
           </article>
         </div>
-        <div className="work-overview-footer"><p>이전 소속 조직에서의 개인 기여이며, HETRICH의 수주 실적과 구분합니다.</p><Link className="text-link" href="/work">담당 범위와 판단 과정 <span aria-hidden="true">→</span></Link></div>
+        <div className="work-overview-footer"><p>이건하가 이전 조직에서 담당한 개발·협업 사례입니다.</p><Link className="text-link" href="/work">담당 범위와 판단 과정 <span aria-hidden="true">→</span></Link></div>
       </section>
       <Capabilities />
       <section className="studio-process studio-section" aria-labelledby="process-title">
         <div className="studio-section-head"><div><p className="eyebrow">Build notes / How Much Calories Left</p><h2 id="process-title">반 공기는 반 공기로.<br />피드백이 바꾼 기록 방식.</h2></div></div>
         <div className="build-story">
-          <div className="build-story-origin"><p className="story-label">사용자의 말에서 시작</p><blockquote>사진 없이 먹은 것을 말로 남기는 건 편했어요. 그런데 1/2이 두 개로 기록되고, 어떤 음식의 칼로리인지 다시 확인해야 했어요.</blockquote><p className="story-caption">2026년 10월 두 사용자의 피드백을 묶어 익명으로 요약했습니다.</p><p>간편한 입력만큼, 기록된 결과를 납득할 수 있는 것도 중요했습니다. 입력을 더 자세히 요구하기 전에 해석과 응답을 다듬었습니다.</p></div>
+          <div className="build-story-origin"><p className="story-label">사용자의 말에서 시작</p><blockquote>사진 없이 먹은 것을 말로 남기는 건 편했어요. 그런데 1/2이 두 개로 기록되고, 어떤 음식의 칼로리인지 다시 확인해야 했어요.</blockquote><p className="story-caption">사용자 2명의 피드백 요약 · 2026.10</p><p>간편한 입력만큼, 기록된 결과를 납득할 수 있는 것도 중요했습니다. 입력을 더 자세히 요구하기 전에 해석과 응답을 다듬었습니다.</p></div>
           <ol className="build-changes">
             <li><span>01 / 입력 해석</span><h3>1/2, 0.5, ‘반’을 같은 양으로</h3><p>분수 표현을 수량으로 해석하도록 보완하고, 같은 음식의 절반이 동일하게 계산되는지 검사합니다.</p></li>
             <li><span>02 / 계산 근거</span><h3>합계 옆에 무엇을 기록했는지</h3><p>음식별 양과 칼로리를 함께 보여줍니다. 양을 생략해 기본량을 썼거나 대표 제품을 선택했다면 그 이유도 안내합니다.</p></li>
             <li><span>03 / 다시 확인</span><h3>지난 대화로 돌아갈 수 있게</h3><p>최근 응답과 대화 기록 화면을 분리해, 어떤 입력으로 기록했는지 다시 살펴볼 수 있도록 했습니다.</p></li>
           </ol>
         </div>
-        <div className="build-story-footer"><p>공개 저장소 구현 기준 · 실제 제공 범위는 앱에서 확인할 수 있습니다.</p><a className="text-link" href="https://github.com/ipjaworld/HowMuchCaloriesLeft/tree/f4c19b9" target="_blank" rel="noreferrer">개선 코드 살펴보기 <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
+        <div className="build-story-footer"><a className="text-link" href="https://github.com/ipjaworld/HowMuchCaloriesLeft/tree/f4c19b9" target="_blank" rel="noreferrer">개선 코드 살펴보기 <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
       </section>
       <section className="studio-insights studio-section" aria-labelledby="insights-title">
         <div className="studio-section-head"><div><p className="eyebrow">From L‑Proof AI</p><h2 id="insights-title">최근에 전한 이야기.</h2></div><p>직접 운영하는 AI 개발 브리핑에서<br />최근 발행한 글을 모았습니다.</p></div>

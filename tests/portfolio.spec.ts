@@ -13,7 +13,7 @@ test('product discovery, case studies and contact remain connected', async ({ pa
   await expect(page.getByRole('link', { name: '이메일 보내기' })).toHaveAttribute('href', 'mailto:this_is_laugh@naver.com');
   await page.goto('/products/silver-vow');
   await expect(page.getByText('각 장의 세 엔딩을 모두 모아야 다음 장이 열립니다.', { exact: false })).toBeVisible();
-  await expect(page.getByText('검토 중 / 아직 구현하지 않은 방향')).toBeVisible();
+  await expect(page.getByText('비상업·비공식 팬게임입니다.', { exact: false })).toBeVisible();
   await expect(page.getByRole('link', { name: '팬게임 플레이' })).toHaveAttribute('href', 'https://ipjaworld.github.io/malfoy-silver-vow/');
 });
 

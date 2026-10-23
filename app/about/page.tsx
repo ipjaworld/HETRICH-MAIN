@@ -34,9 +34,9 @@ export default function AboutPage() {
       <div className="founder-copy">
         <div className="founder-name"><h2 id="founder-title">이건하</h2></div>
         <p>“이렇게 해보면 어떨까?” 하는 생각을 직접 확인하는 걸 좋아합니다. 생활 도구도 만들고, 게임의 선택과 규칙도 궁리합니다. 제가 찾은 방법이 누군가에게 쓸모가 있을 때, 계속 만들어볼 이유가 생깁니다.</p>
-        <p>일이 바쁜 날에는 뉴스레터를 읽어도 내용을 제 일과 연결할 여유가 없었습니다. 그래서 L-Proof에는 소식의 의미를 해석하는 관점을 담았습니다. 그 해석에 동의하지 않더라도 직접 판단할 수 있게 근거를 함께 남깁니다.</p>
+        <p>일이 바쁜 날에는 뉴스레터를 읽어도 내용을 제 일과 연결할 여유가 없었습니다. 그래서 L-Proof에는 소식의 의미를 해석하는 관점을 담았습니다. 독자가 제 관점을 검토하고 자신의 판단을 내릴 수 있도록 근거를 함께 남깁니다.</p>
         <p>이전 실무에서는 업무 플랫폼과 구독 커머스의 프론트엔드 전체 구현과 API 연동을 각각 전담했습니다. 디자인·UX 담당자들과 협업하며 실제 입력 방식과 화면의 예외를 살폈습니다. 직접 운영하는 제품에서도 쓰는 사람의 반응을 다음 수정에 반영합니다.</p>
-        <p>앞으로도 일상과 업무에서 발견한 질문을 작은 제품으로 시험하고, 다른 팀의 서비스도 함께 만들고 싶습니다. 그 과정에서 제가 먼저 겪은 시행착오와 판단 기준도 나누려 합니다. 누군가 “나도 내 환경에서 해볼 수 있겠다”고 느낄 출발점을 제품과 기록으로 남기는 스튜디오를 지향합니다.</p>
+        <p>직접 제품을 만들며 얻은 경험을 다른 팀의 개발에도 연결하고 싶습니다. 그 과정에서 얻은 판단 기준을 기록하고 나눕니다. 누군가 “나도 내 환경에서 해볼 수 있겠다”고 느낄 출발점을 제품과 기록으로 남기는 스튜디오를 지향합니다.</p>
         <p><Link className="text-link" href="/#development-notes">AI 개발에서 배운 판단 기준 <span aria-hidden="true">→</span></Link></p>
         <div className="studio-hero-actions"><Link className="text-link" href="/work">실무 경험과 담당 범위 <span aria-hidden="true">→</span></Link><a className="text-link" href="https://github.com/ipjaworld" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
       </div>
