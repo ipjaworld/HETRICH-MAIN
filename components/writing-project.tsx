@@ -7,13 +7,13 @@ export function WritingProject() {
       <header className="writing-hero">
         <p className="eyebrow">HETRICH / Product & Development Studio</p>
         <h1 id="writing-title">내가 겪은 시행착오가,<br /><em>누군가의 출발점이 되도록.</em></h1>
-        <p className="writing-hero-purpose">제품으로 반복되는 수고를 덜고,<br className="desktop-break" /> 기록으로 시작할 때의 막막함을 덜어주고 싶습니다.</p>
+        <p className="writing-hero-purpose">제품으로 반복되는 수고를 덜고, 기록으로 경험을 나눕니다.<br className="desktop-break" /> 자기 속도로 시작하고, 필요한 만큼 참여할 수 있도록.</p>
         <p className="writing-hero-identity">직접 제품을 만들고 운영하는 개발자 이건하의 스튜디오.<br className="desktop-break" /> 웹 서비스와 업무 도구를 함께 만듭니다.</p>
         <div className="studio-hero-actions"><a className="button button-dark" href="#products">제품 둘러보기 <span aria-hidden="true">↓</span></a><Link className="text-link" href="/contact">개발 의뢰·협업 <span aria-hidden="true">↗</span></Link></div>
       </header>
       <figure className="studio-artwork">
-        <Image src="/images/studio-pathways.webp" width={1536} height={1024} sizes="(max-width: 1280px) 92vw, 1165px" alt="접고 고친 종이 모형들 사이에서 다리를 만들고, 갈림길에 푸른 표식을 남기는 사람" />
-        <figcaption><span>다음 사람이 시작할 수 있는 자리.</span><span>HETRICH / Studio artwork</span></figcaption>
+        <Image src="/images/studio-pathways.webp" width={1536} height={1024} sizes="(max-width: 1280px) 92vw, 1165px" alt="다음 사람이 시작할 수 있는 자리. 접고 고친 종이 모형들 사이에서 다리를 만들고, 갈림길에 푸른 표식을 남기는 사람." />
+        <figcaption><span>HETRICH / Studio artwork</span></figcaption>
       </figure>
       <div className="writing-notes">
         <div className="writing-intro">
