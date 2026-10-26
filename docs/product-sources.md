@@ -1,5 +1,7 @@
 # Product evidence — 2026-10-05
 
+2026-10-26: Owner-approved calories implementation case: constrain generative LLM use for operating cost; model judges input intent, while code handles food/quantity interpretation, nutrition-data lookup and calculation. Added to the calories case's engineering judgment paragraph. No measured cost reduction or model accuracy claim is made.
+
 Current review (2026-10-23): [studio evidence](studio-evidence.md) supersedes the historical screenshot and availability notes below. New screenshots are direct public-service captures; HIS remains signed-out, and calorie data is a fresh anonymous example. Separate case pages distinguish verified public behavior from code implementation and unimplemented plans.
 
 The home page and /products share `lib/products.ts`. Status describes availability, not a claim of production maturity. No usage numbers or business metrics are invented.

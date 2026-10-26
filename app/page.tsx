@@ -25,7 +25,7 @@ export default function HomePage() {
             <span className="work-problem-label">01 / 업무 화면</span>
             <h3>입력은 편하게,<br />화면은 일관되게.</h3>
             <p>상담 메모의 입력 불편과 조직 정보 변경 뒤 화면이 어긋나는 문제를 다뤘습니다.</p>
-            <p className="work-solution">입력 패턴을 관찰해 팀과 공통 UI를 개선하고, 캐시 갱신과 모달의 포커스·스크롤 동작을 보완했습니다.</p>
+            <p className="work-solution">입력 패턴을 관찰해 팀과 공통 UI를 개선하고, 캐시 갱신과 46개 모달의 외부 클릭·포커스·스크롤 충돌을 보완했습니다.</p>
             <span className="work-scope-label">프론트엔드 구현 · API 연동 · UX 협업</span>
           </article>
           <article>
@@ -51,7 +51,7 @@ export default function HomePage() {
         <div className="build-story">
           <div className="build-story-origin"><p className="story-label">사용자의 말에서 시작</p><blockquote>사진 없이 먹은 것을 말로 남기는 건 편했어요. 그런데 1/2이 두 개로 기록되고, 어떤 음식의 칼로리인지 다시 확인해야 했어요.</blockquote><p className="story-caption">사용자 2명의 피드백 요약 · 2026.10</p><p>간편한 입력만큼, 기록된 결과를 납득할 수 있는 것도 중요했습니다. 입력을 더 자세히 요구하기 전에 해석과 응답을 다듬었습니다.</p></div>
           <ol className="build-changes">
-            <li><span>01 / 입력 해석</span><h3>1/2, 0.5, ‘반’을 같은 양으로</h3><p>분수 표현을 수량으로 해석하도록 보완하고, 같은 음식의 절반이 동일하게 계산되는지 검사합니다.</p></li>
+            <li><span>01 / 입력 해석</span><h3>1/2, 0.5, ‘반’을 같은 양으로</h3><p>분수 표현을 수량으로 해석하도록 보완하고, 같은 음식의 절반이 동일하게 계산되는지 검사합니다. 운영 비용을 고려해 입력 의도 판단은 AI에, 음식·수량 해석과 영양 데이터 조회·계산은 코드에 맡겼습니다.</p></li>
             <li><span>02 / 계산 근거</span><h3>합계 옆에 무엇을 기록했는지</h3><p>음식별 양과 칼로리를 함께 보여줍니다. 양을 생략해 기본량을 썼거나 대표 제품을 선택했다면 그 이유도 안내합니다.</p></li>
             <li><span>03 / 다시 확인</span><h3>지난 대화로 돌아갈 수 있게</h3><p>최근 응답과 대화 기록 화면을 분리해, 어떤 입력으로 기록했는지 다시 살펴볼 수 있도록 했습니다.</p></li>
           </ol>

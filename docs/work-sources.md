@@ -1,5 +1,7 @@
 # Selected Work content provenance
 
+2026-10-26: The owner confirmed 46 TalkGate modals as the scope of shared interaction improvements (outside click, focus, scroll), not newly created modals or a count of automated /test checks. The manual development page and the image-modal spacing fix remain separate contributions. Both TalkGate and Kkosunbox retain entire frontend/API ownership and collaborative design/UX boundaries.
+
 2026-10-23 update: Compared the 2026-10-21 resume and career portfolio with the owner-corrected 2026-10-22 facts. Added TalkGate memo-input observation and collaborative common memo UI improvement; added 빨리줘 (2025.02) backend authentication/payment API, PG integration and payment-state handling. Original private material is not copied into the repository. See [studio evidence](studio-evidence.md).
 
 Updated 2026-10-21. Sources: user-confirmed career facts and the public Notion portfolio https://app.notion.com/p/b8a18220efaf4e25ab2791d1a729ba2a ; TalkGate detail https://app.notion.com/p/4006b63744898152a2afe2c64c1a8c3e .
