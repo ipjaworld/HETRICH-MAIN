@@ -104,26 +104,19 @@ test('primary buttons keep comfortable geometry and keyboard access', async ({ p
 });
 
 
-test('button label optical correction leaves the icon in place', async ({ page }) => {
+test('button content groups label and icon without nested controls', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
   const button = page.getByRole('link', { name: '제품 둘러보기' });
-  const label = button.locator('.button-label');
-  const icon = button.locator('[aria-hidden="true"]');
-  await button.scrollIntoViewIfNeeded();
-  const iconBefore = await icon.boundingBox();
-  await label.evaluate(el => (el as HTMLElement).style.top = '0px');
-  const labelBefore = await label.boundingBox();
-  await button.screenshot({ path: 'outputs/button-before.png', animations: 'disabled' });
-  await label.evaluate(el => (el as HTMLElement).style.removeProperty('top'));
-  const labelAfter = await label.boundingBox();
-  const iconAfter = await icon.boundingBox();
-  await button.screenshot({ path: 'outputs/button-after.png', animations: 'disabled' });
-  expect(labelAfter!.y - labelBefore!.y).toBeCloseTo(2, 1);
-  expect(iconAfter!.y).toBeCloseTo(iconBefore!.y, 1);
+  const group = button.locator('.button-content');
+  await expect(group.locator('.button-label')).toHaveText('제품 둘러보기');
+  expect(await group.evaluate(el => getComputedStyle(el).alignItems)).toBe('center');
+  expect(await button.locator('a, button').count()).toBe(0);
+  expect(await button.locator('.button-label').evaluate(el => getComputedStyle(el).top)).toBe('auto');
+  await button.screenshot({ path: 'outputs/button-group.png', animations: 'disabled' });
 });
 
-test('optical correction supports mixed and multi-line labels', async ({ page }) => {
+test('button groups support mixed and multi-line labels', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
@@ -134,8 +127,9 @@ test('optical correction supports mixed and multi-line labels', async ({ page })
     for (const [text, icon] of [['제품 둘러보기', '↗'], ['Explore Products', ''], ['L-Proof AI 자세히 보기', '↗'], ['긴 제품 피드백과 협업 제안 보내기', '↗']]) {
       const button = document.createElement('button'); button.className = 'button button-dark';
       if (text.startsWith('긴')) button.style.width = '220px';
-      const label = document.createElement('span'); label.className = 'button-label'; label.textContent = text; button.appendChild(label);
-      if (icon) { const arrow = document.createElement('span'); arrow.setAttribute('aria-hidden', 'true'); arrow.textContent = icon; button.appendChild(arrow); }
+      const group = document.createElement('span'); group.className = 'button-content'; button.appendChild(group);
+      const label = document.createElement('span'); label.className = 'button-label'; label.textContent = text; group.appendChild(label);
+      if (icon) { const arrow = document.createElement('span'); arrow.setAttribute('aria-hidden', 'true'); arrow.textContent = icon; group.appendChild(arrow); }
       panel.appendChild(button);
     }
     document.body.appendChild(panel);
@@ -143,7 +137,7 @@ test('optical correction supports mixed and multi-line labels', async ({ page })
   const panel = page.locator('#button-review');
   await panel.screenshot({ path: 'outputs/button-varieties.png' });
   for (const label of await panel.locator('.button-label').all()) {
-    expect(await label.evaluate(el => getComputedStyle(el).top)).toBe('2px');
+    expect(await label.evaluate(el => getComputedStyle(el).top)).toBe('auto');
   }
   expect(await panel.locator('.button').last().evaluate(el => el.scrollHeight <= el.clientHeight)).toBe(true);
 });

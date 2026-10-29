@@ -38,7 +38,7 @@ export function LProofArchive({ initialItems, initialCursor, initialError }: { i
     return (
       <div className="lproof-empty-state">
         <p>{error ? "발행물 목록을 불러오지 못했습니다." : "아직 공개된 발행물이 없습니다."}</p>
-        {error && <button className="button button-dark" type="button" onClick={loadMore} disabled={pending}><span className="button-label">{pending ? "다시 불러오는 중…" : "다시 시도"}</span></button>}
+        {error && <button className="button button-dark" type="button" onClick={loadMore} disabled={pending}><span className="button-content"><span className="button-label">{pending ? "다시 불러오는 중…" : "다시 시도"}</span></span></button>}
       </div>
     );
   }
@@ -51,7 +51,7 @@ export function LProofArchive({ initialItems, initialCursor, initialError }: { i
       {(cursor || error) && (
         <div className="lproof-pagination">
           {error && <p role="status">다음 발행물을 불러오지 못했습니다. 현재 목록은 그대로 유지됩니다.</p>}
-          <button className="button button-dark" type="button" onClick={loadMore} disabled={pending}><span className="button-label">{pending ? "불러오는 중…" : error ? "다시 시도" : "더 보기"}</span></button>
+          <button className="button button-dark" type="button" onClick={loadMore} disabled={pending}><span className="button-content"><span className="button-label">{pending ? "불러오는 중…" : error ? "다시 시도" : "더 보기"}</span></span></button>
         </div>
       )}
     </>

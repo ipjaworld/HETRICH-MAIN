@@ -22,7 +22,7 @@ export default function ContactPage() {
         <p className="eyebrow">Email</p>
         <h2>이메일로 연락하기</h2>
         <p>자료를 첨부하거나 긴 이야기를 전하고 싶다면 이메일로 보내주세요.</p>
-        <a className="button button-dark" href="mailto:this_is_laugh@naver.com"><span className="button-label">이메일 보내기</span><span aria-hidden="true">↗</span></a>
+        <a className="button button-dark" href="mailto:this_is_laugh@naver.com"><span className="button-content"><span className="button-label">이메일 보내기</span><span aria-hidden="true">↗</span></span></a>
         <p><CopyEmail /></p>
         <div className="contact-guide">
           <h3>이런 내용을 알려주세요</h3>
