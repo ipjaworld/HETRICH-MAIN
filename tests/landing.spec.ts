@@ -78,7 +78,7 @@ test('reduced motion, short viewport and product destinations', async ({ page })
   await page.goto('/');
   expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe('auto');
   const destinations = await page.locator('.showcase-actions .button').evaluateAll(nodes => nodes.map(node => node.getAttribute('href')));
-  expect(destinations).toEqual(['https://l-proof-ai.xyz', 'https://hetrich.vercel.app/', 'https://how-much-calories-left.vercel.app/', 'https://www.rebemon.xyz/']);
+  expect(destinations).toEqual(['https://l-proof-ai.xyz', '/products/secretary', 'https://how-much-calories-left.vercel.app/', 'https://www.rebemon.xyz/']);
   await page.getByRole('button', { name: '메뉴 열기' }).click();
   await expect(page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link', { name: 'Contact' })).toBeInViewport();
 });
@@ -166,3 +166,22 @@ for (const width of [320, 768, 1440, 1920]) {
     await expect(page).toHaveURL(/\/contact$/);
   });
 }
+
+
+test('HIS is presented as an internal tool with a case-study path', async ({ page }) => {
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/');
+    const card = page.locator('#secretary');
+    await expect(card.getByText('개인 맞춤 내부 도구')).toBeVisible();
+    await expect(card.getByRole('link', { name: '설계와 구현 보기' })).toHaveAttribute('href', '/products/secretary');
+    await page.goto('/products');
+    const row = page.locator('.product-row-secretary');
+    await expect(row.getByText('개인 업무를 위한 내부 도구', { exact: false })).toBeVisible();
+    await row.getByRole('link', { name: '설계와 구현 보기' }).click();
+    await expect(page).toHaveURL(/\/products\/secretary$/);
+    await expect(page.getByText('에리스 연동은 앞으로 진행할 방향입니다.', { exact: false })).toBeVisible();
+    await expect(page.locator('a[href="https://hetrich.vercel.app/"]')).toHaveCount(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+  }
+});

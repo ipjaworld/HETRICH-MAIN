@@ -13,7 +13,7 @@ export default function HomePage() {
     <main id="main" className="studio-home" tabIndex={-1}>
       <WritingProject />
       <section className="studio-products studio-section" id="products" aria-labelledby="products-title">
-        <div className="studio-section-head"><div><p className="eyebrow">01 / Products</p><h2 id="products-title">이렇게 풀어봤습니다.</h2></div><p>일상의 기록부터 게임 속 다음 사냥터까지.<br />생활 속 질문에서 시작해 직접 만든 제품입니다.</p></div>
+        <div className="studio-section-head"><div><p className="eyebrow">01 / Products</p><h2 id="products-title">이렇게 풀어봤습니다.</h2></div><p>일상의 기록부터 게임 속 다음 사냥터까지.<br />생활과 업무의 질문에서 시작해 직접 만든 제품과 도구입니다.</p></div>
         <div className="showcase-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         <div className="studio-products-more"><Link className="text-link" href="/products">제품별 설계와 구현 <span aria-hidden="true">→</span></Link></div>
       </section>
