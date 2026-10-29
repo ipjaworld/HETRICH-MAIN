@@ -48,7 +48,7 @@ export function ContactForm() {
       <div className="form-field"><label htmlFor="message">문의 내용</label><textarea id="message" name="message" required minLength={20} maxLength={4000} rows={6} aria-describedby="message-hint" placeholder="만들고 싶은 일이나 제품을 써본 이야기를 들려주세요." onChange={(event) => setCount(event.target.value.length)} /><div className="field-meta"><small id="message-hint">20자 이상 입력해주세요.</small><span>{count} / 4000</span></div></div>
       <div className="honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
       <p className="contact-privacy">남겨주신 정보는 문의 확인과 답변에만 사용합니다.</p>
-      <button className="button button-dark submit-button" type="submit">{pending ? "보내는 중…" : <>문의 보내기 <span aria-hidden="true">→</span></>}</button>
+      <button className="button button-dark submit-button" type="submit"><span className="button-label">{pending ? "보내는 중…" : "문의 보내기"}</span>{!pending && <span aria-hidden="true">→</span>}</button>
     </fieldset>
     <p className={`form-status ${status.tone}`} role="status" aria-live="polite">{status.message}</p>
   </form>;

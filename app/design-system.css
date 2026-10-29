@@ -88,3 +88,7 @@ button, a.button, .button, .text-link, .copy-email { font-weight: var(--weight-b
 }
 .button > [aria-hidden="true"] { display: inline-flex; flex: none; align-items: center; justify-content: center; line-height: 1; }
 .button:disabled { cursor: not-allowed; }
+
+/* IBM Plex KR letterforms sit above the line box's visual center. Move only text. */
+:root { --button-label-optical-offset: 2px; }
+.button > .button-label { display: block; min-width: 0; position: relative; top: var(--button-label-optical-offset); }

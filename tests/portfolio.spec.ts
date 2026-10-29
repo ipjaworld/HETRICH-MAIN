@@ -85,7 +85,7 @@ test('primary buttons keep comfortable geometry and keyboard access', async ({ p
   await expect(page).toHaveURL(/#products$/);
   const wrapped = await primary.evaluate(el => {
     const clone = el.cloneNode(true) as HTMLElement;
-    clone.textContent = '긴 버튼 문구가 두 줄로 나뉘어도 가운데에 편안하게 표시됩니다';
+    clone.querySelector('.button-label')!.textContent = '긴 버튼 문구가 두 줄로 나뉘어도 가운데에 편안하게 표시됩니다';
     clone.style.width = '180px';
     el.parentElement!.appendChild(clone);
     const rect = clone.getBoundingClientRect();
@@ -101,4 +101,49 @@ test('primary buttons keep comfortable geometry and keyboard access', async ({ p
   expect(wrapped.scroll).toBeLessThanOrEqual(wrapped.client);
   expect(Number(wrapped.disabledOpacity)).toBeLessThan(1);
   expect(wrapped.disabledCursor).toBe('not-allowed');
+});
+
+
+test('button label optical correction leaves the icon in place', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  const button = page.getByRole('link', { name: '제품 둘러보기' });
+  const label = button.locator('.button-label');
+  const icon = button.locator('[aria-hidden="true"]');
+  await button.scrollIntoViewIfNeeded();
+  const iconBefore = await icon.boundingBox();
+  await label.evaluate(el => (el as HTMLElement).style.top = '0px');
+  const labelBefore = await label.boundingBox();
+  await button.screenshot({ path: 'outputs/button-before.png', animations: 'disabled' });
+  await label.evaluate(el => (el as HTMLElement).style.removeProperty('top'));
+  const labelAfter = await label.boundingBox();
+  const iconAfter = await icon.boundingBox();
+  await button.screenshot({ path: 'outputs/button-after.png', animations: 'disabled' });
+  expect(labelAfter!.y - labelBefore!.y).toBeCloseTo(2, 1);
+  expect(iconAfter!.y).toBeCloseTo(iconBefore!.y, 1);
+});
+
+test('optical correction supports mixed and multi-line labels', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(() => {
+    const panel = document.createElement('div');
+    panel.id = 'button-review';
+    panel.style.cssText = 'position:fixed;inset:0;z-index:1000;background:#f8f7f3;padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:18px';
+    for (const [text, icon] of [['제품 둘러보기', '↗'], ['Explore Products', ''], ['L-Proof AI 자세히 보기', '↗'], ['긴 제품 피드백과 협업 제안 보내기', '↗']]) {
+      const button = document.createElement('button'); button.className = 'button button-dark';
+      if (text.startsWith('긴')) button.style.width = '220px';
+      const label = document.createElement('span'); label.className = 'button-label'; label.textContent = text; button.appendChild(label);
+      if (icon) { const arrow = document.createElement('span'); arrow.setAttribute('aria-hidden', 'true'); arrow.textContent = icon; button.appendChild(arrow); }
+      panel.appendChild(button);
+    }
+    document.body.appendChild(panel);
+  });
+  const panel = page.locator('#button-review');
+  await panel.screenshot({ path: 'outputs/button-varieties.png' });
+  for (const label of await panel.locator('.button-label').all()) {
+    expect(await label.evaluate(el => getComputedStyle(el).top)).toBe('2px');
+  }
+  expect(await panel.locator('.button').last().evaluate(el => el.scrollHeight <= el.clientHeight)).toBe(true);
 });

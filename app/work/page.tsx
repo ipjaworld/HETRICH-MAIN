@@ -95,7 +95,7 @@ export default function WorkPage() {
         <p className="eyebrow">Have something in mind?</p>
         <h2 id="work-contact-title">만들고 싶은 흐름이 있나요?</h2>
         <p>업무 화면, 구매 흐름, 운영 도구처럼<br />구체적인 문제가 있는 일부터 이야기합니다.</p>
-        <div className="studio-hero-actions"><Link className="button button-dark" href="/contact">개발·협업 문의 <span aria-hidden="true">↗</span></Link><a className="text-link" href="https://app.notion.com/p/b8a18220efaf4e25ab2791d1a729ba2a" target="_blank" rel="noreferrer">전체 경력 보기 <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
+        <div className="studio-hero-actions"><Link className="button button-dark" href="/contact"><span className="button-label">개발·협업 문의</span><span aria-hidden="true">↗</span></Link><a className="text-link" href="https://app.notion.com/p/b8a18220efaf4e25ab2791d1a729ba2a" target="_blank" rel="noreferrer">전체 경력 보기 <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
       </section>
     </main>
   );
