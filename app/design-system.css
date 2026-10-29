@@ -1,0 +1,49 @@
+/* Shared design decisions: type, surfaces and interaction. */
+:root {
+  --color-bg: #f8f7f3; --color-text: #242923; --color-muted: #646861;
+  --color-accent: #3e55a5; --color-surface: #eeeee8; --color-line: rgba(36,41,35,.14);
+  --space-1: .5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2rem;
+  --space-5: 3rem; --space-section: clamp(4rem, 7vw, 7rem);
+  --container: 1280px; --gutter: clamp(1.25rem, 4vw, 4.5rem); --grid-gap: clamp(1.5rem, 3vw, 2.5rem);
+  --type-hero: clamp(2rem, 4.5vw, 4rem); --type-section: clamp(1.75rem, 2.9vw, 2.55rem);
+  --type-card: clamp(1.3rem, 1.9vw, 1.65rem); --type-body: 1rem; --type-label: .69rem;
+  --weight-body: 400; --weight-heading: 500; --weight-emphasis: 600;
+  --leading-body: 1.8; --leading-heading: 1.35; --tracking-heading: -.035em;
+  --radius-card: 12px; --radius-panel: 20px; --radius-pill: 999px;
+  --border-subtle: 1px solid var(--color-line); --shadow-image: 0 8px 24px #24292318;
+  --motion-fast: 200ms; --motion-medium: 350ms; --motion-ease: ease;
+  --ink: var(--color-text); --paper: var(--color-bg); --muted: var(--color-muted);
+  --blue: var(--color-accent); --line: var(--color-line); --max: var(--container); --pad: var(--gutter);
+}
+body { font-family: var(--sans); font-size: var(--type-body); font-weight: var(--weight-body); line-height: var(--leading-body); letter-spacing: -.015em; }
+.studio-section { padding-block: var(--space-section); }
+.writing-project { padding-bottom: 0; }
+.writing-hero h1, .about-page-hero h1 { font-size: var(--type-hero); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); }
+.writing-hero-purpose { font-size: clamp(1rem, 1.5vw, 1.2rem); line-height: var(--leading-body); }
+.writing-hero-identity, .studio-section-head>p, .showcase-lead, .about-page .prose-columns, .founder-copy { font-size: var(--type-body); line-height: var(--leading-body); }
+.studio-section h2, .about-studio h2, .founder-name h2 { font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); }
+.studio-section h2 { font-size: var(--type-section); }
+.showcase-grid { gap: var(--space-3) var(--grid-gap); }
+.showcase-card h3 { font-size: var(--type-card); font-weight: var(--weight-emphasis); line-height: 1.4; letter-spacing: -.025em; }
+.showcase-lead { color: var(--color-muted); }
+.product-preview.evidence-preview, .studio-artwork img { border-radius: var(--radius-card); }
+.evidence-preview img { box-shadow: var(--shadow-image); transition-duration: var(--motion-medium); transition-timing-function: var(--motion-ease); }
+.studio-process { background: var(--color-surface); border-radius: var(--radius-panel); }
+.button { border-radius: var(--radius-pill); font-weight: var(--weight-emphasis); transition-duration: var(--motion-fast); transition-timing-function: var(--motion-ease); }
+.text-link { font-weight: var(--weight-heading); }
+.eyebrow, .product-number { font-family: var(--mono); font-size: var(--type-label); }
+:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+.button:disabled { opacity: .55; cursor: not-allowed; }
+.about-page .prose-columns, .founder-copy p { font-weight: var(--weight-body); }
+.about-principles li { font-weight: var(--weight-heading); }
+@media (max-width: 700px) {
+  .writing-hero h1, .about-page-hero h1 { font-size: clamp(1.65rem, 7vw, 2.6rem); line-height: 1.45; }
+  .showcase-grid { gap: var(--space-5); }
+  .showcase-card h3 { font-size: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button, .text-link span, .evidence-preview img { transition: none; }
+}
+.writing-project { padding-top: clamp(9rem, 12vw, 11rem); }
+.studio-products { padding-top: 1rem; }
+@media (max-width: 700px) { .writing-project { padding-top: 8rem; } }
