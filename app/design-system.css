@@ -3,12 +3,12 @@
   --color-bg: #f8f7f3; --color-text: #242923; --color-muted: #646861;
   --color-accent: #3e55a5; --color-surface: #eeeee8; --color-line: rgba(36,41,35,.14);
   --space-1: .5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2rem;
-  --space-5: 3rem; --space-section: clamp(4rem, 7vw, 7rem);
+  --space-5: 3.5rem; --space-section: clamp(4.5rem, 7.5vw, 7.5rem);
   --container: 1280px; --gutter: clamp(1.25rem, 4vw, 4.5rem); --grid-gap: clamp(1.5rem, 3vw, 2.5rem);
   --type-hero: clamp(2rem, 4.5vw, 4rem); --type-section: clamp(1.75rem, 2.9vw, 2.55rem);
   --type-card: clamp(1.3rem, 1.9vw, 1.65rem); --type-body: 1rem; --type-label: .69rem;
-  --weight-body: 400; --weight-heading: 500; --weight-emphasis: 600;
-  --leading-body: 1.8; --leading-heading: 1.35; --tracking-heading: -.035em;
+  --weight-body: 400; --weight-heading: 600; --weight-button: 500; --weight-emphasis: 600;
+  --leading-body: 1.65; --leading-heading: 1.3; --leading-label: 1.4; --tracking-heading: -.035em;
   --radius-card: 12px; --radius-panel: 20px; --radius-pill: 999px;
   --border-subtle: 1px solid var(--color-line); --shadow-image: 0 8px 24px #24292318;
   --motion-fast: 200ms; --motion-medium: 350ms; --motion-ease: ease;
@@ -29,15 +29,15 @@ body { font-family: var(--sans); font-size: var(--type-body); font-weight: var(-
 .product-preview.evidence-preview, .studio-artwork img { border-radius: var(--radius-card); }
 .evidence-preview img { box-shadow: var(--shadow-image); transition-duration: var(--motion-medium); transition-timing-function: var(--motion-ease); }
 .studio-process { background: var(--color-surface); border-radius: var(--radius-panel); }
-.button { border-radius: var(--radius-pill); font-weight: var(--weight-emphasis); transition-duration: var(--motion-fast); transition-timing-function: var(--motion-ease); }
-.text-link { font-weight: var(--weight-heading); }
+.button { border-radius: var(--radius-pill); font-weight: var(--weight-button); transition-duration: var(--motion-fast); transition-timing-function: var(--motion-ease); }
+.text-link { font-weight: var(--weight-button); }
 .eyebrow, .product-number { font-family: var(--mono); font-size: var(--type-label); }
 :focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
 .button:disabled { opacity: .55; cursor: not-allowed; }
 .about-page .prose-columns, .founder-copy p { font-weight: var(--weight-body); }
-.about-principles li { font-weight: var(--weight-heading); }
+.about-principles li { font-weight: var(--weight-button); }
 @media (max-width: 700px) {
-  .writing-hero h1, .about-page-hero h1 { font-size: clamp(1.65rem, 7vw, 2.6rem); line-height: 1.45; }
+  .writing-hero h1, .about-page-hero h1 { font-size: clamp(1.65rem, 7vw, 2.6rem); line-height: 1.35; }
   .showcase-grid { gap: var(--space-5); }
   .showcase-card h3 { font-size: 1.5rem; }
 }
@@ -47,3 +47,24 @@ body { font-family: var(--sans); font-size: var(--type-body); font-weight: var(-
 .writing-project { padding-top: clamp(9rem, 12vw, 11rem); }
 .studio-products { padding-top: 1rem; }
 @media (max-width: 700px) { .writing-project { padding-top: 8rem; } }
+
+/* Typography hierarchy: semantic headings and controls, not arbitrary emphasis. */
+main[id][class] :is(h1, h2, h3, h4, h5, h6) { font-weight: var(--weight-heading); line-height: var(--leading-heading); }
+main[id][class] :is(p, li, blockquote) { line-height: var(--leading-body); }
+main[id][class] :is(.eyebrow, .product-number, .showcase-status, .story-caption) { line-height: var(--leading-label); }
+button, a.button, .button, .text-link, .copy-email { font-weight: var(--weight-button); line-height: var(--leading-label); }
+.button :is(span, strong), button :is(span, strong) { font-weight: inherit; }
+.writing-hero-purpose { margin-block: 2.2rem 1.4rem; }
+.writing-hero .studio-hero-actions { margin-top: 2.4rem; }
+.studio-section-head { margin-bottom: var(--space-5); }
+.product-preview.evidence-preview { margin-bottom: var(--space-4); }
+.showcase-lead { margin-block: 1.5rem 2rem; }
+.studio-about > div > p:not(.eyebrow), .founder-copy p { margin-bottom: var(--space-4); }
+@media (max-width: 700px) {
+  main[id][class] :is(h1, h2, h3, h4, h5, h6) { line-height: 1.35; }
+  .studio-section { padding-block: 4.5rem; }
+  .writing-project { padding-top: 8rem; padding-bottom: 0; }
+  .studio-products { padding-top: 1rem; }
+  .studio-section-head { margin-bottom: 2.5rem; }
+  .showcase-grid { gap: 3.5rem; }
+}
