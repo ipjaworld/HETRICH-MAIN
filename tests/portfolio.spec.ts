@@ -141,3 +141,18 @@ test('button groups support mixed and multi-line labels', async ({ page }) => {
   }
   expect(await panel.locator('.button').last().evaluate(el => el.scrollHeight <= el.clientHeight)).toBe(true);
 });
+
+test('interior routes retain the shared typography without horizontal overflow', async ({ page }) => {
+  const paths = ['/products', '/products/l-proof', '/products/secretary', '/products/calories', '/products/rebemon', '/products/silver-vow', '/work', '/about', '/insights', '/contact'];
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const path of paths) {
+      const response = await page.goto(path);
+      expect(response?.ok(), path).toBe(true);
+      await page.evaluate(() => document.fonts.ready);
+      await expect(page.locator('main h1'), path).toHaveCount(1);
+      expect(await page.locator('main h1').evaluate(el => getComputedStyle(el).fontWeight), path).toBe('600');
+      expect(await page.evaluate(() => document.documentElement.scrollWidth), path).toBe(width);
+    }
+  }
+});
