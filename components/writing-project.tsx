@@ -14,7 +14,16 @@ export function WritingProject() {
       <figure className="studio-artwork">
         <Image src="/images/studio-pathways.webp" width={1536} height={1024} sizes="(max-width: 1280px) 92vw, 1165px" alt="다음 사람이 시작할 수 있는 자리. 접고 고친 종이 모형들 사이에서 다리를 만들고, 갈림길에 푸른 표식을 남기는 사람." />
         <figcaption><span>HETRICH / Studio artwork</span></figcaption>
+        <svg className="pathway-trace" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"><path d="M 55 215 C 180 210, 225 110, 350 150 S 550 270, 670 170 S 840 75, 945 100" pathLength="1" /><circle cx="945" cy="100" r="5" /></svg>
       </figure>
+      <div className="pathway-connector" aria-hidden="true"><span></span><i></i></div>
+    </section>
+  );
+}
+
+export function WritingNotes() {
+  return (
+    <section className="studio-section" aria-label="개발 경험 노트">
       <div className="writing-notes" id="development-notes">
         <div className="writing-intro">
           <p className="eyebrow">Notes from practice</p>

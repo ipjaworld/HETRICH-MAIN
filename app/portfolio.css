@@ -232,3 +232,41 @@
   .contact-page .contact-page-hero { padding-top: 4rem; }
   .contact-page .contact-page-hero h1 { font-size: clamp(1.75rem, 6.8vw, 2.7rem); }
 }
+
+/* The route through the artwork leads into the products, without changing the image. */
+.writing-project { padding-bottom: 0; }
+.writing-hero { max-width: 62rem; }
+.writing-hero-identity { color: #414b5c; font-size: .95rem; }
+.studio-artwork { position: relative; margin-bottom: 0; }
+.studio-artwork img { height: clamp(260px, 34vw, 460px); object-fit: cover; object-position: center 55%; }
+.pathway-trace { position: absolute; inset: 0 0 auto; width: 100%; height: calc(100% - 2.5rem); pointer-events: none; overflow: visible; }
+.pathway-trace path { fill: none; stroke: #526bb4; stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; opacity: .8; }
+.pathway-trace circle { fill: #526bb4; }
+.pathway-connector { height: clamp(55px, 8vw, 100px); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.pathway-connector span { height: 100%; width: 1px; background: #8391bf; transform-origin: top; }
+.pathway-connector i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--blue); }
+.studio-products { padding-top: 1rem; }
+.product-preview.evidence-preview { height: clamp(350px, 32vw, 440px); }
+.evidence-preview .evidence-image { padding: 14px; }
+.evidence-proof .evidence-image { padding: 14px; }
+.evidence-preview figcaption { color: #505957; }
+.build-story-origin { align-self: start; }
+@media (min-width: 701px) { .build-story-origin { position: sticky; top: 7rem; } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pathway-trace path { stroke-dasharray: 1; animation: draw-path linear both; animation-timeline: view(); animation-range: entry 5% cover 45%; }
+    .pathway-connector span { animation: grow-path linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    @keyframes draw-path { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+    @keyframes grow-path { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  }
+}
+@media (max-width: 700px) {
+  .studio-artwork img { height: 260px; }
+  .pathway-trace path { stroke-width: 2; }
+  .pathway-connector { height: 55px; }
+  .product-preview.evidence-preview { height: 360px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .pathway-trace path, .pathway-connector span { animation: none; }
+}

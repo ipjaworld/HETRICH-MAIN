@@ -6,7 +6,7 @@ import { ProductCard } from "@/components/product-card";
 import { products } from "@/lib/products";
 import { ExperimentFeature } from "@/components/experiment-feature";
 import { Capabilities } from "@/components/capabilities";
-import { WritingProject } from "@/components/writing-project";
+import { WritingProject, WritingNotes } from "@/components/writing-project";
 
 export default function HomePage() {
   return (
@@ -19,7 +19,7 @@ export default function HomePage() {
       </section>
       <ExperimentFeature />
       <section className="home-work studio-section" aria-labelledby="home-work-title">
-        <div className="studio-section-head"><div><p className="eyebrow">02 / Problem solving</p><h2 id="home-work-title">실무에서 해결해 온 문제들.</h2></div><p>업무 화면부터 구매 흐름, 외부 서비스 연동까지.<br />직접 맡아 구현하고 개선한 경험입니다.</p></div>
+        <div className="studio-section-head"><div><p className="eyebrow">02 / Problem solving</p><h2 id="home-work-title">실무에서 해결해 온 문제들.</h2></div><p>업무 화면부터 구매 흐름, 외부 서비스 연동까지.<br />이건하가 이전 조직에서 맡아 구현하고 개선한 경험입니다.</p></div>
         <div className="work-overview">
           <article>
             <span className="work-problem-label">01 / 업무 화면</span>
@@ -58,6 +58,7 @@ export default function HomePage() {
         </div>
         <div className="build-story-footer"><a className="text-link" href="https://github.com/ipjaworld/HowMuchCaloriesLeft/tree/f4c19b9" target="_blank" rel="noreferrer">개선 코드 살펴보기 <span aria-hidden="true">↗</span><span className="sr-only"> (새 탭)</span></a></div>
       </section>
+      <WritingNotes />
       <section className="studio-insights studio-section" aria-labelledby="insights-title">
         <div className="studio-section-head"><div><p className="eyebrow">From L‑Proof AI</p><h2 id="insights-title">최근에 전한 이야기.</h2></div><p>직접 운영하는 AI 개발 브리핑에서<br />최근 발행한 글을 모았습니다.</p></div>
         <Suspense fallback={<LProofLatestSkeleton />}><LProofLatest /></Suspense>
