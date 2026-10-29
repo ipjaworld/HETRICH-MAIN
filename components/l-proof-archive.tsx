@@ -12,7 +12,6 @@ export function LProofArchive({ initialItems, initialCursor, initialError }: { i
 
   async function loadMore() {
     setPending(true);
-    setError(false);
     const result = await fetchLProofArticles({ limit: 20, cursor: items.length === 0 ? null : cursor });
 
     if (!result.ok) {
@@ -21,6 +20,7 @@ export function LProofArchive({ initialItems, initialCursor, initialError }: { i
       return;
     }
 
+    setError(false);
     setItems((current) => {
       const slugs = new Set(current.map((article) => article.slug));
       const additions = result.data.items.filter((article) => {
