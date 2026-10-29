@@ -68,3 +68,23 @@ button, a.button, .button, .text-link, .copy-email { font-weight: var(--weight-b
   .studio-section-head { margin-bottom: 2.5rem; }
   .showcase-grid { gap: 3.5rem; }
 }
+
+/* Shared button geometry: a single interactive element with centered contents. */
+:root { --button-inline: 1.75rem; --button-block: .8rem; --button-gap: .65rem; }
+.button, .showcase-actions .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--button-gap);
+  max-width: 100%;
+  min-height: 3rem;
+  height: auto;
+  padding: var(--button-block) var(--button-inline);
+  line-height: var(--leading-label);
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  vertical-align: middle;
+}
+.button > [aria-hidden="true"] { display: inline-flex; flex: none; align-items: center; justify-content: center; line-height: 1; }
+.button:disabled { cursor: not-allowed; }

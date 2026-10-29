@@ -56,3 +56,49 @@ test('unknown product returns a genuine 404 and sitemap includes cases', async (
   expect(xml).toContain('https://hetrich.com/products/silver-vow');
   expect(xml).toContain('https://hetrich.com/products/rebemon');
 });
+
+test('primary buttons keep comfortable geometry and keyboard access', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  const buttons = page.locator('main .button');
+  for (const button of await buttons.all()) {
+    const metrics = await button.evaluate(el => {
+      const css = getComputedStyle(el), rect = el.getBoundingClientRect();
+      return { nested: el.querySelectorAll('a,button').length, height: rect.height, padding: parseFloat(css.paddingLeft), align: css.alignItems, weight: css.fontWeight, overflow: rect.right > innerWidth };
+    });
+    expect(metrics.nested).toBe(0);
+    expect(metrics.height).toBeGreaterThanOrEqual(48);
+    expect(metrics.padding).toBeGreaterThanOrEqual(28);
+    expect(metrics.align).toBe('center');
+    expect(metrics.weight).toBe('500');
+    expect(metrics.overflow).toBe(false);
+  }
+  const primary = page.getByRole('link', { name: '제품 둘러보기' });
+  await primary.focus();
+  await expect(primary).toBeFocused();
+  expect(await primary.evaluate(el => getComputedStyle(el).outlineStyle)).not.toBe('none');
+  const originalBackground = await primary.evaluate(el => getComputedStyle(el).backgroundColor);
+  await primary.hover();
+  await expect.poll(() => primary.evaluate(el => getComputedStyle(el).backgroundColor)).not.toBe(originalBackground);
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#products$/);
+  const wrapped = await primary.evaluate(el => {
+    const clone = el.cloneNode(true) as HTMLElement;
+    clone.textContent = '긴 버튼 문구가 두 줄로 나뉘어도 가운데에 편안하게 표시됩니다';
+    clone.style.width = '180px';
+    el.parentElement!.appendChild(clone);
+    const rect = clone.getBoundingClientRect();
+    const disabled = document.createElement('button');
+    disabled.className = 'button button-dark'; disabled.disabled = true; disabled.textContent = '대기';
+    el.parentElement!.appendChild(disabled);
+    const result = { height: rect.height, scroll: clone.scrollHeight, client: clone.clientHeight, disabledOpacity: getComputedStyle(disabled).opacity, disabledCursor: getComputedStyle(disabled).cursor };
+    disabled.remove();
+    clone.remove();
+    return result;
+  });
+  expect(wrapped.height).toBeGreaterThan(48);
+  expect(wrapped.scroll).toBeLessThanOrEqual(wrapped.client);
+  expect(Number(wrapped.disabledOpacity)).toBeLessThan(1);
+  expect(wrapped.disabledCursor).toBe('not-allowed');
+});
