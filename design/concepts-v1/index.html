@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>대안 콘셉트 시안</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:"Pretendard Variable",Pretendard,system-ui,"Malgun Gothic",sans-serif;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+#tabs{position:fixed;z-index:9;right:10px;top:10px;display:flex;gap:2px;padding:4px;border-radius:9px;background:rgba(255,255,255,.86);font-size:12px;color:#333}
+#tabs a,#tabs button{all:unset;cursor:pointer;padding:5px 8px;border-radius:6px}
+#tabs button[aria-pressed=true]{background:#1d1e1b;color:#fff}
+#tabs :focus-visible{outline:2px solid #e5482d}
+section[hidden]{display:none}
+
+/* B: logbook */
+#log{min-height:100svh;background:#f4d84a;color:#14140f;padding:64px max(22px,6vw) 48px}
+#log .wrap{max-width:760px;margin:0 auto}
+#log h1{margin:0;font-size:clamp(68px,19vw,150px);line-height:.92;font-weight:900;letter-spacing:-.06em}
+#log .role{margin:14px 0 6px;font-size:18px;font-weight:600}
+#log .links{display:flex;gap:18px;font-size:15px;font-weight:700}
+#log .links a{min-height:44px;display:inline-flex;align-items:center}
+.year{margin:30px 0 4px;font-size:13px;font-weight:800;letter-spacing:.06em}
+.row{display:block;width:100%;all:unset;box-sizing:border-box;display:grid;grid-template-columns:64px 1fr 22px;gap:10px;align-items:start;width:100%;padding:14px 0;border-top:2px solid #14140f;cursor:pointer}
+.row:focus-visible{outline:2px solid #14140f;outline-offset:2px}
+.row .when{font-size:13px;font-weight:700;padding-top:4px}
+.row b{display:block;font-size:21px;line-height:1.25;letter-spacing:-.02em}
+.row small{display:block;margin-top:3px;font-size:14px;font-weight:600;opacity:.72}
+.row .mark{font-size:20px;font-weight:700;transition:transform .25s}
+.row[aria-expanded=true] .mark{transform:rotate(45deg)}
+.more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.22,1,.36,1)}
+.more>div{overflow:hidden;font-size:15px;line-height:1.6}
+.more p{margin:0 0 10px 74px}
+.more a{display:inline-flex;min-height:44px;align-items:center;margin-left:74px;font-weight:800}
+.open .more{grid-template-rows:1fr}
+.live-tag{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#14140f;color:#f4d84a;font-size:11px;font-weight:800;vertical-align:2px}
+
+/* C: card deck */
+#deck{height:100svh;min-height:560px;overflow:hidden;background:#101114;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:58px 0 22px;touch-action:pan-y}
+#table{position:relative;width:min(340px,84vw);aspect-ratio:5/7.4;max-height:72svh;perspective:900px}
+.card{position:absolute;inset:0;border-radius:22px;padding:24px;display:flex;flex-direction:column;background:var(--bg);color:var(--fg);box-shadow:0 18px 40px rgba(0,0,0,.45);transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .3s;user-select:none;will-change:transform;overflow:hidden}
+.card.drag{transition:none}
+.card small{font-size:13px;font-weight:700;opacity:.75}
+.card h2{margin:6px 0 8px;font-size:30px;line-height:1.1;letter-spacing:-.03em}
+.card p{margin:0;font-size:15px;line-height:1.55}
+.card .art{flex:1;display:grid;place-items:center;min-height:0;position:relative}
+.card a{align-self:flex-start;min-height:44px;display:inline-flex;align-items:center;padding:0 15px;border-radius:12px;background:var(--fg);color:var(--bg);font-size:14px;font-weight:800;text-decoration:none;margin-top:14px}
+.big{font-size:120px;font-weight:900;letter-spacing:-.06em;line-height:1}
+.bowl-art{width:150px;height:75px;border-radius:0 0 150px 150px;background:currentColor;position:relative;margin-top:40px}
+.bowl-art::before{content:"";position:absolute;left:18px;right:18px;top:-24px;height:48px;border-radius:50%;background:#fff;clip-path:inset(0 0 50% 0)}
+.px{display:grid;grid-template-columns:repeat(8,14px);grid-auto-rows:14px}.px i{background:currentColor}.px i.o{background:none}
+.face{width:128px;height:128px;border-radius:50%;background:var(--fg);display:grid;place-items:center;color:var(--bg);font-size:44px;font-weight:900}
+#nav{display:flex;align-items:center;gap:18px;margin-top:16px;font-size:14px;color:#c9c9c4}
+#nav button{all:unset;cursor:pointer;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:#26282e;font-size:18px}
+#nav button:focus-visible{outline:2px solid #fff}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div id="tabs">
+  <a href="/workshop-v1/">A 작업실</a>
+  <button type="button" data-c="log">B 기록장</button>
+  <button type="button" data-c="deck">C 카드 덱</button>
+</div>
+
+<section id="log" hidden>
+  <div class="wrap">
+    <h1>이건하</h1>
+    <p class="role">제품을 직접 만들고 운영하는 개발자 · HETRICH</p>
+    <div class="links"><a href="https://hetrich.com/work">경력</a><a href="https://github.com/ipjaworld" rel="noreferrer">GitHub</a><a href="https://hetrich.com/contact">연락</a></div>
+    <div id="rows"></div>
+  </div>
+</section>
+
+<section id="deck" hidden aria-roledescription="카드 뭉치">
+  <div id="table"></div>
+  <div id="nav"><button type="button" id="prev" aria-label="이전 카드">←</button><span id="count"></span><button type="button" id="next" aria-label="다음 카드">→</button></div>
+</section>
+
+<script>
+const h='https://hetrich.com';
+const px='..XXXX...XXXXXX.XX.XX.XXXXXXXXX.XXXXXX.XX....XX.'.padEnd(48,'.');
+const pixel=`<div class="px" aria-hidden="true">${[...px].map(c=>c==='X'?'<i></i>':'<i class="o"></i>').join('')}</div>`;
+const products=[
+ {k:'L‑Proof AI',s:'공개 운영',d:'AI 소식에 해석을 더하고, 확인할 원문을 함께 남기는 브리핑입니다.',t:'브리핑 읽기',u:'https://l-proof-ai.xyz',bg:'#f1ece1',fg:'#a83a25',art:'<div class="big" id="deck-issue">12</div>'},
+ {k:'How Much Calories Left',s:'초기 버전 · 사용 가능',d:'먹은 것을 말하면 계산 내역과 남은 양을 함께 보여줍니다.',t:'앱 사용해보기',u:'https://how-much-calories-left.vercel.app/',bg:'#2f6b4f',fg:'#f3efe2',art:'<div class="bowl-art" aria-hidden="true"></div>'},
+ {k:'메이플랜드 레범몬',s:'출시 · 공개 이용 가능',d:'레벨에 맞는 몬스터와 드롭 정보를 모아 다음 사냥터를 고르는 일을 돕습니다.',t:'레범몬 사용하기',u:'https://www.rebemon.xyz/',bg:'#2438a8',fg:'#ffe066',art:pixel},
+ {k:'악역영애 말포이 — 은빛 서약',s:'비상업 개인 창작 · 팬게임',d:'단서를 좇고 인물의 신뢰를 살피며 선택하는 비주얼 노벨입니다.',t:'설계 이야기',u:`${h}/products/silver-vow`,bg:'#c9ced4',fg:'#23262b',art:'<div class="big">✦</div>'},
+ {k:'HIS',s:'개인 맞춤 내부 도구',d:'이건하의 계획과 업무를 돕기 위해 만드는 개인 비서입니다.',t:'설계와 구현',u:`${h}/products/secretary`,bg:'#e5482d',fg:'#fff6ec',art:'<div class="big">!</div>'},
+ {k:'실무 경험',s:'이전 조직 · 개인 기여',d:'업무 화면, 구매·결제 흐름, 인증·PG 연동을 맡아 구현했습니다.',t:'담당 범위와 판단 과정',u:`${h}/work`,bg:'#1d1e1b',fg:'#f4f3ee',art:'<div class="big">→</div>'},
+];
+
+/* B: everything is a dated or status row; the newest article is live */
+const logRows=[
+ {when:'—',b:'최신 호를 불러오는 중',s:'L‑Proof AI',p:'',t:'브리핑 읽기',u:'https://l-proof-ai.xyz',id:'live'},
+ {when:'2026.10',b:'1/2, 0.5, ‘반’을 같은 양으로',s:'How Much Calories Left · 사용자 2명 피드백 반영',p:'음식별 양과 칼로리를 함께 보여주고, 지난 입력을 다시 살펴볼 수 있게 고쳤습니다.',t:'앱 사용해보기',u:products[1].u},
+ ...products.slice(2).map(x=>({when:'운영 중',b:x.k,s:x.s,p:x.d,t:x.t,u:x.u})),
+];
+logRows[logRows.length-1].when='이전';
+logRows[logRows.length-2].when='내부';
+const rows=document.getElementById('rows');
+rows.innerHTML='<p class="year">2026 · 지금 하고 있는 일</p>'+logRows.map((r,i)=>`<div class="item" data-id="${r.id||''}"><button class="row" type="button" aria-expanded="false"><span class="when">${r.when}</span><span><b>${r.b}</b><small>${r.s}</small></span><span class="mark" aria-hidden="true">+</span></button><div class="more"><div><p>${r.p}</p><a href="${r.u}">${r.t} ↗</a></div></div></div>`).join('');
+rows.addEventListener('click',e=>{
+  const b=e.target.closest('.row');if(!b)return;
+  const it=b.parentElement,on=it.classList.toggle('open');b.setAttribute('aria-expanded',on);
+});
+
+/* C: throw the top card away; it returns to the bottom of the pile */
+const table=document.getElementById('table');
+const cards=[{k:'이건하',s:'HETRICH',d:'제품을 직접 만들고 운영하는 개발자. 카드를 넘겨 보세요.',t:'만드는 사람과 방향',u:`${h}/about`,bg:'#f4f3ee',fg:'#14140f',art:'<div class="face">건</div>'},...products];
+table.innerHTML=cards.map((c,i)=>`<article class="card" style="--bg:${c.bg};--fg:${c.fg}" aria-label="${c.k}"><small>${c.s}</small><h2>${c.k}</h2><div class="art">${c.art}</div><p>${c.d}</p><a href="${c.u}" draggable="false">${c.t}</a></article>`).join('');
+const els=[...table.children];let cur=0;
+const pose=(el,d)=>{
+  if(d>3){el.style.opacity=0;el.style.transform='translateY(32px) scale(.84)';el.inert=true;return;}
+  el.style.opacity=1;el.inert=d!==0;
+  el.style.zIndex=20-d;
+  el.style.transform=`translateY(${d*13}px) scale(${1-d*.045}) rotate(${d?(d%2?1.6:-1.6):0}deg)`;
+};
+function layout(){els.forEach((el,i)=>pose(el,(i-cur+els.length)%els.length));document.getElementById('count').textContent=`${cur+1} / ${els.length}`;}
+function turn(dir=1){
+  const el=els[cur];
+  if(dir>0){el.style.zIndex=30;el.style.transform='translateX(130%) rotate(16deg)';cur=(cur+1)%els.length;
+    setTimeout(()=>{el.style.zIndex=1;layout();},230);
+    els.forEach((x,i)=>{if(x!==el)pose(x,(i-cur+els.length)%els.length);});
+    document.getElementById('count').textContent=`${cur+1} / ${els.length}`;
+  }else{cur=(cur-1+els.length)%els.length;layout();}
+}
+layout();
+let drag=null;
+table.addEventListener('pointerdown',e=>{
+  const el=els[cur];if(!el.contains(e.target)||e.target.closest('a'))return;
+  drag={el,x:e.clientX,dx:0};el.classList.add('drag');el.setPointerCapture(e.pointerId);
+});
+table.addEventListener('pointermove',e=>{
+  if(!drag)return;drag.dx=e.clientX-drag.x;
+  drag.el.style.transform=`translateX(${drag.dx}px) rotate(${drag.dx/18}deg)`;
+});
+const endDrag=()=>{
+  if(!drag)return;const {el,dx}=drag;drag=null;el.classList.remove('drag');
+  if(Math.abs(dx)>70)turn(1);else layout();
+};
+table.addEventListener('pointerup',endDrag);table.addEventListener('pointercancel',endDrag);
+document.getElementById('next').onclick=()=>turn(1);
+document.getElementById('prev').onclick=()=>turn(-1);
+addEventListener('keydown',e=>{if(document.getElementById('deck').hidden)return;if(e.key==='ArrowRight')turn(1);if(e.key==='ArrowLeft')turn(-1);});
+
+/* tabs */
+const show=c=>{
+  document.getElementById('log').hidden=c!=='log';document.getElementById('deck').hidden=c!=='deck';
+  document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.c===c));
+  scrollTo(0,0);
+};
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>show(b.dataset.c));
+show(new URLSearchParams(location.search).get('c')==='deck'?'deck':'log');
+
+/* live data with a saved fallback */
+const paint=(a,live)=>{
+  const it=rows.querySelector('[data-id=live]');
+  it.querySelector('.when').textContent=new Intl.DateTimeFormat('ko-KR',{month:'numeric',day:'numeric',timeZone:'Asia/Seoul'}).format(new Date(a.publishedAt));
+  it.querySelector('b').innerHTML=`${a.title}${live?'<span class="live-tag">최신</span>':''}`;
+  it.querySelector('small').textContent=`L‑Proof AI ${a.editionNumber}호`;
+  it.querySelector('p').textContent='AI 소식에 해석을 더하고, 확인할 원문을 함께 남기는 브리핑입니다.';
+  it.querySelector('a').href=a.url;it.querySelector('a').textContent='이번 호 읽기 ↗';
+  document.getElementById('deck-issue').textContent=a.editionNumber;
+};
+paint({editionNumber:12,title:'AI가 승인 버튼 앞에 앉았다',publishedAt:'2026-10-28T23:50:39.393Z',url:'https://l-proof-ai.xyz/articles/ai-at-the-approval-button'},false);
+fetch('https://l-proof-ai.xyz/api/public/v1/articles?limit=1').then(r=>r.ok?r.json():Promise.reject()).then(d=>d.items?.[0]&&paint(d.items[0],true)).catch(()=>{});
+</script>
+</body>
+</html>

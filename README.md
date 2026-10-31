@@ -28,13 +28,13 @@ L‑Proof‑AI가 아티클의 유일한 원본 발행처입니다. HETRICH는 �
 
 | 경로 | 역할 |
 | --- | --- |
-| `/` | 브랜드 소개, 제품 요약, 최신 Insights |
+| `/` | 이건하의 작업실, 제품·실무·최근 글 목록 |
 | `/products` | 제품 포트폴리오와 현재 상태 |
 | `/products/[slug]` | L-Proof, HIS, 칼로리 앱의 설계·구현 사례 및 은빛 서약 팬게임 기록 |
 | `/work` | 이전 조직에서의 개인 기여와 실무 개발 경험 |
 | `/insights` | L‑Proof‑AI 공개 발행물을 보여주는 HETRICH Hub |
-| `/about` | HETRICH와 Founder 소개 |
-| `/contact` | 문의 폼과 직접 이메일 안내 |
+| `/about` | HETRICH와 Founder 소개, 개발 경험 노트 |
+| `/contact` | 문의 폼, 직접 이메일 안내, 함께 만들 수 있는 것 |
 | `/api/contact` | 문의 검증 및 서버 측 전달 API |
 
 `sitemap.xml`, `robots.txt`, 404 화면도 App Router에서 생성합니다.

@@ -6,8 +6,8 @@ test('product discovery, case studies and contact remain connected', async ({ pa
   await page.getByRole('link', { name: 'L‑Proof AI 설계와 구현', exact: true }).click();
   await expect(page).toHaveURL(/\/products\/l-proof$/);
   // Client navigation can briefly retain the previous route's streamed metadata.
-  await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://hetrich.com/products/l-proof');
+  await expect(page.locator('link[rel="canonical"][href="https://hetrich.com/products/l-proof"]')).toHaveCount(1, { timeout: 15_000 });
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(1, { timeout: 15_000 });
   await page.getByRole('link', { name: '함께 만들고 싶은 일 이야기하기' }).click();
   await expect(page).toHaveURL(/\/contact$/);
   await expect(page.getByRole('link', { name: '이메일 보내기' })).toHaveAttribute('href', 'mailto:this_is_laugh@naver.com');
@@ -40,10 +40,10 @@ for (const width of [320, 768, 1440]) {
 test('reduced motion and keyboard access to product evidence', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  const preview = page.getByRole('link', { name: 'L‑Proof AI 제품 사례 보기' });
+  const preview = page.getByRole('link', { name: 'L‑Proof AI 설계와 구현', exact: true });
   await preview.focus();
   await expect(preview).toBeFocused();
-  expect(await page.locator('.showcase-card').first().evaluate(el => getComputedStyle(el).animationName)).toBe('none');
+  expect(await page.locator('.record-row').first().evaluate(el => getComputedStyle(el).animationName)).toBe('none');
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/\/products\/l-proof$/);
 });
@@ -148,7 +148,8 @@ test('interior routes retain the shared typography without horizontal overflow',
     await page.setViewportSize({ width, height: 900 });
     for (const path of paths) {
       const response = await page.goto(path);
-      expect(response?.ok(), path).toBe(true);
+      // WebKit revalidates a repeated visit, so a cached route can answer 304.
+      expect(response?.status(), path).toBeLessThan(400);
       await page.evaluate(() => document.fonts.ready);
       await expect(page.locator('main h1'), path).toHaveCount(1);
       expect(await page.locator('main h1').evaluate(el => getComputedStyle(el).fontWeight), path).toBe('600');

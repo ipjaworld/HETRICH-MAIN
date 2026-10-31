@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Capabilities } from "@/components/capabilities";
 import { ContactForm } from "@/components/contact-form";
 import { CopyEmail } from "@/components/copy-email";
 import { isContactConfigured } from "@/lib/contact-delivery";
@@ -37,5 +38,6 @@ export default function ContactPage() {
         <p>아이디어가 구체적이지 않아도 괜찮습니다. 지금 고민하는 문제와 만들고 싶은 변화를 이메일로 들려주세요.</p>
       </div>}
     </section>
+    <Capabilities />
   </main>;
 }

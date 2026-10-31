@@ -1,0 +1,307 @@
+/* Greybox palette. The final illustration replaces the room; the phases and layout stay. */
+.workshop[data-time="noon"] {
+  --page: var(--color-bg); --ink: #1d1e1b; --muted: #63645e; --sheet: #fffdf8;
+  --wall-l: #d9d8d2; --wall-r: #cecdc6; --floor: #e6e5df; --slab: #b9b8b1;
+  --ot: #c4c3bc; --ol: #a9a8a1; --or: #8f8e88; --dt: #7a7a74; --dl: #62625d; --dr: #4f4f4b;
+  --pt: #f8f7f2; --sky: #bfd3df; --sun: .55; --glow: 0; --star: 0;
+  --sky-top: #8fc4e6; --sky-mid: #bfdeee; --sky-low: #e8f3ef; --land: #dbe2cf; --ridge-far: #c6d4c6; --ridge-near: #b7c8b5;
+  --ext-l: #efece4; --ext-r: #d6d3ca; --roof: #a9756a; --roof-edge: #8a5c53; --roof-edge-dark: #6e463f; --road: #b9b9b1; --road-edge: #f4f4ee; --sidewalk: #e6e4d9; --lit: 0; --smoke: rgb(255 255 255 / 70%);
+  --tree: #a5b19f; --tree-light: #b9c4b3; --trail: #eeeadf; --body: #fff4cf; --body-halo: rgb(255 240 190 / 45%);
+  --cloud: rgb(255 255 255 / 78%); --ink-soft: #4d4e48; --cap: #efeee9; --edge-l: #b6b5ae; --edge-r: #a6a59e; --night-tint: 0;
+}
+.workshop[data-time="night"] {
+  --page: #14161b; --ink: #f0efe9; --muted: #a3a49e; --sheet: #23262d;
+  --wall-l: #2a2d35; --wall-r: #23262e; --floor: #30333b; --slab: #191b20;
+  --ot: #454852; --ol: #363942; --or: #2c2f37; --dt: #3a3d46; --dl: #2d3038; --dr: #24272e;
+  --pt: #e9e6dc; --sky: #161c30; --sun: 0; --glow: 1; --star: 1;
+  --box: #55392f;
+  --sky-top: #0a0d1a; --sky-mid: #131a2e; --sky-low: #222b45; --land: #1b1f27; --ridge-far: #181d2c; --ridge-near: #151924;
+  --ext-l: #2c303a; --ext-r: #22252e; --roof: #2a2424; --roof-edge: #211c1c; --roof-edge-dark: #181414; --road: #23262e; --road-edge: #4a4e58; --sidewalk: #2c2f38; --lit: 1; --smoke: rgb(200 205 225 / 22%);
+  --tree: #1f2a2c; --tree-light: #283537; --trail: #272b34; --body: #e8e6d8; --body-halo: rgb(220 225 255 / 14%);
+  --cloud: rgb(120 130 160 / 18%); --ink-soft: #c9cac4; --cap: #3a3d46; --edge-l: #1e2026; --edge-r: #17191e;
+}
+
+.workshop[data-time="morning"] {
+  --page: #f7f0e4; --ink: #1d1e1b; --muted: #5e5a54; --sheet: #fffaf0;
+  --wall-l: #dfd9cd; --wall-r: #d2ccbf; --floor: #e9e4d8; --slab: #bcb6a9;
+  --ot: #c8c2b5; --ol: #aca698; --or: #928c7f; --dt: #7c776c; --dl: #625e55; --dr: #4f4c45;
+  --pt: #faf5ea; --sky: #f3d6b4; --sun: .7; --glow: 0; --star: 0;
+  --sky-top: #a9cfe6; --sky-mid: #e8dcd4; --sky-low: #fbe2bf; --land: #e1e0c8; --ridge-far: #d4d0b8; --ridge-near: #c5c6a8;
+  --ext-l: #f4ecdd; --ext-r: #dbd1bf; --roof: #b47c67; --roof-edge: #936150; --roof-edge-dark: #76493b; --road: #c0baac; --road-edge: #f8f3e6; --sidewalk: #ebe5d5; --lit: 0; --smoke: rgb(255 255 255 / 75%);
+  --tree: #a7b392; --tree-light: #bfc9a6; --trail: #f1ebda; --body: #fff0c2; --body-halo: rgb(255 226 170 / 55%);
+  --cloud: rgb(255 248 236 / 82%); --ink-soft: #4d4a42; --cap: #f0ebdf; --edge-l: #b9b3a5; --edge-r: #a9a395;
+}
+
+html:has(.workshop[data-time="morning"]) .site-header { background: rgba(247, 240, 228, .96); }
+html:has(.workshop[data-time="night"]) .site-header { background: rgba(20, 22, 27, .94); }
+/* The header wordmark waits inside the house; outdoors the big HETRICH stands in for it. */
+html:has(.workshop) .site-header .wordmark { transition: opacity .4s, visibility 0s; }
+html:has(.workshop:not([data-scene="inside"])) .site-header .wordmark { opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
+html:has(.workshop):not([data-past-hero]) .site-header:not(:has(.site-nav.open)) { background: transparent; backdrop-filter: none; }
+html:has(.workshop[data-time="night"]) :is(.wordmark, .site-nav a, .menu-button) { color: #f0efe9; }
+@media (max-width: 700px) {
+  html:has(.workshop[data-time="night"]) .site-nav { background: #14161b; }
+}
+
+/* The room is pinned while the track scrolls past: street, then the door, then time in the room. */
+.workshop-track { position: relative; height: 270svh; }
+.workshop-track[data-motion="still"] { height: 100svh; }
+
+.workshop {
+  --workshop-accent: #d93a20;
+  --box: #bf6a48;
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--land);
+  color: var(--ink);
+  transition: background .6s;
+
+  & .sky-top { stop-color: var(--sky-top); } & .sky-mid { stop-color: var(--sky-mid); } & .sky-low { stop-color: var(--sky-low); }
+  & .land { fill: var(--land); } & .ridge-far { fill: var(--ridge-far); } & .ridge-near { fill: var(--ridge-near); }
+  & .k-container.f-t { fill: color-mix(in srgb, var(--box) 86%, #fff); } & .k-container.f-l { fill: var(--box); } & .k-container.f-r { fill: color-mix(in srgb, var(--box) 74%, #000); }
+  & .container-rib { fill: color-mix(in srgb, var(--box) 80%, #000); }
+  & .road { fill: var(--road); } & .sidewalk { fill: var(--sidewalk); } & .lane, & .zebra { fill: var(--road-edge); }
+  & .ext-walk { fill: var(--trail); } & .ext-left { fill: var(--ext-l); } & .ext-right { fill: var(--ext-r); }
+  & .ext-roof { fill: var(--roof); } & .ext-roof-edge { fill: var(--roof-edge); } & .ext-roof-edge-dark { fill: var(--roof-edge-dark); }
+  & .ext-window { fill: var(--sky); } & .ext-window-lit { fill: #ffd98f; opacity: var(--lit); }
+  & .ext-frame { fill: none; stroke: var(--dr); stroke-width: 2.2; }
+  & .ext-door-light { fill: #ffe6b8; } & .ext-door-leaf { fill: var(--roof-edge); } & .ext-door-knob { fill: #e8c87e; }
+  & .ext-door { transform-box: fill-box; transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+  &[data-door="open"] .ext-door { transform: scaleX(.16); }
+  & .walker-shadow { fill: rgb(0 0 0 / 14%); } & .walker-head { fill: var(--pt); } & .walker-leg { stroke: var(--dl); stroke-width: 3.4; stroke-linecap: round; fill: none; }
+  & .walker-a { fill: #bf5b43; } & .walker-b { fill: #4d628f; } & .walker-c { fill: #7d8c5e; }
+  & .tree-trunk { fill: var(--dl); } & .tree-leaf { fill: var(--tree); } & .tree-leaf-light { fill: var(--tree-light); } & .tree-shadow { fill: rgb(0 0 0 / 10%); }
+  & .sky-body { fill: var(--body); } & .sky-body-halo { fill: var(--body-halo); }
+  & .stars circle { fill: #fff; opacity: var(--star); }
+  & .plane { fill: #fffdf6; stroke: rgb(0 0 0 / 22%); stroke-width: .8; opacity: 0; animation: workshop-plane 16s linear infinite 3s; }
+  & .room-shadow { fill: rgb(0 0 0 / 9%); }
+  & .wall-cap { fill: var(--cap); } & .wall-end-l { fill: var(--edge-l); } & .wall-end-r { fill: var(--edge-r); }
+  & .steam { fill: none; stroke: var(--pt); stroke-width: 2.4; stroke-linecap: round; opacity: 0; animation: workshop-steam 4.2s ease-out infinite; }
+  & .steam-late { animation-delay: 1.5s; }
+  & .object-tag { fill: var(--ink); font-weight: 700; paint-order: stroke; stroke: var(--page); stroke-width: 6px; stroke-linejoin: round; pointer-events: none; }
+  &[data-hovering]:not([data-focus]) .obj:not(.hover) { opacity: .62; }
+  &[data-focus] .world { opacity: 0; }
+  & .world { transition: opacity .45s; }
+  &[data-focus] .workshop-world { opacity: 0; }
+  &:not([data-scene="inside"]) .hit { pointer-events: none; }
+  &[data-focus] .workshop-traffic-layer { opacity: 0; }
+
+  & :is(.workshop-world, .workshop-stage, .workshop-exterior) { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+  & .workshop-world { will-change: transform; transition: opacity .45s; }
+  & .workshop-stage { opacity: 0; will-change: transform, opacity; }
+  & .workshop-exterior { will-change: transform, opacity; pointer-events: none; }
+  &:not([data-ready]) :is(.workshop-world, .workshop-stage, .workshop-exterior) { opacity: 0; }
+
+  & .workshop-door-light { position: absolute; inset: 0; background: #ffe9c4; opacity: 0; pointer-events: none; }
+  & .workshop-cue { position: absolute; z-index: 2; left: 50%; bottom: max(6.5rem, 12vh); margin: 0; padding: .35rem .9rem; border-radius: 999px; background: color-mix(in srgb, var(--sheet) 88%, transparent); color: var(--ink); font-size: .9375rem; font-weight: 600; white-space: nowrap; transform: translateX(-50%); pointer-events: none; transition: opacity .3s; }
+  & .workshop-cue span { display: inline-block; animation: workshop-cue 1.6s ease-in-out infinite; }
+  &:not([data-scene="outside"]) .workshop-cue { opacity: 0; }
+  &[data-scene="entering"] .workshop-quick { opacity: 0; pointer-events: none; }
+  &:not([data-scene="inside"]) :is(.workshop-lead, .workshop-index) { opacity: 0; pointer-events: none; }
+  & :is(.workshop-lead, .workshop-index) { transition: opacity .35s; }
+
+  & .workshop-intro { position: absolute; z-index: 2; top: 6.5rem; left: var(--pad); pointer-events: none; transition: opacity .35s, transform .5s cubic-bezier(.22, 1, .36, 1); }
+  & .workshop-intro p { margin: .5rem 0 0; font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 500; }
+  & .workshop-intro .workshop-brand { position: absolute; top: -3.75rem; left: 0; margin: 0; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; line-height: 1; letter-spacing: -.02em; white-space: nowrap; transition: opacity .35s, transform .5s cubic-bezier(.22, 1, .36, 1); }
+  &[data-scene="inside"] .workshop-brand, &[data-scene="entering"] .workshop-brand { opacity: 0; transform: translateY(-10px); }
+  & :is(#workshop-title, .workshop-role) { transition: opacity .45s, transform .6s cubic-bezier(.22, 1, .36, 1); }
+  &:not([data-scene="inside"]) :is(#workshop-title, .workshop-role) { opacity: 0; transform: translateY(12px); }
+  & .workshop-intro .workshop-lead { margin-top: .35rem; max-width: 19rem; font-size: .9375rem; font-weight: 400; color: var(--ink-soft); }
+  & .workshop-index { display: none; }
+  &[data-focus] .workshop-intro { opacity: 0; transform: translateY(-14px); }
+
+  & .workshop-quick { position: absolute; z-index: 2; left: var(--pad); bottom: max(1.5rem, 4vh); display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 1.25rem; font-weight: 600; transition: opacity .3s; }
+  & .workshop-quick > a:not(.button) { min-height: 44px; display: inline-flex; align-items: center; color: inherit; text-decoration: none; }
+  & .workshop-quick > a:not(.button):hover { color: var(--workshop-accent); }
+  & .workshop-quick .button-dark { background: var(--ink); color: var(--page); }
+  & .workshop-quick .button-dark:hover { background: color-mix(in srgb, var(--ink) 78%, var(--page)); }
+  &[data-focus] .workshop-quick { opacity: 0; pointer-events: none; }
+
+  & .workshop-panel { position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; padding: 1.4rem 1.5rem max(1.5rem, env(safe-area-inset-bottom)); border-radius: 20px 20px 0 0; background: var(--sheet); box-shadow: 0 -12px 40px rgb(0 0 0 / 14%); transform: translateY(105%); visibility: hidden; transition: transform .6s cubic-bezier(.22, 1, .36, 1), visibility 0s .6s; }
+  &[data-focus] .workshop-panel { transform: none; visibility: visible; transition: transform .7s cubic-bezier(.22, 1, .36, 1) .18s, visibility 0s; }
+  & .workshop-panel p { margin: 0; }
+  & .workshop-chip { font-size: .8125rem; font-weight: 600; color: var(--muted); }
+  & .workshop-panel h2 { margin: .3rem 0 .5rem; font-size: 1.65rem; }
+  & .workshop-panel .workshop-note { margin-bottom: .6rem; font-size: .875rem; font-weight: 600; color: var(--workshop-accent); }
+  & .workshop-panel .workshop-live { margin-top: .75rem; padding: .6rem .75rem; border-radius: 10px; background: color-mix(in srgb, var(--ink) 6%, transparent); font-size: .875rem; }
+  & .workshop-links { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; margin-top: 1rem; }
+  & .workshop-links a { min-height: 44px; display: inline-flex; align-items: center; gap: .25rem; color: inherit; font-size: .9375rem; font-weight: 700; text-decoration: none; }
+  & .workshop-links a:first-child { padding: 0 1rem; border-radius: 12px; background: var(--ink); color: var(--sheet); }
+  & .workshop-back { min-height: 44px; margin-top: .35rem; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: .875rem; font-weight: 600; cursor: pointer; }
+  & :is(.workshop-back, .workshop-links a, .workshop-quick a):focus-visible { outline: 2px solid var(--workshop-accent); outline-offset: 2px; }
+
+  & text { font-family: inherit; }
+  & .wall-l { fill: var(--wall-l); } & .wall-r { fill: var(--wall-r); }
+  & .f-t { fill: var(--ot); } & .f-l { fill: var(--ol); } & .f-r { fill: var(--or); }
+  & .k-dark.f-t { fill: var(--dt); } & .k-dark.f-l { fill: var(--dl); } & .k-dark.f-r { fill: var(--dr); }
+  & .k-floor.f-t { fill: var(--floor); } & :is(.k-floor.f-l, .k-floor.f-r) { fill: var(--slab); }
+  & .k-paper { fill: var(--pt); }
+  & .k-paper.f-l { fill: color-mix(in srgb, var(--pt) 92%, #000); } & .k-paper.f-r { fill: color-mix(in srgb, var(--pt) 84%, #000); } & .k-paper.f-t { fill: var(--pt); }
+  & .k-silver.f-t { fill: #eef0f2; } & .k-silver.f-l { fill: #d3d7db; } & .k-silver.f-r { fill: #b7bcc2; }
+  & .sun { fill: #fff; opacity: var(--sun); transition: opacity .6s; }
+  & .sky { fill: var(--sky); transition: fill .6s; } & .star { fill: #fff; opacity: var(--star); }
+  & .frame { fill: none; stroke: var(--or); stroke-width: 2.4; }
+  & .board { fill: var(--dt); } & .note-paper { fill: var(--pt); } & .new-note { fill: var(--workshop-accent); }
+  & .rug { fill: var(--ot); opacity: .5; }
+  & .ink-line { stroke: var(--ink); stroke-linecap: round; fill: none; }
+  & .clock-face { fill: var(--pt); } & .clock-hand { stroke: #1d1e1b; stroke-linecap: round; }
+  & .glow { opacity: var(--glow); mix-blend-mode: screen; pointer-events: none; transition: opacity .6s; }
+  & .paper-text { fill: #1d1e1b; font-weight: 700; }
+  & .screen { fill: #111317; } & .monster-bob { fill: #f8f7f2; } & .monster-eye { fill: #111317; }
+  & .bowl { fill: var(--or); } & .bowl-rim { fill: var(--ol); } & .rice { fill: var(--pt); }
+  & .globe { fill: var(--ol); transition: fill .6s .3s; } & .globe-land { fill: var(--or); transition: transform 1.6s cubic-bezier(.22, 1, .36, 1) .3s, fill .6s .3s; }
+  & .globe-ring { fill: none; stroke: var(--dl); stroke-width: 2.4; stroke-linecap: round; }
+  & .awake .globe { fill: #ffdf9e; } & .awake .globe-land { fill: #c98a4a; transform: translateX(14px); }
+  & .story-page { opacity: 0; transform: translateY(-20px); transition: transform .8s cubic-bezier(.22, 1, .36, 1) .5s, opacity .3s .5s; }
+  & .awake .story-page { opacity: 1; transform: none; }
+  & .limb { stroke: var(--ol); stroke-linecap: round; fill: none; } & .hair { fill: var(--dl); }
+  & .person-skin { fill: var(--pt); } & .person-eye { fill: #1d1e1b; opacity: 0; transition: opacity .3s .5s; }
+  & .wave { opacity: 0; transition: opacity .3s .5s; }
+
+  & .obj, & .room-shell { transition: opacity .45s; }
+  & .obj.hover { filter: brightness(1.05); }
+  & .hit { fill: transparent; pointer-events: all; cursor: pointer; outline: none; }
+  & .hit:focus-visible { stroke: var(--workshop-accent); stroke-width: 3; }
+  &[data-focus] .obj:not(.active) { opacity: .2; }
+  &[data-focus] .room-shell { opacity: .72; }
+
+  & .hot { fill: var(--workshop-accent); pointer-events: none; transform-box: fill-box; transform-origin: center; animation: workshop-hot 2.8s infinite cubic-bezier(.22, 1, .36, 1); }
+  & .hot-ring { fill: none; stroke: var(--workshop-accent); stroke-width: 2; pointer-events: none; transform-box: fill-box; transform-origin: center; animation: workshop-ring 2.8s infinite ease-out; }
+  & .visited :is(.hot, .hot-ring), &[data-focus] :is(.hot, .hot-ring) { display: none; }
+
+  /* Every object changes state and stays changed. */
+  & :is(.sheet, .silver, .rice-g, .tabs, .note-a, .note-b, .note-c, .new-note, .monster) { transition: transform .8s cubic-bezier(.22, 1, .36, 1) .32s, opacity .4s .4s; }
+  & .awake .sheet { transform: translate(0, -13px); }
+  & .awake .silver { transform: translate(-30px, 17px); }
+  & .tabs { opacity: 0; } & .awake .tabs { opacity: 1; }
+  & .rice-g { transform-box: fill-box; transform-origin: 50% 100%; }
+  & .awake .rice-g { transform: translateY(7px) scaleY(.52); }
+  & :is(.note-a, .note-b, .note-c, .new-note) { transform-box: fill-box; transform-origin: center; }
+  & .note-a { transform: rotate(-5deg); } & .note-b { transform: translate(3px, 7px) rotate(6deg); } & .note-c { transform: translate(-4px, 2px) rotate(-3deg); }
+  & .awake :is(.note-a, .note-b, .note-c) { transform: none; }
+  & .new-note { transform: scale(0); } & .awake .new-note { transform: scale(1); }
+  & .monster { opacity: 0; } & .awake .monster { opacity: 1; }
+  & .awake .monster-bob { animation: workshop-bob .8s steps(2) infinite; }
+  & .awake :is(.person-eye, .wave) { opacity: 1; } & .awake .rest { opacity: 0; }
+}
+main[id][class] .workshop-intro h1 { margin: 0; font-size: clamp(2.875rem, 8.4vw, 5.75rem); font-weight: 700; line-height: 1; letter-spacing: -.04em; color: inherit; }
+
+@keyframes workshop-hot { 0%, 100% { transform: scale(1); } 12% { transform: scale(1.5); } 24% { transform: scale(1); } }
+@keyframes workshop-ring { 0% { transform: scale(.6); opacity: .9; } 36%, 100% { transform: scale(2.5); opacity: 0; } }
+@keyframes workshop-bob { 50% { transform: translateY(-3px); } }
+@keyframes workshop-step { 50% { transform: translateY(-2px); } }
+@keyframes workshop-cue { 50% { transform: translateY(5px); } }
+@keyframes workshop-steam { 0% { opacity: 0; transform: translateY(6px); } 30% { opacity: .7; } 100% { opacity: 0; transform: translateY(-14px); } }
+@keyframes workshop-plane {
+  0% { opacity: 0; transform: translate(250px, 40px) rotate(-14deg); }
+  4% { opacity: 1; }
+  34% { opacity: 1; }
+  40%, 100% { opacity: 0; transform: translate(1250px, -300px) rotate(-14deg); }
+}
+
+@media (min-width: 900px) {
+  .workshop .workshop-cue { left: auto; right: var(--pad); bottom: max(1.5rem, 4vh); transform: none; }
+}
+
+@media (min-width: 1100px) and (min-height: 760px) {
+  .workshop .workshop-index { display: grid; gap: .1rem; width: min(24rem, 30vw); margin: 1.25rem 0 0 -.75rem; padding: .5rem .75rem; border-radius: 14px; background: color-mix(in srgb, var(--sheet) 76%, transparent); list-style: none; pointer-events: auto; }
+  .workshop .workshop-index button { width: 100%; min-height: 2.75rem; padding: .35rem .1rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border: 0; border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); background: none; color: inherit; font: inherit; font-size: .9375rem; font-weight: 600; text-align: left; cursor: pointer; transition: color .2s, padding .2s; }
+  .workshop .workshop-index li:first-child button { border-top: 0; }
+  .workshop .workshop-index button:hover { padding-left: .5rem; color: var(--workshop-accent); }
+  .workshop .workshop-index small { font-size: .75rem; font-weight: 400; color: var(--ink-soft); white-space: nowrap; }
+  .workshop .workshop-index button.seen span::after { content: " ✓"; color: var(--workshop-accent); }
+}
+
+@media (min-width: 900px) and (min-aspect-ratio: 9 / 10) {
+  .workshop .workshop-panel { left: auto; right: 5vw; top: 50%; bottom: auto; width: 23.75rem; padding: 1.75rem; border-radius: 20px; opacity: 0; transform: translate(30px, -50%); transition: transform .6s cubic-bezier(.22, 1, .36, 1), opacity .3s, visibility 0s .6s; box-shadow: 0 16px 50px rgb(0 0 0 / 14%); }
+  .workshop[data-focus] .workshop-panel { opacity: 1; transform: translate(0, -50%); transition: transform .7s cubic-bezier(.22, 1, .36, 1) .18s, opacity .4s .18s, visibility 0s; }
+}
+/* Idle motion costs paint work, so it stops once the room has scrolled away. */
+html[data-past-hero] .workshop * { animation-play-state: paused; }
+
+/* Movers: each is composited alone, so the street never repaints the scene below it. */
+/* The layers are scaled down outdoors, so they must not clip to their own box. */
+.workshop-traffic-layer { position: absolute; inset: 0; pointer-events: none; will-change: transform; transition: opacity .45s; }
+.workshop-street { clip-path: inset(var(--horizon) -300% -300% -300%); }
+.workshop:not([data-ready]) .workshop-traffic-layer { opacity: 0; }
+.workshop-traffic { position: absolute; inset: 0; }
+.mover { --at-a: translate(calc(var(--ox) + var(--ax) * var(--u)), calc(var(--oy) + var(--ay) * var(--u))); --at-b: translate(calc(var(--ox) + var(--bx) * var(--u)), calc(var(--oy) + var(--by) * var(--u))); --at-s: translate(calc(var(--ox) + var(--sx) * var(--u)), calc(var(--oy) + var(--sy) * var(--u))); position: absolute; top: 0; left: 0; width: 0; height: 0; will-change: transform, opacity; animation-timing-function: linear; animation-iteration-count: infinite; }
+.mover-art { position: absolute; left: calc(var(--w) * var(--u) / -2); bottom: calc(var(--w) * var(--u) * -.24); width: calc(var(--w) * var(--u)); display: block; overflow: visible; }
+.mover .f-t { fill: var(--paint); } .mover .f-l { fill: color-mix(in srgb, var(--paint) 84%, #000); } .mover .f-r { fill: color-mix(in srgb, var(--paint) 66%, #000); }
+.mover .v-glass.f-t { fill: #2b3640; } .mover .v-glass.f-l { fill: #3c4b58; } .mover .v-glass.f-r { fill: #2f3b46; }
+.mover .v-tire { fill: #23252a; } .mover .v-cargo.f-t { fill: #f1ece1; } .mover .v-cargo.f-l { fill: #dcd6c9; } .mover .v-cargo.f-r { fill: #bdb7aa; }
+.mover .v-door { fill: #1f2a30; }
+.mover .v-stripe.f-l, .mover .v-stripe.f-r, .mover .v-stripe.f-t { fill: #f4efe2; }
+.mover-shadow { fill: rgb(0 0 0 / 16%); }
+.workshop[data-time="night"] .v-window.f-l, .workshop[data-time="night"] .v-window.f-r { fill: #ffd98f; }
+.workshop .walker-shadow { fill: rgb(0 0 0 / 14%); }
+.street-props { position: absolute; left: calc(var(--ox) - 400 * var(--u)); top: calc(var(--oy) + 200 * var(--u)); width: calc(1200 * var(--u)); height: calc(900 * var(--u)); overflow: visible; }
+.mover-pass { animation-name: mover-pass; }
+.mover-bus { animation-name: mover-bus; }
+.mover-stroll { animation-name: mover-stroll; }
+.mover-cross { animation-name: mover-stroll; animation-direction: alternate; }
+.mover-drift { animation-name: mover-stroll; animation-direction: alternate; animation-timing-function: ease-in-out; }
+.mover-smoke { transform: var(--at-a); opacity: 0; animation: mover-smoke 5.5s ease-out infinite; }
+.mover-drift .mover-art { --w: 220; }
+.mover-drift svg { fill: var(--cloud); }
+.workshop[data-scene="inside"] .mover-smoke { display: none; }
+.smoke-line { fill: none; stroke: var(--smoke); stroke-width: 7; stroke-linecap: round; }
+.workshop .walker-step { animation: mover-step .55s steps(2) infinite; will-change: transform; }
+.rider { opacity: 0; display: none; }
+.workshop[data-time="morning"] .rider-board { display: block; animation-name: rider-board; }
+.workshop[data-time="night"] .rider-alight { display: block; animation-name: rider-alight; }
+
+@keyframes mover-pass { 0% { transform: var(--at-a); } 42%, 100% { transform: var(--at-b); } }
+@keyframes mover-stroll { from { transform: var(--at-a); } to { transform: var(--at-b); } }
+@keyframes mover-bus {
+  0% { transform: var(--at-a); animation-timing-function: ease-out; }
+  32%, 48% { transform: var(--at-s); animation-timing-function: ease-in; }
+  78%, 100% { transform: var(--at-b); }
+}
+/* Riders use the bus door on the camera side; BOARD_DELAY and ALIGHT_DELAY line these up with the stop. */
+@keyframes rider-board {
+  0% { opacity: 1; transform: var(--at-a); }
+  72% { transform: var(--at-s); }
+  92% { transform: var(--at-s); }
+  96% { opacity: 1; transform: var(--at-b); }
+  97%, 100% { opacity: 0; transform: var(--at-b); }
+}
+@keyframes rider-alight {
+  0% { opacity: 0; transform: var(--at-b); }
+  1% { opacity: 1; transform: var(--at-b); }
+  6% { transform: var(--at-s); }
+  72% { opacity: 1; transform: var(--at-a); }
+  73%, 100% { opacity: 0; transform: var(--at-a); }
+}
+@keyframes mover-step { 50% { transform: translateY(-2px); } }
+@keyframes mover-smoke { 0% { opacity: 0; transform: var(--at-a) translateY(6px); } 30% { opacity: .8; } 100% { opacity: 0; transform: var(--at-a) translateY(-18px); } }
+@media (prefers-reduced-motion: reduce) {
+  .workshop-traffic-layer { display: none; }
+  .workshop, .workshop * { animation: none !important; transition-duration: .01s !important; transition-delay: 0s !important; }
+}
+
+/* The record below the room: for readers who want to skim, not explore. */
+.home-record { padding: 0; }
+.record { width: min(100%, 60rem); margin: 0 auto; padding: clamp(3rem, 7vw, 5rem) var(--pad) 0; scroll-margin-top: 4.5rem; }
+.record:last-child { padding-bottom: clamp(3rem, 7vw, 5rem); }
+main[id][class] .record h2 { margin: 0 0 1rem; font-size: clamp(1.5rem, 3vw, 2rem); }
+.record-list { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--color-line); }
+.record-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .35rem 2rem; padding-block: 1.25rem; border-top: 1px solid var(--color-line); scroll-margin-top: 5.5rem; }
+main[id][class] .record-row h3 { margin: 0; font-size: 1.25rem; }
+.record-row p { grid-column: 1; margin: 0; color: var(--color-muted); }
+.record-status { font-size: .8125rem; font-weight: 500; }
+.record-actions { grid-column: 2; grid-row: 1 / span 3; display: flex; flex-direction: column; align-items: flex-end; font-weight: 600; font-size: .9375rem; }
+.record-actions a { min-height: 44px; display: inline-flex; align-items: center; gap: .3rem; color: inherit; text-decoration: none; }
+.record-actions a:hover { color: var(--color-accent); }
+.record-more { display: inline-flex; min-height: 44px; align-items: center; margin-top: .5rem; font-weight: 600; }
+.record-person { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+.record-person img { width: 5.5rem; height: 5.5rem; object-fit: cover; border-radius: 50%; }
+.record-person p { margin: 0 0 .5rem; }
+.record-person div > div { display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
+@media (max-width: 700px) {
+  .record-row { grid-template-columns: minmax(0, 1fr); }
+  .record-actions { grid-column: 1; grid-row: auto; flex-direction: row; flex-wrap: wrap; gap: 0 1.25rem; align-items: center; }
+}

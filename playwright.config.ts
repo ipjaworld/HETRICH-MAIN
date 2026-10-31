@@ -9,7 +9,7 @@ export default defineConfig({
   outputDir: 'outputs/test-results',
   use: { baseURL: process.env.TEST_BASE_URL ?? 'http://localhost:3101', trace: 'retain-on-failure' },
   projects: [
-    { name: 'chrome', testMatch: ['landing.spec.ts', 'portfolio.spec.ts'], use: { browserName: 'chromium', channel: 'chrome' } },
+    { name: 'chrome', testMatch: ['landing.spec.ts', 'portfolio.spec.ts', 'workshop.spec.ts'], use: { browserName: 'chromium', channel: 'chrome' } },
     { name: 'webkit', testMatch: ['landing.spec.ts', 'portfolio.spec.ts'], use: { browserName: 'webkit' } },
     { name: 'iphone-se', testMatch: 'mobile-devices.spec.ts', use: { ...devices['iPhone SE'], browserName: 'webkit' } },
     { name: 'iphone-13', testMatch: 'mobile-devices.spec.ts', use: { ...devices['iPhone 13'], browserName: 'webkit' } },

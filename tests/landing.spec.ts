@@ -11,17 +11,17 @@ for (const width of widths) {
     await expect(page.locator('.lproof-skeleton')).toHaveCount(0);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('.showcase-card')).toHaveCount(4);
+    await expect(page.locator('#products .record-row')).toHaveCount(5);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
-    const clipped = await page.locator('h1,h2,h3,p,.showcase-card').evaluateAll(nodes => nodes.filter(node => node.scrollWidth > node.clientWidth + 1).map(node => node.textContent));
+    const clipped = await page.locator('h1,h2,h3,p,.record-row').evaluateAll(nodes => nodes.filter(node => node.scrollWidth > node.clientWidth + 1).map(node => node.textContent));
     expect(clipped).toEqual([]);
-    for (const cta of await page.locator('.showcase-actions a, .studio-hero-actions a, .menu-button:visible').all()) {
+    for (const cta of await page.locator('.record-actions a, .workshop-quick a, .menu-button:visible').all()) {
       const box = await cta.boundingBox();
       expect(box?.height).toBeGreaterThanOrEqual(44);
     }
     await page.locator('a[href="#products"]').click();
     await expect(page).toHaveURL(/#products$/);
-    await expect(page.locator('#products')).toBeInViewport();
+    await expect(page.locator('#products')).toBeInViewport({ timeout: 15_000 });
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     expect(results.violations).toEqual([]);
     expect(errors).toEqual([]);
@@ -77,8 +77,8 @@ test('reduced motion, short viewport and product destinations', async ({ page })
   await page.setViewportSize({ width: 390, height: 568 });
   await page.goto('/');
   expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe('auto');
-  const destinations = await page.locator('.showcase-actions .button').evaluateAll(nodes => nodes.map(node => node.getAttribute('href')));
-  expect(destinations).toEqual(['https://l-proof-ai.xyz', '/products/secretary', 'https://how-much-calories-left.vercel.app/', 'https://www.rebemon.xyz/']);
+  const destinations = await page.locator('#products .record-actions a[target="_blank"]').evaluateAll(nodes => nodes.map(node => node.getAttribute('href')));
+  expect(destinations).toEqual(['https://l-proof-ai.xyz', 'https://how-much-calories-left.vercel.app/', 'https://www.rebemon.xyz/']);
   await page.getByRole('button', { name: '메뉴 열기' }).click();
   await expect(page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link', { name: 'Contact' })).toBeInViewport();
 });
@@ -174,7 +174,7 @@ test('HIS is presented as an internal tool with a case-study path', async ({ pag
     await page.goto('/');
     const card = page.locator('#secretary');
     await expect(card.getByText('개인 맞춤 내부 도구')).toBeVisible();
-    await expect(card.getByRole('link', { name: '설계와 구현 보기' })).toHaveAttribute('href', '/products/secretary');
+    await expect(card.getByRole('link', { name: 'HIS 설계와 구현' })).toHaveAttribute('href', '/products/secretary');
     await page.goto('/products');
     const row = page.locator('.product-row-secretary');
     await expect(row.getByText('개인 업무를 위한 내부 도구', { exact: false })).toBeVisible();

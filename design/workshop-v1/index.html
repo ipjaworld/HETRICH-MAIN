@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="ko" data-time="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>작업실 시안 v1</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--ease:cubic-bezier(.22,1,.36,1);--accent:#e5482d}
+html[data-time=day]{--page:#ecebe6;--ink:#1d1e1b;--muted:#63645e;--sheet:#fbfaf6;--wall-l:#d9d8d2;--wall-r:#cecdc6;--floor:#e6e5df;--slab:#b9b8b1;--ot:#c4c3bc;--ol:#a9a8a1;--or:#8f8e88;--dt:#7a7a74;--dl:#62625d;--dr:#4f4f4b;--pt:#f8f7f2;--sky:#bfd3df;--sun:.55;--glow:0;--star:0;--night:0}
+html[data-time=dusk]{--page:#d9d0c6;--ink:#1d1e1b;--muted:#5e5a54;--sheet:#fbf7f0;--wall-l:#c6bcb0;--wall-r:#b5aa9f;--floor:#d0c6ba;--slab:#9c9287;--ot:#b0a79b;--ol:#958c81;--or:#7c746b;--dt:#6a635c;--dl:#54504a;--pt:#f4eee3;--dr:#44403b;--sky:#e0a982;--sun:.28;--glow:.5;--star:0;--night:.12}
+html[data-time=night]{--page:#14161b;--ink:#f0efe9;--muted:#a3a49e;--sheet:#23262d;--wall-l:#2a2d35;--wall-r:#23262e;--floor:#30333b;--slab:#191b20;--ot:#454852;--ol:#363942;--or:#2c2f37;--dt:#3a3d46;--dl:#2d3038;--dr:#24272e;--pt:#e9e6dc;--sky:#161c30;--sun:0;--glow:1;--star:1;--night:0}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--page);transition:background .6s}
+body{font-family:"Pretendard Variable",Pretendard,system-ui,"Malgun Gothic",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit}
+#stage{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:manipulation}
+#intro{position:fixed;left:max(24px,6vw);top:max(36px,9vh);z-index:2;max-width:min(420px,calc(100vw - 48px));transition:opacity .35s,transform .5s var(--ease);pointer-events:none}
+#intro p{margin:0}
+#intro .brand{font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--muted)}
+#intro h1{margin:10px 0 8px;font-size:clamp(46px,8.4vw,92px);line-height:1;font-weight:800;letter-spacing:-.04em}
+#intro .role{font-size:clamp(16px,1.6vw,20px);line-height:1.5;font-weight:500}
+#quick{position:fixed;left:max(24px,6vw);bottom:max(26px,5vh);z-index:2;display:flex;gap:22px;font-size:15px;font-weight:600;transition:opacity .3s}
+#quick a{min-height:44px;display:inline-flex;align-items:center;text-decoration:none;border-bottom:0}
+#quick a:hover{color:var(--accent)}
+.focus #intro{opacity:0;transform:translateY(-14px)}
+.focus #quick{opacity:0;pointer-events:none}
+#review{position:fixed;right:12px;top:12px;z-index:5;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);background:color-mix(in srgb,var(--sheet) 82%,transparent);border-radius:8px;padding:6px 8px}
+#review button{all:unset;cursor:pointer;padding:3px 5px;border-radius:5px}
+#review button[aria-pressed=true]{background:var(--ink);color:var(--page)}
+#review button:focus-visible{outline:2px solid var(--accent)}
+#panel{position:fixed;z-index:4;left:0;right:0;bottom:0;background:var(--sheet);border-radius:20px 20px 0 0;padding:22px 24px max(24px,env(safe-area-inset-bottom));transform:translateY(105%);visibility:hidden;transition:transform .6s var(--ease),visibility 0s .6s;box-shadow:0 -12px 40px rgba(0,0,0,.14)}
+.focus #panel{transform:none;visibility:visible;transition:transform .7s var(--ease) .18s,visibility 0s}
+#panel .chip{font-size:13px;font-weight:600;color:var(--muted)}
+#panel h2{margin:6px 0 8px;font-size:27px;line-height:1.2;letter-spacing:-.025em}
+#panel .line{margin:0;font-size:16px;line-height:1.6}
+#panel .note{margin:0 0 10px;font-size:14px;font-weight:600;color:var(--accent)}
+#live{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--ink) 6%,transparent);font-size:14px;line-height:1.5}
+#live[hidden]{display:none}
+#links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px}
+#links a{min-height:44px;display:inline-flex;align-items:center;font-size:15px;font-weight:700;text-decoration:none}
+#links a:first-child{background:var(--ink);color:var(--sheet);padding:0 16px;border-radius:12px}
+#back{all:unset;cursor:pointer;display:inline-flex;align-items:center;min-height:44px;margin-top:6px;font-size:14px;font-weight:600;color:var(--muted)}
+#back:focus-visible,#links a:focus-visible,#quick a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (min-width:900px) and (min-aspect-ratio:9/10){
+  #panel{left:auto;right:5vw;top:50%;bottom:auto;width:380px;border-radius:20px;padding:28px;transform:translate(30px,-50%);opacity:0;transition:transform .6s var(--ease),opacity .3s,visibility 0s .6s;box-shadow:0 16px 50px rgba(0,0,0,.14)}
+  .focus #panel{transform:translate(0,-50%);opacity:1;transition:transform .7s var(--ease) .18s,opacity .4s .18s,visibility 0s}
+}
+/* room */
+svg text{font-family:inherit}
+.wall-l{fill:var(--wall-l)}.wall-r{fill:var(--wall-r)}.floor-top{fill:var(--floor)}
+.f-t{fill:var(--ot)}.f-l{fill:var(--ol)}.f-r{fill:var(--or)}
+.k-dark.f-t{fill:var(--dt)}.k-dark.f-l{fill:var(--dl)}.k-dark.f-r{fill:var(--dr)}
+.k-floor.f-t{fill:var(--floor)}.k-floor.f-l,.k-floor.f-r{fill:var(--slab)}
+.k-paper.f-t,.k-paper.f-l,.k-paper.f-r{fill:var(--pt)}
+.k-paper.f-l{filter:brightness(.92)}.k-paper.f-r{filter:brightness(.84)}
+.k-silver.f-t{fill:#eef0f2}.k-silver.f-l{fill:#d3d7db}.k-silver.f-r{fill:#b7bcc2}
+.sun{fill:#fff;opacity:var(--sun);transition:opacity .6s}
+.sky{fill:var(--sky);transition:fill .6s}.star{fill:#fff;opacity:var(--star)}
+.frame{fill:none;stroke:var(--or);stroke-width:2.4}
+.board{fill:var(--dt)}.note{fill:var(--pt)}.new-note{fill:var(--accent)}
+.rug{fill:var(--ot);opacity:.5}
+.ink-line{stroke:var(--ink);stroke-linecap:round;fill:none}
+.clock-face{fill:var(--pt)}.clock-hand{stroke:#1d1e1b;stroke-linecap:round}
+.glow{opacity:var(--glow);mix-blend-mode:screen;pointer-events:none;transition:opacity .6s}
+.dusk-tint{opacity:var(--night);pointer-events:none}
+.paper-text{fill:#1d1e1b;font-weight:700}
+.screen{fill:#111317}
+.bowl{fill:var(--or)}.bowl-rim{fill:var(--ol)}.rice{fill:var(--pt)}
+.limb{stroke:var(--ol);stroke-linecap:round;fill:none}.hair{fill:var(--dl)}
+.person-skin{fill:var(--pt)}.person-eye{fill:#1d1e1b;opacity:0;transition:opacity .3s .5s}
+.wave{opacity:0;transition:opacity .3s .5s}
+.obj{transition:opacity .45s}
+.obj.hover{filter:brightness(1.05)}
+.hit{fill:transparent;pointer-events:all;cursor:pointer;outline:none}
+.hit:focus-visible{stroke:var(--accent);stroke-width:3}
+.focus .obj:not(.active){opacity:.2}
+.focus .room-shell{opacity:.72}
+.room-shell{transition:opacity .45s}
+.hot{fill:var(--accent);pointer-events:none;transform-box:fill-box;transform-origin:center;animation:hot 2.8s infinite var(--ease)}
+.hot-ring{fill:none;stroke:var(--accent);stroke-width:2;pointer-events:none;transform-box:fill-box;transform-origin:center;animation:ring 2.8s infinite ease-out}
+.visited .hot,.visited .hot-ring,.focus .hot,.focus .hot-ring{display:none}
+@keyframes hot{0%,100%{transform:scale(1)}12%{transform:scale(1.5)}24%{transform:scale(1)}}
+@keyframes ring{0%{transform:scale(.6);opacity:.9}36%,100%{transform:scale(2.5);opacity:0}}
+/* each object changes state and stays changed */
+.sheet,.silver,.rice-g,.tabs,.note-a,.note-b,.note-c,.new-note,.monster{transition:transform .8s var(--ease) .32s,opacity .4s .4s}
+.awake .sheet{transform:translate(0,-13px)}
+.awake .silver{transform:translate(-30px,17px)}
+.tabs{opacity:0}.awake .tabs{opacity:1}
+.rice-g{transform-box:fill-box;transform-origin:50% 100%}
+.awake .rice-g{transform:translateY(7px) scaleY(.52)}
+.note-a{transform:rotate(-5deg);transform-box:fill-box;transform-origin:center}
+.note-b{transform:translate(3px,7px) rotate(6deg);transform-box:fill-box;transform-origin:center}
+.note-c{transform:translate(-4px,2px) rotate(-3deg);transform-box:fill-box;transform-origin:center}
+.awake .note-a,.awake .note-b,.awake .note-c{transform:none}
+.new-note{transform:scale(0);transform-box:fill-box;transform-origin:center}
+.awake .new-note{transform:scale(1)}
+.monster{opacity:0}.awake .monster{opacity:1}
+.awake .monster-bob{animation:bob .8s steps(2) infinite}
+@keyframes bob{50%{transform:translateY(-3px)}}
+.awake .person-eye{opacity:1}.awake .wave{opacity:1}.awake .rest{opacity:0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
+</style>
+</head>
+<body>
+<svg id="stage" aria-label="이건하의 작업실" role="group" viewBox="0 0 800 700"></svg>
+<div id="intro">
+  <p class="brand">HETRICH</p>
+  <h1>이건하</h1>
+  <p class="role">제품을 직접 만들고 운영하는 개발자</p>
+</div>
+<nav id="quick" aria-label="바로가기">
+  <a href="https://hetrich.com/work">경력</a>
+  <a href="https://github.com/ipjaworld" rel="noreferrer">GitHub</a>
+  <a href="https://hetrich.com/contact">연락</a>
+</nav>
+<aside id="panel" aria-live="polite">
+  <p class="note" id="note" hidden></p>
+  <span class="chip" id="chip"></span>
+  <h2 id="title"></h2>
+  <p class="line" id="line"></p>
+  <p id="live" hidden></p>
+  <div id="links"></div>
+  <button id="back" type="button">← 방으로</button>
+</aside>
+<div id="review" aria-label="시안 확인용 조작">
+  <span>회색 시안</span>
+  <button type="button" data-t="auto">서울 지금</button>
+  <button type="button" data-t="day">낮</button>
+  <button type="button" data-t="dusk">저녁</button>
+  <button type="button" data-t="night">밤</button>
+</div>
+<script>
+const U=36,O={x:400,y:270},C=.866,S=.5,LOCAL=20,D=U/LOCAL;
+const p=(x,y,z=0)=>[O.x+(x-y)*U*C,O.y+(x+y)*U*S-z*U];
+const r2=n=>Math.round(n*100)/100;
+const pts=a=>a.map(q=>p(...q).map(r2).join(',')).join(' ');
+const poly=(a,c)=>`<polygon class="${c}" points="${pts(a)}"/>`;
+function box(x,y,z,w,d,h,k=''){
+  const t=z+h,X=x+w,Y=y+d;
+  return poly([[x,Y,t],[X,Y,t],[X,Y,z],[x,Y,z]],`f-l ${k}`)+poly([[X,y,t],[X,Y,t],[X,Y,z],[X,y,z]],`f-r ${k}`)+poly([[x,y,t],[X,y,t],[X,Y,t],[x,Y,t]],`f-t ${k}`);
+}
+const mat=(a,b,c,d,q)=>`matrix(${[a,b,c,d,...q].map(r2).join(' ')})`;
+const planeTop=(x,y,z)=>mat(C*D,S*D,-C*D,S*D,p(x,y,z));   // lying flat, reads along +x
+const planeY=(x,y,z)=>mat(C*D,S*D,0,D,p(x,y,z));          // on a wall facing +y
+const planeX=(x,y,z)=>mat(C*D,-S*D,0,D,p(x,y,z));         // on a surface facing +x
+const circleScale=r=>({rx:r*U*1.2247,ry:r*U*.7071});
+
+const articleFallback={editionNumber:12,title:'AI가 승인 버튼 앞에 앉았다',publishedAt:'2026-10-28T23:50:39.393Z',url:'https://l-proof-ai.xyz/articles/ai-at-the-approval-button'};
+const hetrich='https://hetrich.com';
+const objects={
+  person:{at:[3,3.4,3.6],hit:62,zoom:330,chip:'개발자 · HETRICH',title:'이건하',line:'쓰다가 걸리는 부분을 보면 직접 만들어 확인합니다. 업무 플랫폼과 구독 커머스의 프론트엔드·API 연동을 맡았고, 지금은 제 제품도 운영합니다.',links:[['만드는 사람과 방향',`${hetrich}/about`],['GitHub','https://github.com/ipjaworld']]},
+  paper:{at:[4.2,1.2,2.6],dot:[4.95,.72,2.6],hit:48,zoom:230,chip:'공개 운영',title:'L‑Proof AI',line:'AI 소식에 해석을 더하고, 확인할 원문을 함께 남기는 브리핑입니다.',links:[['최신 호 읽기','https://l-proof-ai.xyz'],['설계와 구현',`${hetrich}/products/l-proof`]]},
+  memo:{at:[2.5,0,4.7],hit:60,zoom:300,chip:'개인 맞춤 내부 도구',title:'HIS',line:'이건하의 계획과 업무를 돕기 위해 만드는 개인 비서입니다. 기억과 브리핑을 중심으로 다듬고 있습니다.',links:[['설계와 구현',`${hetrich}/products/secretary`]]},
+  book:{at:[7.9,.5,5],hit:60,zoom:320,chip:'비상업 개인 창작 · 팬게임',title:'악역영애 말포이 — 은빛 서약',line:'단서를 좇고 인물의 신뢰를 살피며 선택하는 비주얼 노벨입니다.',links:[['설계 이야기',`${hetrich}/products/silver-vow`]]},
+  drawer:{at:[8,2,2],hit:62,zoom:340,chip:'이전 조직 · 개인 기여',title:'실무 경험',line:'업무 화면, 구매·결제 흐름, 인증·PG 연동을 맡아 구현했습니다.',links:[['담당 범위와 판단 과정',`${hetrich}/work`]]},
+  arcade:{at:[1.9,8.3,2.8],hit:70,zoom:340,chip:'출시 · 공개 이용 가능',title:'메이플랜드 레범몬',line:'레벨에 맞는 몬스터와 드롭 정보를 모아 다음 사냥터를 고르는 일을 돕습니다.',links:[['레범몬 사용하기','https://www.rebemon.xyz/'],['설계와 구현',`${hetrich}/products/rebemon`]]},
+  bowl:{at:[7,6.6,2],hit:66,zoom:260,chip:'초기 버전 · 사용 가능',title:'How Much Calories Left',line:'먹은 것을 말하면 계산 내역과 남은 양을 함께 보여줍니다. 반 공기는 반 공기로 기록합니다.',links:[['앱 사용해보기','https://how-much-calories-left.vercel.app/'],['설계와 구현',`${hetrich}/products/calories`]]},
+};
+const refMap={'l-proof':'paper','l-proof-about':'paper',calories:'bowl',rebemon:'arcade'};
+for(const k in objects){const o=objects[k];[o.fx,o.fy]=p(...o.at);}
+
+const hits=[]; // tap targets sit above the whole room, so furniture in front never swallows them
+function obj(id,label,inner){
+  const o=objects[id],[dx,dy]=(o.dot?p(...o.dot):[o.fx,o.fy]).map(r2);
+  hits.push(`<circle class="hit" data-hit="${id}" tabindex="0" role="button" aria-label="${label}" cx="${r2(o.fx)}" cy="${r2(o.fy)}" r="${o.hit}"/>`);
+  return `<g class="obj" data-id="${id}">${inner}<circle class="hot-ring" cx="${dx}" cy="${dy}" r="6"/><circle class="hot" cx="${dx}" cy="${dy}" r="4.5"/></g>`;
+}
+
+const notes=`<rect class="board" width="62" height="46" rx="1.5"/>
+ <rect class="note note-a" x="5" y="5" width="15" height="15"/><rect class="note note-b" x="24" y="5" width="15" height="15"/><rect class="note note-c" x="43" y="5" width="15" height="15"/>
+ <rect class="new-note" x="5" y="26" width="53" height="14"/>`;
+
+const shelfBooks=[.3,.42,.3,.5,.34,.46,.3].reduce((s,w,i)=>{
+  const h=[1,1.25,1.1,1.3,1,1.2,1.05][i];
+  s.out.push(i===3?{x:s.x,w,h,silver:true}:{x:s.x,w,h});s.x+=w+.05;return s;
+},{x:6.25,out:[]}).out;
+const silver=shelfBooks.find(b=>b.silver);
+const shelfBack=shelfBooks.filter(b=>b.x<silver.x).map(b=>box(b.x,.12,4.35,b.w,.75,b.h,'k-dark')).join('');
+const shelfFront=shelfBooks.filter(b=>b.x>silver.x).map(b=>box(b.x,.12,4.35,b.w,.75,b.h,'k-dark')).join('');
+
+const tableTop=p(7,6.6,1.7),tableFoot=p(7,6.6,0),T=circleScale(1.5);
+const bowlY=tableTop[1]-7,bowlX=tableTop[0];
+const headC=p(3,3.4,3.3);
+const lampHead=p(1.5,.7,3.9);
+
+const room=`
+<defs><radialGradient id="g"><stop offset="0" stop-color="#ffd28a" stop-opacity=".9"/><stop offset=".55" stop-color="#ffb35c" stop-opacity=".28"/><stop offset="1" stop-color="#ffb35c" stop-opacity="0"/></radialGradient></defs>
+<g class="room-shell">
+ ${box(0,0,-.4,10,10,.4,'k-floor')}
+ ${poly([[0,0,0],[0,10,0],[0,10,7],[0,0,7]],'wall-l')}
+ ${poly([[0,0,0],[10,0,0],[10,0,7],[0,0,7]],'wall-r')}
+ ${poly([[.8,3],[4.4,3.9],[4.4,8],[.8,7.1]],'sun')}
+ ${poly([[1.6,2.7],[5.2,2.7],[5.2,6.1],[1.6,6.1]],'rug')}
+ <g transform="${planeX(0,7.2,6.2)}">
+  <rect class="sky" width="84" height="70"/>
+  <circle class="star" cx="16" cy="14" r="1.1"/><circle class="star" cx="52" cy="24" r=".9"/><circle class="star" cx="66" cy="10" r="1.2"/><circle class="star" cx="32" cy="38" r=".8"/>
+  <rect class="frame" width="84" height="70"/><path class="frame" d="M42 0V70M0 35H84"/>
+ </g>
+ <g transform="${planeY(4.85,0,5.75)}" id="clock">
+  <circle class="clock-face" cx="10" cy="10" r="11"/>
+  <line class="clock-hand" id="hh" x1="10" y1="10" x2="10" y2="4.5" stroke-width="1.5"/>
+  <line class="clock-hand" id="mm" x1="10" y1="10" x2="10" y2="2.2" stroke-width=".9"/>
+ </g>
+</g>
+${obj('memo','HIS, 벽의 메모판',`<g transform="${planeY(1,0,5.9)}">${notes}</g>`)}
+<g class="room-shell">${box(6,0,4.2,3.7,1,.15)}${shelfBack}</g>
+${obj('book','은빛 서약, 선반의 은빛 책',`<g class="silver">${box(silver.x,.12,4.35,silver.w,.75,silver.h,'k-silver')}</g>`)}
+<g class="room-shell">${shelfFront}
+ ${box(.95,2.15,0,.15,.15,2.2,'k-dark')}${box(5.3,2.15,0,.15,.15,2.2,'k-dark')}${box(5.3,.05,0,.15,.15,2.2,'k-dark')}
+ ${box(.8,0,2.2,4.8,2.4,.2)}
+ ${box(1.3,.5,2.4,.5,.5,.1,'k-dark')}${box(1.47,.67,2.5,.14,.14,1.3,'k-dark')}${box(1.15,.35,3.8,.8,.8,.32,'k-dark')}
+</g>
+${obj('paper','L-Proof AI, 책상 위의 최신 호',`
+ ${box(3.3,.35,2.4,1.9,1.7,.14,'k-paper')}
+ <g class="sheet">${box(3.3,.35,2.54,1.9,1.7,.03,'k-paper')}
+  <g transform="${planeTop(3.3,.35,2.57)}">
+   <text class="paper-text" x="3" y="6" font-size="3">L-PROOF</text>
+   <text class="paper-text" id="issue-no" x="3" y="18.5" font-size="13">12</text>
+   <text class="paper-text" id="issue-title" x="3" y="24.5" font-size="3.3"></text>
+  </g>
+ </g>`)}
+${obj('person','이건하',`
+ ${box(2.65,3.2,0,.7,.7,1.15,'k-dark')}
+ ${box(2.5,3.05,1.15,1,.7,1.4)}
+ <path class="limb rest" stroke-width="9" d="M${p(2.6,3.2,2.3).map(r2).join(' ')}L${p(2.7,2.3,2.45).map(r2).join(' ')}"/>
+ <path class="limb wave" stroke-width="9" d="M${p(3.4,3.4,2.3).map(r2).join(' ')}L${p(4.2,3.6,3.5).map(r2).join(' ')}"/>
+ <circle class="person-skin" cx="${r2(headC[0])}" cy="${r2(headC[1])}" r="16"/>
+ <path class="hair" d="M${r2(headC[0]-16.5)} ${r2(headC[1]-1)}A16.5 16.5 0 0 1 ${r2(headC[0]+16.5)} ${r2(headC[1]-1)}Q${r2(headC[0])} ${r2(headC[1]-9)} ${r2(headC[0]-16.5)} ${r2(headC[1]-1)}Z"/>
+ <circle class="person-eye" cx="${r2(headC[0]-6)}" cy="${r2(headC[1]+1)}" r="1.8"/><circle class="person-eye" cx="${r2(headC[0]+6)}" cy="${r2(headC[1]+1)}" r="1.8"/>`)}
+${obj('drawer','실무 경험, 서랍장',`
+ ${box(6.6,0,0,2.8,1.6,2.8)}
+ ${box(6.75,1.6,.15,2.5,.04,.8,'k-dark')}${box(6.75,1.6,1.05,2.5,.04,.8,'k-dark')}
+ <g id="drawer-body">${box(6.75,1.6,1.95,2.5,.04,.75,'k-dark')}</g>
+ <g class="tabs">${box(7.1,1.9,2.7,.9,.1,.3,'k-paper')}${box(7.3,2.2,2.7,.9,.1,.3,'k-paper')}${box(7.5,2.5,2.7,.9,.1,.3,'k-paper')}</g>`)}
+${obj('arcade','메이플랜드 레범몬, 오락기',`
+ ${box(.1,7.4,0,1.8,1.8,4.2,'k-dark')}
+ ${box(1.9,7.6,1.75,.35,1.4,.12)}
+ <g transform="${planeX(1.91,9,3.9)}">
+  <rect class="screen" width="30" height="33" rx="1"/>
+  <g class="monster"><g class="monster-bob" fill="#f8f7f2"><rect x="10" y="10" width="10" height="4"/><rect x="7" y="14" width="16" height="8"/><rect x="9" y="22" width="4" height="3"/><rect x="17" y="22" width="4" height="3"/><rect x="11" y="16" width="2" height="2" fill="#111317"/><rect x="17" y="16" width="2" height="2" fill="#111317"/></g></g>
+ </g>`)}
+${obj('bowl','How Much Calories Left, 밥공기',`
+ <rect class="f-r k-dark" x="${r2(tableFoot[0]-5)}" y="${r2(tableTop[1])}" width="10" height="${r2(tableFoot[1]-tableTop[1])}"/>
+ <ellipse class="f-l k-dark" cx="${r2(tableFoot[0])}" cy="${r2(tableFoot[1])}" rx="26" ry="14"/>
+ <ellipse class="f-l" cx="${r2(tableTop[0])}" cy="${r2(tableTop[1]+6)}" rx="${r2(T.rx)}" ry="${r2(T.ry)}"/>
+ <ellipse class="f-t" cx="${r2(tableTop[0])}" cy="${r2(tableTop[1])}" rx="${r2(T.rx)}" ry="${r2(T.ry)}"/>
+ <ellipse class="bowl-rim" cx="${r2(bowlX)}" cy="${r2(bowlY)}" rx="27" ry="11"/>
+ <g class="rice-g"><ellipse class="rice" cx="${r2(bowlX)}" cy="${r2(bowlY-2)}" rx="23" ry="19"/></g>
+ <path class="bowl" d="M${r2(bowlX-27)} ${r2(bowlY)}A27 11 0 0 0 ${r2(bowlX+27)} ${r2(bowlY)}C${r2(bowlX+25)} ${r2(bowlY+24)} ${r2(bowlX+12)} ${r2(bowlY+26)} ${r2(bowlX)} ${r2(bowlY+26)}S${r2(bowlX-25)} ${r2(bowlY+24)} ${r2(bowlX-27)} ${r2(bowlY)}Z"/>
+ <path class="ink-line" stroke-width="2.4" d="M${r2(bowlX+40)} ${r2(bowlY+18)}L${r2(bowlX+64)} ${r2(bowlY-2)}M${r2(bowlX+46)} ${r2(bowlY+20)}L${r2(bowlX+70)} ${r2(bowlY)}"/>`)}
+<ellipse class="glow" cx="${r2(p(2.2,1.2,2.4)[0])}" cy="${r2(p(2.2,1.2,2.4)[1])}" rx="210" ry="140" fill="url(#g)"/>
+<ellipse class="glow" cx="${r2(lampHead[0])}" cy="${r2(lampHead[1]+18)}" rx="58" ry="40" fill="url(#g)"/>
+${hits.join('')}
+`;
+const stage=document.getElementById('stage');
+stage.innerHTML=room;
+
+/* camera: always a full-viewport viewBox, so home and focus interpolate cleanly */
+const ROOM={cx:400,cy:335,size:690};
+function homeView(){
+  const r=innerWidth/innerHeight;
+  if(r<.9){const w=ROOM.size,h=w/r;return[ROOM.cx-w/2,ROOM.cy-.56*h,w,h];}
+  const h=ROOM.size*1.03,w=h*r;return[ROOM.cx-.66*w,ROOM.cy-.5*h,w,h];
+}
+function focusView(o){
+  const r=innerWidth/innerHeight;
+  if(r<.9){const w=o.zoom,h=w/r;return[o.fx-w/2,o.fy-.27*h,w,h];}
+  const h=o.zoom*.78,w=h*r;return[o.fx-.34*w,o.fy-.5*h,w,h];
+}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let view=homeView(),raf=0;
+const setView=v=>{view=v;stage.setAttribute('viewBox',v.map(r2).join(' '));};
+const ease=t=>t<.5?16*t**5:1-(-2*t+2)**5/2;
+function go(to,ms=1050){
+  cancelAnimationFrame(raf);
+  if(reduce){setView(to);return;}
+  const from=view.slice(),t0=performance.now();
+  const step=now=>{
+    const t=Math.min(1,(now-t0)/ms),e=ease(t);
+    // the zoom eases in log space so the push-in keeps a constant feel
+    const w=Math.exp(Math.log(from[2])+(Math.log(to[2])-Math.log(from[2]))*e);
+    const k=(w-from[2])/((to[2]-from[2])||1);
+    const K=to[2]===from[2]?e:k;
+    setView([from[0]+(to[0]-from[0])*K,from[1]+(to[1]-from[1])*K,w,from[3]+(to[3]-from[3])*K]);
+    if(t<1)raf=requestAnimationFrame(step);
+  };
+  raf=requestAnimationFrame(step);
+}
+setView(view);
+
+/* panel */
+const $=id=>document.getElementById(id);
+const article={data:articleFallback,live:false};
+const fmtDate=s=>new Intl.DateTimeFormat('ko-KR',{month:'long',day:'numeric',timeZone:'Asia/Seoul'}).format(new Date(s));
+function paintIssue(){
+  const a=article.data;
+  $('issue-no').textContent=a.editionNumber??'—';
+  const el=$('issue-title');el.textContent='';
+  const lines=[];let cur='';
+  for(const w of a.title.split(' ')){if((cur+' '+w).trim().length>11){lines.push(cur);cur=w;}else cur=(cur+' '+w).trim();}
+  if(cur)lines.push(cur);
+  lines.slice(0,2).forEach((t,i)=>{const s=document.createElementNS('http://www.w3.org/2000/svg','tspan');s.setAttribute('x','3');s.setAttribute('dy',i?'4.2':'0');s.textContent=t;el.append(s);});
+  objects.paper.links[0][1]=a.url;
+}
+let active=null,lastFocus=null,drawerOpened=false;
+function openDrawer(){
+  if(drawerOpened)return;
+  drawerOpened=true;
+  const el=$('drawer-body'),draw=d=>{el.innerHTML=box(6.75,1.6,1.95,2.5,d,.75,'k-dark');};
+  if(reduce){draw(1.2);return;}
+  const t0=performance.now()+320;
+  const step=now=>{
+    const t=Math.min(1,Math.max(0,(now-t0)/800));
+    draw(.04+1.16*(1-(1-t)**4));
+    if(t<1)requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function open(id,{note='',moveFocus=true}={}){
+  const o=objects[id];
+  document.querySelectorAll('.obj').forEach(g=>g.classList.toggle('active',g.dataset.id===id));
+  const g=stage.querySelector(`[data-id="${id}"]`);
+  g.classList.add('awake','visited');
+  if(id==='drawer')openDrawer();
+  document.body.classList.add('focus');
+  active=id;lastFocus=stage.querySelector(`[data-hit="${id}"]`);
+  $('chip').textContent=o.chip;$('title').textContent=o.title;$('line').textContent=o.line;
+  $('note').textContent=note;$('note').hidden=!note;
+  const live=$('live');live.hidden=id!=='paper';
+  if(id==='paper'){const a=article.data;live.textContent=`${a.editionNumber}호 · ${a.title} · ${fmtDate(a.publishedAt)}${article.live?'':' (저장된 값)'}`;}
+  $('links').replaceChildren(...o.links.map(([t,h])=>{const a=document.createElement('a');a.textContent=t;a.href=h;if(h.startsWith('http')&&!h.startsWith(hetrich)){a.target='_blank';a.rel='noreferrer';}return a;}));
+  go(focusView(o));
+  if(moveFocus)setTimeout(()=>{if(active===id)$('back').focus({preventScroll:true});},reduce?0:500);
+}
+function close(){
+  if(!active)return;
+  active=null;
+  document.body.classList.remove('focus');
+  document.querySelectorAll('.obj.active').forEach(g=>g.classList.remove('active'));
+  go(homeView());
+  lastFocus?.focus({preventScroll:true});
+}
+stage.addEventListener('click',e=>{
+  const h=e.target.closest('.hit');
+  if(h)open(h.dataset.hit);else close();
+});
+stage.addEventListener('keydown',e=>{
+  const h=e.target.closest('.hit');
+  if(h&&(e.key==='Enter'||e.key===' ')){e.preventDefault();open(h.dataset.hit);}
+});
+stage.querySelectorAll('.hit').forEach(h=>{
+  const g=stage.querySelector(`[data-id="${h.dataset.hit}"]`);
+  h.addEventListener('pointerenter',()=>g.classList.add('hover'));
+  h.addEventListener('pointerleave',()=>g.classList.remove('hover'));
+});
+addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+$('back').addEventListener('click',close);
+addEventListener('resize',()=>{cancelAnimationFrame(raf);setView(active?focusView(objects[active]):homeView());});
+
+/* the room runs on Seoul time */
+const params=new URLSearchParams(location.search);
+let timeMode=params.get('t')||'auto';
+const seoul=()=>{const f=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Seoul'}).formatToParts(new Date());return{h:+f.find(x=>x.type==='hour').value%24,m:+f.find(x=>x.type==='minute').value};};
+const phase=h=>h>=7&&h<17?'day':h>=17&&h<20?'dusk':'night';
+function tick(){
+  const {h,m}=seoul();
+  document.documentElement.dataset.time=timeMode==='auto'?phase(h):timeMode;
+  $('hh').setAttribute('transform',`rotate(${(h%12)*30+m/2} 10 10)`);
+  $('mm').setAttribute('transform',`rotate(${m*6} 10 10)`);
+  document.querySelectorAll('#review button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===timeMode)));
+}
+document.querySelectorAll('#review button').forEach(b=>b.addEventListener('click',()=>{timeMode=b.dataset.t;tick();}));
+tick();setInterval(tick,30000);
+
+/* live data: the production page would read this on the server */
+paintIssue();
+fetch('https://l-proof-ai.xyz/api/public/v1/articles?limit=1',{headers:{accept:'application/json'}})
+  .then(r=>r.ok?r.json():Promise.reject())
+  .then(d=>{const a=d.items?.[0];if(!a)return;article.data=a;article.live=true;paintIssue();})
+  .catch(()=>{});
+
+/* arriving from a service lands in front of that service's object */
+const ref=refMap[params.get('ref')];
+if(ref)setTimeout(()=>open(ref,{note:'이 서비스를 만든 이건하의 작업실입니다.',moveFocus:false}),reduce?0:650);
+</script>
+</body>
+</html>
