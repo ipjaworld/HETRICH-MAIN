@@ -95,6 +95,25 @@ test('reduced motion starts inside with no pinned scroll', async ({ page }) => {
   expect(await page.locator('.workshop-track').evaluate((node) => node.getBoundingClientRect().height)).toBe(await page.evaluate(() => innerHeight));
 });
 
+for (const [width, height] of [[320, 568], [333, 695], [360, 640], [390, 844]]) {
+  test(`street controls stay tidy at ${width}x${height}`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto('/');
+    const middle = (box: { y: number; height: number }) => box.y + box.height / 2;
+    const brand = (await page.locator('.workshop-brand').boundingBox())!;
+    const menu = (await page.locator('.menu-button').boundingBox())!;
+    expect(Math.abs(middle(brand) - middle(menu))).toBeLessThanOrEqual(1);
+
+    const cue = (await page.locator('.workshop-cue').boundingBox())!;
+    const action = (await page.locator('.workshop-quick .button').boundingBox())!;
+    const links = await page.locator('.workshop-quick > a:not(.button)').evaluateAll((nodes) => nodes.map((node) => node.getBoundingClientRect().toJSON() as DOMRect));
+    expect(cue.y + cue.height).toBeLessThanOrEqual(action.y);
+    expect(new Set(links.map((link) => link.y)).size).toBe(1);
+    expect(links[0].y).toBeGreaterThanOrEqual(action.y + action.height);
+    expect(links[2].right).toBeLessThanOrEqual(width);
+  });
+}
+
 test('a visitor from a service lands at that service without stealing focus', async ({ page }) => {
   await page.goto('/?ref=calories');
   await expect(page.locator('.workshop-panel h2')).toHaveText('How Much Calories Left');

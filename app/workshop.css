@@ -206,6 +206,23 @@ main[id][class] .workshop-intro h1 { margin: 0; font-size: clamp(2.875rem, 8.4vw
   .workshop .workshop-cue { left: auto; right: var(--pad); bottom: max(1.5rem, 4vh); transform: none; }
 }
 
+/* With the 4.5rem header, the big HETRICH shares its centre line with the menu button. */
+@media (max-width: 700px) {
+  .workshop .workshop-intro .workshop-brand { top: calc(2.25rem - 6.5rem - .5em); }
+}
+
+/* Phones stack the links under one full-width action, so the row never wraps and the cue sits clear of both. */
+@media (max-width: 520px) {
+  .workshop {
+    --quick-bottom: max(1rem, 3vh, env(safe-area-inset-bottom));
+
+    & .workshop-quick { right: var(--pad); bottom: var(--quick-bottom); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .25rem 0; }
+    & .workshop-quick .button { grid-column: 1 / -1; width: 100%; }
+    & .workshop-quick > a:not(.button) { justify-content: center; }
+    & .workshop-cue { bottom: calc(var(--quick-bottom) + 6rem + .375rem); padding: .2rem .7rem; font-size: .8125rem; }
+  }
+}
+
 @media (min-width: 1100px) and (min-height: 760px) {
   .workshop .workshop-index { display: grid; gap: .1rem; width: min(24rem, 30vw); margin: 1.25rem 0 0 -.75rem; padding: .5rem .75rem; border-radius: 14px; background: color-mix(in srgb, var(--sheet) 76%, transparent); list-style: none; pointer-events: auto; }
   .workshop .workshop-index button { width: 100%; min-height: 2.75rem; padding: .35rem .1rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border: 0; border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); background: none; color: inherit; font: inherit; font-size: .9375rem; font-weight: 600; text-align: left; cursor: pointer; transition: color .2s, padding .2s; }
