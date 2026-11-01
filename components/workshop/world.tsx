@@ -83,22 +83,23 @@ function Box({ at, kind }: { at: readonly [number, number, number, number, numbe
   return <>{boxFaces(...at, kind).map((face) => <polygon key={face.className} className={face.className} points={face.points} />)}</>;
 }
 
-/** Where the morning riders queue and the night riders step off. */
-export const BUS_STOP_X = 2.8;
+/** Where the bus stands. The shelter sits behind its tail, so it never hides the people queuing. */
+export const BUS_STOP_X = 2.7;
+const SHELTER_X = 0.4;
 
-export function BusShelter() {
+function BusShelter() {
   return <g>
-    <Box at={[BUS_STOP_X - 1.6, 17.5, 0, 0.12, 0.5, 1.9]} kind="k-dark" />
-    <Box at={[BUS_STOP_X + 1.5, 17.5, 0, 0.12, 0.5, 1.9]} kind="k-dark" />
-    <Box at={[BUS_STOP_X - 1.8, 17.35, 1.9, 3.6, 0.8, 0.14]} />
-    <Box at={[BUS_STOP_X + 2.2, 17.2, 0, 0.1, 0.1, 2.4]} kind="k-dark" />
-    <Box at={[BUS_STOP_X + 2, 17.17, 2.4, 0.5, 0.16, 0.5]} kind="k-silver" />
+    <Box at={[SHELTER_X, 17.5, 0, 0.12, 0.5, 1.9]} kind="k-dark" />
+    <Box at={[SHELTER_X + 1.9, 17.5, 0, 0.12, 0.5, 1.9]} kind="k-dark" />
+    <Box at={[SHELTER_X - 0.15, 17.35, 1.9, 2.3, 0.8, 0.14]} />
+    <Box at={[BUS_STOP_X + 2.25, 17.2, 0, 0.1, 0.1, 2.4]} kind="k-dark" />
+    <Box at={[BUS_STOP_X + 2.05, 17.17, 2.4, 0.5, 0.16, 0.5]} kind="k-silver" />
   </g>;
 }
 
 /** A small converted container directly across the road from the workshop door. */
-export function ContainerHouse() {
-  const [x, y, length, depth, height] = [6.4, 18.3, 4.2, 2.4, 2.5];
+function ContainerHouse() {
+  const [x, y, length, depth, height] = [7.4, 18.3, 4.2, 2.4, 2.5];
   const front = y + depth;
   const ribs = Array.from({ length: 13 }, (_, index) => x + 0.16 + index * 0.33);
   return <g>
@@ -111,6 +112,11 @@ export function ContainerHouse() {
     <g transform={planeFacingY(x + 2.7, front, 2)}><rect className="ext-door-leaf" width="20" height="40" /><rect className="ext-frame" width="20" height="40" /></g>
     <Box at={[x - 0.15, y - 0.15, height, length + 0.3, depth + 0.3, 0.12]} kind="k-dark" />
   </g>;
+}
+
+/** These stand nearer the camera than the pavement, so people pass behind them. */
+export function StreetProps() {
+  return <svg className="street-props" viewBox="-400 200 1200 900" aria-hidden="true"><BusShelter /><ContainerHouse /></svg>;
 }
 
 export function World({ phase, minutes }: { phase: WorkshopPhase; minutes: number }) {

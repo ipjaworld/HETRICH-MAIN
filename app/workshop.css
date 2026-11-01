@@ -71,8 +71,7 @@ html:has(.workshop[data-time="night"]) :is(.wordmark, .site-nav a, .menu-button)
   & .ext-door-light { fill: #ffe6b8; } & .ext-door-leaf { fill: var(--roof-edge); } & .ext-door-knob { fill: #e8c87e; }
   & .ext-door { transform-box: fill-box; transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
   &[data-door="open"] .ext-door { transform: scaleX(.16); }
-  & .walker-shadow { fill: rgb(0 0 0 / 14%); } & .walker-head { fill: var(--pt); } & .walker-leg { stroke: var(--dl); stroke-width: 3.4; stroke-linecap: round; fill: none; }
-  & .walker-a { fill: #bf5b43; } & .walker-b { fill: #4d628f; } & .walker-c { fill: #7d8c5e; }
+  & .walker-shadow { fill: rgb(0 0 0 / 14%); } & .walker-head { fill: var(--pt); }
   & .tree-trunk { fill: var(--dl); } & .tree-leaf { fill: var(--tree); } & .tree-leaf-light { fill: var(--tree-light); } & .tree-shadow { fill: rgb(0 0 0 / 10%); }
   & .sky-body { fill: var(--body); } & .sky-body-halo { fill: var(--body-halo); }
   & .stars circle { fill: #fff; opacity: var(--star); }
@@ -206,6 +205,12 @@ main[id][class] .workshop-intro h1 { margin: 0; font-size: clamp(2.875rem, 8.4vw
   .workshop .workshop-cue { left: auto; right: var(--pad); bottom: max(1.5rem, 4vh); transform: none; }
 }
 
+/* The links sit over a moving street, so each carries its own backing to stay readable. */
+@media (min-width: 521px) {
+  .workshop .workshop-quick { gap: .25rem .5rem; }
+  .workshop .workshop-quick > a:not(.button) { padding: 0 .75rem; border-radius: 999px; background: color-mix(in srgb, var(--sheet) 76%, transparent); }
+}
+
 /* With the 4.5rem header, the big HETRICH shares its centre line with the menu button. */
 @media (max-width: 700px) {
   .workshop .workshop-intro .workshop-brand { top: calc(2.25rem - 6.5rem - .5em); }
@@ -225,11 +230,13 @@ main[id][class] .workshop-intro h1 { margin: 0; font-size: clamp(2.875rem, 8.4vw
 
 @media (min-width: 1100px) and (min-height: 760px) {
   .workshop .workshop-index { display: grid; gap: .1rem; width: min(24rem, 30vw); margin: 1.25rem 0 0 -.75rem; padding: .5rem .75rem; border-radius: 14px; background: color-mix(in srgb, var(--sheet) 76%, transparent); list-style: none; pointer-events: auto; }
-  .workshop .workshop-index button { width: 100%; min-height: 2.75rem; padding: .35rem .1rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border: 0; border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); background: none; color: inherit; font: inherit; font-size: .9375rem; font-weight: 600; text-align: left; cursor: pointer; transition: color .2s, padding .2s; }
+  .workshop .workshop-index button { width: 100%; min-height: 2.75rem; padding: .35rem .1rem; display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; border: 0; border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); background: none; color: inherit; font: inherit; font-size: .9375rem; font-weight: 600; text-align: left; cursor: pointer; transition: color .2s, padding .2s; }
   .workshop .workshop-index li:first-child button { border-top: 0; }
   .workshop .workshop-index button:hover { padding-left: .5rem; color: var(--workshop-accent); }
   .workshop .workshop-index small { font-size: .75rem; font-weight: 400; color: var(--ink-soft); white-space: nowrap; }
+  .workshop .workshop-index button span { white-space: nowrap; }
   .workshop .workshop-index button.seen span::after { content: " ✓"; color: var(--workshop-accent); }
+  .workshop .workshop-index button:not(.seen, :hover) span { color: var(--ink-soft); letter-spacing: .08em; }
 }
 
 @media (min-width: 900px) and (min-aspect-ratio: 9 / 10) {
@@ -245,55 +252,47 @@ html[data-past-hero] .workshop * { animation-play-state: paused; }
 .workshop-street { clip-path: inset(var(--horizon) -300% -300% -300%); }
 .workshop:not([data-ready]) .workshop-traffic-layer { opacity: 0; }
 .workshop-traffic { position: absolute; inset: 0; }
-.mover { --at-a: translate(calc(var(--ox) + var(--ax) * var(--u)), calc(var(--oy) + var(--ay) * var(--u))); --at-b: translate(calc(var(--ox) + var(--bx) * var(--u)), calc(var(--oy) + var(--by) * var(--u))); --at-s: translate(calc(var(--ox) + var(--sx) * var(--u)), calc(var(--oy) + var(--sy) * var(--u))); position: absolute; top: 0; left: 0; width: 0; height: 0; will-change: transform, opacity; animation-timing-function: linear; animation-iteration-count: infinite; }
+.mover { --at-a: translate(calc(var(--ox) + var(--ax) * var(--u)), calc(var(--oy) + var(--ay) * var(--u))); --at-b: translate(calc(var(--ox) + var(--bx) * var(--u)), calc(var(--oy) + var(--by) * var(--u))); position: absolute; top: 0; left: 0; width: 0; height: 0; will-change: transform, opacity; }
 .mover-art { position: absolute; left: calc(var(--w) * var(--u) / -2); bottom: calc(var(--w) * var(--u) * -.24); width: calc(var(--w) * var(--u)); display: block; overflow: visible; }
 .mover .f-t { fill: var(--paint); } .mover .f-l { fill: color-mix(in srgb, var(--paint) 84%, #000); } .mover .f-r { fill: color-mix(in srgb, var(--paint) 66%, #000); }
-.mover .v-glass.f-t { fill: #2b3640; } .mover .v-glass.f-l { fill: #3c4b58; } .mover .v-glass.f-r { fill: #2f3b46; }
-.mover .v-tire { fill: #23252a; } .mover .v-cargo.f-t { fill: #f1ece1; } .mover .v-cargo.f-l { fill: #dcd6c9; } .mover .v-cargo.f-r { fill: #bdb7aa; }
-.mover .v-door { fill: #1f2a30; }
-.mover .v-stripe.f-l, .mover .v-stripe.f-r, .mover .v-stripe.f-t { fill: #f4efe2; }
+.mover .v-glass.f-t { fill: #39495a; } .mover .v-glass.f-l { fill: #566a7c; } .mover .v-glass.f-r { fill: #435362; }
+.mover .v-cargo.f-t { fill: #f4efe4; } .mover .v-cargo.f-l { fill: #e2dccf; } .mover .v-cargo.f-r { fill: #c4beb1; }
+.mover .v-white.f-t { fill: #f4efe2; } .mover .v-white.f-l { fill: #ebe5d7; } .mover .v-white.f-r { fill: #cfc9bb; }
+.mover .v-paint-band { fill: var(--paint); }
+.mover .v-tire { fill: #23252a; } .mover .v-arch { fill: #17181b; } .mover .v-hub { fill: #b9bcc0; }
+.mover :is(.v-trim, .v-trim.f-t, .v-trim.f-l, .v-trim.f-r) { fill: #33373c; }
+.mover .v-lamp { fill: #fff1bf; } .mover .v-tail { fill: #c8392e; }
+.mover .v-pillar { fill: #2a3138; } .mover .v-seam { fill: rgb(0 0 0 / 38%); }
+.mover .v-door { fill: #6b8091; } .mover .v-door-open { fill: #1b2126; }
+.mover .v-sign { fill: #15181b; }
+.mover .v-beam { fill: #ffe9a8; opacity: 0; }
 .mover-shadow { fill: rgb(0 0 0 / 16%); }
-.workshop[data-time="night"] .v-window.f-l, .workshop[data-time="night"] .v-window.f-r { fill: #ffd98f; }
+.bus-doors { opacity: 0; }
+.workshop[data-time="night"] .v-window { fill: #ffd98f; }
+.workshop[data-time="night"] .v-door { fill: #ffe1a6; } .workshop[data-time="night"] .v-door-open { fill: #fff0c8; }
+.workshop[data-time="night"] .v-sign { fill: #ffb648; }
+.workshop[data-time="night"] .v-beam { opacity: .09; }
+.person-limb { fill: none; stroke-linecap: round; } .person-limb.arm { filter: brightness(.86); }
+.person-shoe { fill: none; stroke: #26282c; stroke-width: 2.8; stroke-linecap: round; }
+.person-eye-dot { fill: #26282c; } .person-tote { fill: #d9cdb4; stroke: #8d8373; stroke-width: 1; }
 .workshop .walker-shadow { fill: rgb(0 0 0 / 14%); }
 .street-props { position: absolute; left: calc(var(--ox) - 400 * var(--u)); top: calc(var(--oy) + 200 * var(--u)); width: calc(1200 * var(--u)); height: calc(900 * var(--u)); overflow: visible; }
-.mover-pass { animation-name: mover-pass; }
-.mover-bus { animation-name: mover-bus; }
-.mover-stroll { animation-name: mover-stroll; }
-.mover-cross { animation-name: mover-stroll; animation-direction: alternate; }
-.mover-drift { animation-name: mover-stroll; animation-direction: alternate; animation-timing-function: ease-in-out; }
+.mover-drift { animation: mover-drift 1s ease-in-out infinite alternate; }
 .mover-smoke { transform: var(--at-a); opacity: 0; animation: mover-smoke 5.5s ease-out infinite; }
 .mover-drift .mover-art { --w: 220; }
 .mover-drift svg { fill: var(--cloud); }
 .workshop[data-scene="inside"] .mover-smoke { display: none; }
 .smoke-line { fill: none; stroke: var(--smoke); stroke-width: 7; stroke-linecap: round; }
-.workshop .walker-step { animation: mover-step .55s steps(2) infinite; will-change: transform; }
-.rider { opacity: 0; display: none; }
-.workshop[data-time="morning"] .rider-board { display: block; animation-name: rider-board; }
-.workshop[data-time="night"] .rider-alight { display: block; animation-name: rider-alight; }
+.person-bob { animation: person-bob .58s step-end var(--step) infinite; }
+.person-frame { animation: person-frame .58s step-end var(--step) infinite; }
+.person-frame-next { animation-delay: calc(var(--step) - .29s); }
+/* Hidden, not removed, so a rider stays on the bus's clock whichever scene is showing. */
+.rider { visibility: hidden; }
+.workshop[data-time="morning"] .rider-board, .workshop[data-time="night"] .rider-alight { visibility: visible; }
 
-@keyframes mover-pass { 0% { transform: var(--at-a); } 42%, 100% { transform: var(--at-b); } }
-@keyframes mover-stroll { from { transform: var(--at-a); } to { transform: var(--at-b); } }
-@keyframes mover-bus {
-  0% { transform: var(--at-a); animation-timing-function: ease-out; }
-  32%, 48% { transform: var(--at-s); animation-timing-function: ease-in; }
-  78%, 100% { transform: var(--at-b); }
-}
-/* Riders use the bus door on the camera side; BOARD_DELAY and ALIGHT_DELAY line these up with the stop. */
-@keyframes rider-board {
-  0% { opacity: 1; transform: var(--at-a); }
-  72% { transform: var(--at-s); }
-  92% { transform: var(--at-s); }
-  96% { opacity: 1; transform: var(--at-b); }
-  97%, 100% { opacity: 0; transform: var(--at-b); }
-}
-@keyframes rider-alight {
-  0% { opacity: 0; transform: var(--at-b); }
-  1% { opacity: 1; transform: var(--at-b); }
-  6% { transform: var(--at-s); }
-  72% { opacity: 1; transform: var(--at-a); }
-  73%, 100% { opacity: 0; transform: var(--at-a); }
-}
-@keyframes mover-step { 50% { transform: translateY(-2px); } }
+@keyframes mover-drift { from { transform: var(--at-a); } to { transform: var(--at-b); } }
+@keyframes person-bob { 50% { transform: translateY(-1.6px); } }
+@keyframes person-frame { 50% { opacity: 0; } }
 @keyframes mover-smoke { 0% { opacity: 0; transform: var(--at-a) translateY(6px); } 30% { opacity: .8; } 100% { opacity: 0; transform: var(--at-a) translateY(-18px); } }
 @media (prefers-reduced-motion: reduce) {
   .workshop-traffic-layer { display: none; }

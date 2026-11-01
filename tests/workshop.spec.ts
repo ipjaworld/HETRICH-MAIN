@@ -2,6 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const goInside = async (page: Page) => {
+  await expect(page.locator('.workshop-track[data-inside-top]')).toHaveCount(1);
   await page.evaluate(() => window.scrollTo({ top: Number((document.querySelector('.workshop-track') as HTMLElement).dataset.insideTop), behavior: 'instant' }));
   await expect(page.locator('.workshop[data-scene="inside"]')).toHaveCount(1);
 };
@@ -113,6 +114,40 @@ for (const [width, height] of [[320, 568], [333, 695], [360, 640], [390, 844]]) 
     expect(links[2].right).toBeLessThanOrEqual(width);
   });
 }
+
+test('the wide-screen list keeps each object locked until it is opened', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  await goInside(page);
+  const rows = page.locator('.workshop-index button');
+  await expect(rows).toHaveText(Array.from({ length: 7 }, () => '???해금 전'));
+  await expect(page.locator('.workshop-index')).not.toContainText('L‑Proof AI');
+
+  await rows.first().click();
+  await expect(page.locator('.workshop-panel h2')).toHaveText('L‑Proof AI');
+  await page.locator('.workshop-back').click();
+  await expect(rows.first()).toContainText('L‑Proof AI');
+  await expect(rows.nth(1)).toHaveText('???해금 전');
+});
+
+test('people stepping off the night bus part ways and keep their distance', async ({ page }) => {
+  await page.goto('/?t=night');
+  await expect(page.locator('.workshop[data-time="night"]')).toHaveCount(1);
+  await expect(page.locator('.rider-alight')).toHaveCount(3);
+  const closest = await page.locator('.rider-alight').evaluateAll((riders) => {
+    const motions = riders.map((rider) => rider.getAnimations()[0]);
+    motions.forEach((motion) => motion.pause());
+    let smallest = Infinity;
+    // After 45 seconds they are past the hills, where their routes end.
+    for (let second = 31; second < 45; second += 0.5) {
+      motions.forEach((motion) => { motion.currentTime = (second + 880) * 1000; });
+      const spots = riders.map((rider) => rider.getBoundingClientRect());
+      spots.forEach((spot, index) => spots.slice(index + 1).forEach((other) => { smallest = Math.min(smallest, Math.hypot(spot.x - other.x, spot.y - other.y)); }));
+    }
+    return smallest;
+  });
+  expect(closest).toBeGreaterThan(40);
+});
 
 test('a visitor from a service lands at that service without stealing focus', async ({ page }) => {
   await page.goto('/?ref=calories');

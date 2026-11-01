@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
+import { startTransition, useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { localMinutes, workshopPhase, workshopRefs, type WorkshopEntry, type WorkshopId, type WorkshopIssue, type WorkshopPhase } from "@/lib/workshop";
 import { focusView, homeView, round, type View } from "./geometry";
 import { focusTarget, Room } from "./room";
 import { TrafficBehind, TrafficInFront, TrafficSky } from "./traffic";
-import { DOOR_POINT, Exterior, LAND_TOP, World } from "./world";
+import { DOOR_POINT, Exterior, LAND_TOP, StreetProps, World } from "./world";
 
 const CAMERA_MS = 1050;
 /** Scroll progress: the street holds, the door is entered, then the room holds until the track ends. */
@@ -47,6 +47,8 @@ export function Workshop({ entries, issue, initialMinutes }: { entries: Workshop
   const [picked, setPicked] = useState<Picked | null>(null);
   const [awake, setAwake] = useState<ReadonlySet<WorkshopId>>(() => new Set());
   const [hovered, setHovered] = useState<WorkshopId | null>(null);
+  // Traffic only joins after hydration: it fades in anyway, and in the server HTML its weight delays first clicks.
+  const [streetLive, setStreetLive] = useState(false);
   const [phaseOverride, setPhaseOverride] = useState<WorkshopPhase | null>(null);
   const minutes = useSyncExternalStore(subscribeToClock, readClock, () => initialMinutes);
 
@@ -205,6 +207,8 @@ export function Workshop({ entries, issue, initialMinutes }: { entries: Workshop
     };
   }, [close, insideTop, roomView, setView, size]);
 
+  useEffect(() => startTransition(() => setStreetLive(true)), []);
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") close(); };
     window.addEventListener("keydown", onKeyDown);
@@ -229,24 +233,24 @@ export function Workshop({ entries, issue, initialMinutes }: { entries: Workshop
   return <div ref={track} className="workshop-track">
     <section ref={section} className="workshop" data-time={phase} data-focus={active ? "" : undefined} data-hovering={hovered ? "" : undefined} aria-labelledby="workshop-title">
       <svg ref={world} className="workshop-world" viewBox="40 -25 720 720" aria-hidden="true"><World phase={phase} minutes={minutes} /></svg>
-      <div className="workshop-traffic-layer"><TrafficSky /></div>
-      <div className="workshop-traffic-layer workshop-street"><TrafficBehind /></div>
+      <div className="workshop-traffic-layer">{streetLive && <TrafficSky />}</div>
+      <div className="workshop-traffic-layer workshop-street">{streetLive && <TrafficBehind />}</div>
       <svg ref={stage} className="workshop-stage" viewBox="40 -25 720 720" role="group" aria-label="이건하의 작업실" onClick={close}>
         <Room entries={entries} issue={issue} active={active} awake={awake} hovered={hovered} minutes={minutes} onPick={pick} onHover={setHovered} onEnter={() => goInside(true)} />
       </svg>
       <svg ref={exterior} className="workshop-exterior" viewBox="40 -25 720 720" aria-hidden="true"><Exterior /></svg>
-      <div className="workshop-traffic-layer workshop-street"><TrafficInFront /></div>
+      <div className="workshop-traffic-layer workshop-street">{streetLive && <TrafficInFront />}<StreetProps /></div>
       <div ref={doorLight} className="workshop-door-light" aria-hidden="true" />
       <div className="workshop-intro">
         <p className="workshop-brand">HETRICH</p>
         <h1 id="workshop-title">이건하</h1>
         <p className="workshop-role">제품을 직접 만들고 운영하는 개발자</p>
         <p className="workshop-lead">만든 것들을 이 방에 모아 두었습니다. 물건을 눌러 보세요.</p>
-        {/* A pointer aid for wide screens; keyboard and screen reader users reach the same objects in the room. */}
+        {/* A pointer aid for wide screens, unlocked one object at a time; keyboard and screen reader users reach the same objects in the room. */}
         <ul className="workshop-index" aria-hidden="true">
           {entries.filter((item) => item.id !== "person").map((item) => <li key={item.id}>
             <button type="button" tabIndex={-1} className={awake.has(item.id) ? "seen" : undefined} onClick={() => pick(item.id)} onPointerEnter={() => setHovered(item.id)} onPointerLeave={() => setHovered(null)}>
-              <span>{item.title}</span><small>{item.chip}</small>
+              <span>{awake.has(item.id) ? item.title : "???"}</span><small>{awake.has(item.id) ? item.chip : "해금 전"}</small>
             </button>
           </li>)}
         </ul>

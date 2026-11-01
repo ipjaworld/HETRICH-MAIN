@@ -3,6 +3,8 @@ import AxeBuilder from '@axe-core/playwright';
 
 test('product discovery, case studies and contact remain connected', async ({ page }) => {
   await page.goto('/');
+  // A click before hydration leaves the home canonical behind in WebKit.
+  await expect(page.locator('.workshop-track[data-inside-top]')).toHaveCount(1);
   await page.getByRole('link', { name: 'L‑Proof AI 설계와 구현', exact: true }).click();
   await expect(page).toHaveURL(/\/products\/l-proof$/);
   // Client navigation can briefly retain the previous route's streamed metadata.
